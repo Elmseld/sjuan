@@ -1,14 +1,16 @@
 package sjuan;
 
 /**
- * Håller värdena för korten
- * @author emilyelmseld
+ * This Class handle cards
+ * @author Tobbe
  *
  */
 
 public class Card {
+	
+	private String value;
 
 	public Card() {
-
+		this.value = value;
 	}
 }
