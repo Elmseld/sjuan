@@ -1,7 +1,6 @@
 package sjuan;
 
 import java.awt.*;
-
 import javax.swing.*;
 /**
  * This class generates a Grafical User Interface to play the game
@@ -14,15 +13,15 @@ public class Gui extends JPanel{
 	private JPanel opponent2Panel = new JPanel();
 	private JPanel opponent3Panel = new JPanel();
 	private JLabel pl1Card = new JLabel();
-/**
- * Constructs the Gui
- */
+	/**
+	 * Constructs the Gui
+	 */
 	public Gui() {
 		GamePanel();
 	}
-/**
- * This Method creates the Gui Frame
- */
+	/**
+	 * This Method creates the Gui Frame
+	 */
 	public void GamePanel(){
 		gameFrame.setBounds(40, 200, 1000, 600);
 		gameFrame.setResizable(false);
@@ -45,10 +44,10 @@ public class Gui extends JPanel{
 		panel.setBackground(Color.GREEN.darker().darker());
 		return panel;
 	}
-/**
- * This method returns a panel to represent the actual player panel
- * @return player1Panel return the actual player panel
- */
+	/**
+	 * This method returns a panel to represent the actual player panel
+	 * @return player1Panel return the actual player panel
+	 */
 	public JPanel player1Panel() {
 		playerPanel1.setPreferredSize(new Dimension(200, 100));
 		playerPanel1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); 
