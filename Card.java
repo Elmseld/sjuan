@@ -7,13 +7,13 @@ package sjuan;
  */
 
 public class Card {
-	
+
 	private String value;
 
 	/**
 	 * Constructs a card
 	 */
-	public Card() {
+	public Card(String value) {
 		this.value = value;
 	}
 
