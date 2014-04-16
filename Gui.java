@@ -13,6 +13,7 @@ public class Gui extends JPanel{
 	private JPanel opponent2Panel = new JPanel();
 	private JPanel opponent3Panel = new JPanel();
 	private JLabel pl1Card = new JLabel();
+	private JLabel plbCard = new JLabel();
 	/**
 	 * Constructs the Gui
 	 */
@@ -51,7 +52,7 @@ public class Gui extends JPanel{
 	public JPanel player1Panel() {
 		playerPanel1.setPreferredSize(new Dimension(200, 100));
 		playerPanel1.setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); 
-		playerPanel1.setBackground(Color.black);
+		playerPanel1.setBackground(Color.BLACK);
 		pl1Card.setIcon(readFiles());
 		playerPanel1.add(pl1Card);
 		return playerPanel1;
@@ -63,7 +64,9 @@ public class Gui extends JPanel{
 	public JPanel opponent1Panel() {
 		opponent1Panel.setPreferredSize(new Dimension(100, 200));
 		opponent1Panel.setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); 
-		opponent1Panel.setBackground(Color.blue.darker());
+		opponent1Panel.setBackground(Color.BLUE.darker());
+		plbCard.setIcon(readFiles());
+		opponent1Panel.add(plbCard);
 		return opponent1Panel;
 	}
 	/**
@@ -73,7 +76,7 @@ public class Gui extends JPanel{
 	public JPanel opponent2Panel() {
 		opponent2Panel.setPreferredSize(new Dimension(200, 100));
 		opponent2Panel.setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); 
-		opponent2Panel.setBackground(Color.red);
+		opponent2Panel.setBackground(Color.MAGENTA.darker().darker());
 		return opponent2Panel;
 	}
 	/**
@@ -83,7 +86,7 @@ public class Gui extends JPanel{
 	public JPanel opponent3Panel() {
 		opponent3Panel.setPreferredSize(new Dimension(100, 200));
 		opponent3Panel.setBorder(BorderFactory.createEmptyBorder(0,10,10,10)); 
-		opponent3Panel.setBackground(Color.YELLOW);
+		opponent3Panel.setBackground(Color.ORANGE);
 		return opponent3Panel;
 	}
 	/**
@@ -92,6 +95,7 @@ public class Gui extends JPanel{
 	 */
 	public ImageIcon readFiles() {
 		ImageIcon icon = new ImageIcon("src/sjuan/files/cards_png/ck.png");
+		ImageIcon iconBack = new ImageIcon("src/sjuan/files/cards_png/b1pb.png");
 		return icon;
 	}
 	/**
