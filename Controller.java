@@ -6,6 +6,7 @@ package sjuan;
  */
 public class Controller {
 	private Player player1, player2, player3, player4;
+
 	private Deck deck;
 
 	/**
@@ -16,11 +17,11 @@ public class Controller {
 	 * @param player4 takes in a player
 	 * @param deck takes in a deck
 	 */
-	public Controller(Player player1, Player player2, Player player3, Player player4, Deck deck) {
+	public Controller(Player player1, Deck deck) {
 		this.player1 = player1;
-		this.player2 = player2;
-		this.player3 = player3;
-		this.player4 = player4;
+//		this.player2 = player2;
+//		this.player3 = player3;
+//		this.player4 = player4;
 		this.deck = deck;
 	}
 	/**
@@ -34,5 +35,13 @@ public class Controller {
 			player4.setPlayerCards(deck.dealCard());
 
 		}
+	}
+	public void dealCards(Player player) {
+		for(int i = 0; i < 10; i++) {
+			player.setPlayerCards(deck.dealCard());
+		}
+	}
+	public Player getPlayer1() {
+		return player1;
 	}
 }
