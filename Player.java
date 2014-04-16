@@ -24,6 +24,21 @@ public class Player {
 		playerCards.add(card);
 	}
 	/**
+	 * this method translates players ArrayList of Cards to an Array of Strings
+	 * @return
+	 */
+	public String[] getPlayerCardsToString() {
+		String[] cards = new String[playerCards.size()];
+		for (int i = 0; i < cards.length; i++){
+			cards[i] = playerCards.get(i).toString();
+		}
+		return cards;
+
+	}
+	public ArrayList<Card> getPlayerCards() {
+		return playerCards;
+	}
+	/**
 	 * This method prints players cards
 	 */
 	public void printCards() {
