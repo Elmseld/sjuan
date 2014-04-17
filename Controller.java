@@ -30,9 +30,9 @@ public class Controller {
 	public void Deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
-			player2.setPlayerCards(deck.dealCard());
-			player3.setPlayerCards(deck.dealCard());
-			player4.setPlayerCards(deck.dealCard());
+//			player2.setPlayerCards(deck.dealCard());
+//			player3.setPlayerCards(deck.dealCard());
+//			player4.setPlayerCards(deck.dealCard());
 
 		}
 	}

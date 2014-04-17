@@ -1,12 +1,11 @@
 package sjuan;
 
 public class Server {
-	private String[] playerCards;
+	private Card[] playerCards;
 
 	public Server(int port, Player player) {
 		try {
-			
-			getPlayerCards(player);
+			this.playerCards = player.getPlayerCardList();
 			new ConnectToServer(this,port);
 
 		}
@@ -14,15 +13,15 @@ public class Server {
 			System.out.println(e);
 		}
 	}
-	public void getPlayerCards(Player player) {
-		this.playerCards = player.getPlayerCardsToString();
-	}
+	//	public void getPlayerCard(Player player) {
+	//		this.playerCards = player.getPlayerCardList();
+	//	}
 	public void newClient(ServerConnection connection) {
 		// om servern behöver lagra referens till klienterna
 	}
 
 	public synchronized void newRequest(ServerConnection connection, Request request) {
-			connection.newResponse(new Response(request.getRequest(),playerCards));
+		connection.newResponse(new Response(request.getRequest(),playerCards));
 	}
 
 	public static void main(String[] args) {
