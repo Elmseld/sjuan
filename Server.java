@@ -13,9 +13,6 @@ public class Server {
 			System.out.println(e);
 		}
 	}
-	//	public void getPlayerCard(Player player) {
-	//		this.playerCards = player.getPlayerCardList();
-	//	}
 	public void newClient(ServerConnection connection) {
 		// om servern behöver lagra referens till klienterna
 	}
