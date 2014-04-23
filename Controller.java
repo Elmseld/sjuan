@@ -5,9 +5,13 @@ package sjuan;
  *
  */
 public class Controller {
-	private Player player1, player2, player3, player4;
 
-	private Deck deck;
+	private Player player1 = new Player();
+	private Player player2 = new Player();
+	private Player player3 = new Player();
+	private Player player4 = new Player();
+	private Deck deck = new Deck();
+
 
 	/**
 	 * Constructs a controller 
@@ -17,12 +21,8 @@ public class Controller {
 	 * @param player4 takes in a player
 	 * @param deck takes in a deck
 	 */
-	public Controller(Player player1, Deck deck) {
-		this.player1 = player1;
-//		this.player2 = player2;
-//		this.player3 = player3;
-//		this.player4 = player4;
-		this.deck = deck;
+	public Controller() {
+		new Server(7766,player1, player2, player3,player4, this);
 	}
 	/**
 	 * This method deals the deck to all players
@@ -30,9 +30,9 @@ public class Controller {
 	public void Deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
-//			player2.setPlayerCards(deck.dealCard());
-//			player3.setPlayerCards(deck.dealCard());
-//			player4.setPlayerCards(deck.dealCard());
+			player2.setPlayerCards(deck.dealCard());
+			player3.setPlayerCards(deck.dealCard());
+			player4.setPlayerCards(deck.dealCard());
 
 		}
 	}
@@ -40,8 +40,5 @@ public class Controller {
 		for(int i = 0; i < 10; i++) {
 			player.setPlayerCards(deck.dealCard());
 		}
-	}
-	public Player getPlayer1() {
-		return player1;
 	}
 }
