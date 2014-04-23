@@ -24,6 +24,7 @@ public class ConnectToServer {
 				serverSocket = new ServerSocket(port);
 				while (true) {
 					socket = serverSocket.accept();
+					System.out.println("New client");
 					server.newClient(new ServerConnection(server,socket));
 				}
 			} catch (IOException e1) {

@@ -4,9 +4,9 @@ import java.io.*;
 public class Response implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
-	private String[] cards;
+	private Card [] cards;
 
-	public Response(String request, String[] cards) {
+	public Response(String request, Card [] cards) {
 		this.request = request;
 		this.cards = cards;
 	}
@@ -15,7 +15,7 @@ public class Response implements Serializable {
 		return request;
 	}
 
-	public String[] getCards() {
+	public Card [] getCards() {
 		return cards;
 	}
 }

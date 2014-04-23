@@ -1,15 +1,17 @@
 package sjuan;
 
+import java.io.Serializable;
+
 /**
  * This class handle a card
  * @author Tobbe
  *
  */
-public class Card{
+public class Card implements Serializable {
 	private int value, type;
 
-	private static String[] types = { "h", "s", "d", "c" };
-	private static String[] values  = { "1", "2", "3", "4", 
+	private transient final static String[] types = { "h", "s", "d", "c" };
+	private transient final static String[] values  = { "1", "2", "3", "4", 
 		"5", "6", "7", "8", "9", "10", "j", "q", "k" };
 
 	/**

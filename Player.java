@@ -35,6 +35,14 @@ public class Player {
 		return cards;
 
 	}
+	public Card[] getPlayerCardList() {
+		Card[] cards = new Card[playerCards.size()];
+		for (int i = 0; i < cards.length; i++){
+			cards[i] = playerCards.get(i);
+		}
+		return cards;
+
+	}
 	public ArrayList<Card> getPlayerCards() {
 		return playerCards;
 	}
