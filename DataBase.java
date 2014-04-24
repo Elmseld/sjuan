@@ -2,6 +2,7 @@ package sjuan;
 import java.sql.*;
 
 public class DataBase {
+
     public static Connection connection;
     public static Statement statement;
     
@@ -43,7 +44,7 @@ public class DataBase {
         try {
             connect();
             
-            ResultSet result = statement.executeQuery("SELECT name, points FROM ab4607.statistics");
+            ResultSet result = statement.executeQuery("SELECT * FROM ab4607.statistics");
             showResultSet(result);
             
             disconnect();
