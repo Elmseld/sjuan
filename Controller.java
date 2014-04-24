@@ -27,19 +27,23 @@ public class Controller {
 	/**
 	 * This method deals the deck to all players
 	 */
+
 	public void Deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player2.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player3.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player4.setPlayerCards(deck.dealCard());
 
 		}
 	}
-	
-//	public void dealCards(Player player) {
-//		for(int i = 0; i < 10; i++) {
-//			player.setPlayerCards(deck.dealCard());
-//		}
-//	}
+
+	//	public void dealCards(Player player) {
+	//		for(int i = 0; i < 10; i++) {
+	//			player.setPlayerCards(deck.dealCard());
+	//		}
+	//	}
 }
