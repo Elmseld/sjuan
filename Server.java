@@ -10,7 +10,7 @@ public class Server {
 
 	/**
 	 * constructs a server 
-	 * @param port takes in a protNumber
+	 * @param port takes in a portNumber
 	 * @param player1 takes in a player
 	 * @param player2 takes in a player
 	 * @param player3 takes in a player
@@ -24,7 +24,8 @@ public class Server {
 			this.player2 = player2;
 			this.player3 = player3;
 			this.player4 = player4;
-
+			System.out.println(player1.getPlayerCardSize() + " "  +player2.getPlayerCardSize() + " " + player3.getPlayerCardSize() + " " + player4.getPlayerCardSize());
+			
 			new ConnectToServer(this,port);
 
 		}
@@ -36,16 +37,15 @@ public class Server {
 		// om servern behöver lagra referens till klienterna
 	}
 	/**
-	 * this method creates a response ???? add more later here
+	 * this method creates a response ???? add more later here of how this works
 	 * @param connection
 	 * @param request
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
-		connection.newResponse(new Response(request.getRequest(),player1.getPlayerCardList()));
-		connection.newResponse(new Response(request.getRequest(),player2.getPlayerCardList()));
-		connection.newResponse(new Response(request.getRequest(),player3.getPlayerCardList()));
-		connection.newResponse(new Response(request.getRequest(),player4.getPlayerCardList()));
-
-
+		//		if(request.getRequest().equals("Start")) {
+		connection.newResponse(new Response(player1.getPlayerCardList(),
+				player2.getPlayerCardSize(),
+				player3.getPlayerCardSize(),
+				player4.getPlayerCardSize()));
 	}
 }
