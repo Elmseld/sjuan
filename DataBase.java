@@ -2,6 +2,7 @@ package sjuan;
 import java.sql.*;
 
 public class DataBase {
+
     public static Connection connection;
     public static Statement statement;
     
