@@ -1,6 +1,6 @@
 package sjuan;
 /**
- * This class controlls the logic of the game "Sjuan"
+ * This class control the logic of the game "Sjuan"
  * @author Tobbe
  *
  */
@@ -36,9 +36,10 @@ public class Controller {
 
 		}
 	}
-	public void dealCards(Player player) {
-		for(int i = 0; i < 10; i++) {
-			player.setPlayerCards(deck.dealCard());
-		}
-	}
+	
+//	public void dealCards(Player player) {
+//		for(int i = 0; i < 10; i++) {
+//			player.setPlayerCards(deck.dealCard());
+//		}
+//	}
 }
