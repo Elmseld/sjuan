@@ -16,11 +16,11 @@ public class Rules {
 			if(card.getValue() == 6) {
 				
 			}
-			else if(card.value.equals(*8)) {
+			else if(card.getValue() == 8) {
 				
 			}
 			else {
-				if(card.value.equals(<6)){
+				if(card.getValue() <6 ){
 					
 				}
 				else {
