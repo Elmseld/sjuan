@@ -23,6 +23,7 @@ public class Player {
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
 	}
+	
 	/**
 	 * this method translates players ArrayList of Cards to an Array of Strings
 	 * @return

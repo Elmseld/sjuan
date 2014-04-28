@@ -7,7 +7,6 @@ package sjuan;
 public class Server {
 	private Player player1, player2, player3, player4;
 
-
 	/**
 	 * constructs a server 
 	 * @param port takes in a portNumber
@@ -24,8 +23,7 @@ public class Server {
 			this.player2 = player2;
 			this.player3 = player3;
 			this.player4 = player4;
-//			System.out.println(player1.getPlayerCardSize() + " "  +player2.getPlayerCardSize() + " " + player3.getPlayerCardSize() + " " + player4.getPlayerCardSize());
-			
+
 			new ConnectToServer(this,port);
 
 		}
@@ -37,15 +35,19 @@ public class Server {
 		// om servern behöver lagra referens till klienterna
 	}
 	/**
-	 * this method creates a response ???? add more later here of how this works
+	 * this method creates a response that a client recieve
 	 * @param connection
 	 * @param request
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
-		//		if(request.getRequest().equals("Start")) {
-		connection.newResponse(new Response(player1.getPlayerCardList(),
-				player2.getPlayerCardSize(),
-				player3.getPlayerCardSize(),
-				player4.getPlayerCardSize()));
+		if (request.getRequest().equals("new")) {
+			connection.newResponse(new Response(player1.getPlayerCardList(),
+					player2.getPlayerCardSize(),
+					player3.getPlayerCardSize(),
+					player4.getPlayerCardSize(), "new"));
+		}
+		else if(request.getRequest().equals("pass")) {
+			connection.newResponse(new Response("pass"));
+		}
 	}
 }

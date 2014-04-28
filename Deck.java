@@ -15,7 +15,7 @@ public class Deck {
 	 * the constructor creates a deck of card and shuffle it
 	 */
 	public Deck() {
-		cards = new ArrayList<Card>();
+		cards = new ArrayList<Card>(52);
 		int index1, index2;
 		Random rand = new Random();
 		Card temp;
