@@ -62,5 +62,12 @@ public class Player {
 			System.out.print(playerCards.get(i) + ", ");
 		}
 	}
+	/**
+	 * this method returns players size of a hand
+	 * @return playerCards.size() returns players hand of cards 
+	 */
+	public int getPlayerCardSize() {
+		return playerCards.size();
+	}
 }
 
