@@ -1,6 +1,5 @@
 package sjuan;
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * this class handle response
