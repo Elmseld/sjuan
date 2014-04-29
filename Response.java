@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
-	private ArrayList<Card> cards;
+	private Card [] cards;
 
-	public Response(String request, ArrayList<Card> cards) {
+	public Response(String request, Card [] cards) {
 		this.request = request;
 		this.cards = cards;
 	}
@@ -16,7 +16,8 @@ public class Response implements Serializable {
 		return request;
 	}
 
-	public ArrayList<Card> getCards() {
+	public Card[] getCards() {
 		return cards;
+
 	}
 }

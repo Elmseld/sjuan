@@ -4,11 +4,20 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * this class handle clients connectiong to the server
+ * @author Tobbe
+ *
+ */
 public class ConnectToServer {
 	private Server server;
 	private int port;
 
-
+	/**
+	 * construct a connection to server
+	 * @param server
+	 * @param port
+	 */
 	public ConnectToServer(Server server, int port) {
 		this.server = server;
 		this.port = port;
@@ -24,6 +33,7 @@ public class ConnectToServer {
 				serverSocket = new ServerSocket(port);
 				while (true) {
 					socket = serverSocket.accept();
+					System.out.println("New client");
 					server.newClient(new ServerConnection(server,socket));
 				}
 			} catch (IOException e1) {
