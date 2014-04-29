@@ -22,7 +22,7 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		new Server(7766,player1, player2, player3,player4, this);
+		new Server(7766,player1, player2, player3, player4, this);
 	}
 	/**
 	 * This method deals the deck to all players
@@ -46,4 +46,5 @@ public class Controller {
 	//			player.setPlayerCards(deck.dealCard());
 	//		}
 	//	}
+
 }

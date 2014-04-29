@@ -1,4 +1,8 @@
 package sjuan;
+
+import java.util.ArrayList;
+/**
+ * This class handles the Server
 /**
  * This class handles the server communication with clients
  * @author Tobbe
@@ -6,7 +10,7 @@ package sjuan;
  */
 public class Server {
 	private Player player1, player2, player3, player4;
-
+	private int clientID;
 
 	/**
 	 * constructs a server 
@@ -24,28 +28,56 @@ public class Server {
 			this.player2 = player2;
 			this.player3 = player3;
 			this.player4 = player4;
-			System.out.println(player1.getPlayerCardSize() + " "  +player2.getPlayerCardSize() + " " + player3.getPlayerCardSize() + " " + player4.getPlayerCardSize());
-			
-			new ConnectToServer(this,port);
 
+			new ConnectToServer(this,port);
 		}
 		catch (Exception e) { // IOException, ClassNotFoundException
 			System.out.println(e);
 		}
 	}
-	public void newClient(ServerConnection connection) {
+
+	public void newClient(ServerConnection connection , int counter) {
+		clientID = counter;
 		// om servern behöver lagra referens till klienterna
 	}
+	
+	public int getClientID() {
+		return clientID;
+	}
+	
 	/**
-	 * this method creates a response ???? add more later here of how this works
-	 * @param connection
-	 * @param request
+	 * this method creates a response that a client recieve
+	 * @param connection takes in connection from a client
+	 * @param request takes in a string to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
-		//		if(request.getRequest().equals("Start")) {
-		connection.newResponse(new Response(player1.getPlayerCardList(),
-				player2.getPlayerCardSize(),
-				player3.getPlayerCardSize(),
-				player4.getPlayerCardSize()));
+
+		if (request.getRequest().equals("new")) {
+			if (clientID==1)
+				connection.newResponse(new Response(player1.getPlayerCardList(),
+						player2.getPlayerCardSize(),
+						player3.getPlayerCardSize(),
+						player4.getPlayerCardSize(), "new", clientID));
+			else if (clientID==2)
+				connection.newResponse(new Response(player2.getPlayerCardList(),
+						player3.getPlayerCardSize(),
+						player4.getPlayerCardSize(),
+						player1.getPlayerCardSize(), "new", clientID));
+			else if (clientID==3)
+				connection.newResponse(new Response(player3.getPlayerCardList(),
+						player4.getPlayerCardSize(),
+						player1.getPlayerCardSize(),
+						player2.getPlayerCardSize(), "new", clientID));
+			else if (clientID==4)
+				connection.newResponse(new Response(player4.getPlayerCardList(),
+						player1.getPlayerCardSize(),
+						player2.getPlayerCardSize(),
+						player3.getPlayerCardSize(), "new", clientID));
+			else 
+				System.out.println("clientID stämmer inte");
+		}
+		else if(request.getRequest().equals("pass")) {
+			connection.newResponse(new Response("pass"));
+		}	
 	}
 }
