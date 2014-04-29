@@ -12,7 +12,7 @@ public class Rules {
 		if(card.getValue() == 7) {
 			//Play it! 
 		}
-		else if(card.getValue() == (tablecard -1 || tablecard +1)) {
+		else if(card.getValue() == (tablecard.getValue() -1 || tablecard.getValue()s +1)) {
 			if(card.getValue() == 6) {
 				
 			}
