@@ -22,35 +22,24 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		new Server(7766,player1, player2, player3,player4, this);
+		new Server(7766,player1, player2, player3, player4, this);
 	}
 	/**
 	 * This method deals the deck to all players
 	 */
+
 	public void Deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player2.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player3.setPlayerCards(deck.dealCard());
+			if (deck.getAllCards()>0)
 			player4.setPlayerCards(deck.dealCard());
 
 		}
 	}
-
-	/**
-	 * This method deals card to a player
-	 * @param player takes in a player
-	 */
-	public void dealCards(Player player) {
-		for(int i = 0; i < 10; i++) {
-			player.setPlayerCards(deck.dealCard());
-		}
-	}
-	// för test
-	public Player getPlayer1() {
-		return player1;
-	}
-
 
 	//	public void dealCards(Player player) {
 	//		for(int i = 0; i < 10; i++) {
