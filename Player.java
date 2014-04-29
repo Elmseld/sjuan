@@ -9,13 +9,14 @@ import java.util.ArrayList;
  */
 public class Player {
 	private ArrayList<Card> playerCards;
-
+	
 	/**
 	 * the constructor creates a player
 	 */
 	public Player() {
 		playerCards = new ArrayList<Card>();
 	}
+	
 	/**
 	 * This method sets the players cards
 	 * @param card gets a card
@@ -23,6 +24,7 @@ public class Player {
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
 	}
+	
 	/**
 	 * this method translates players ArrayList of Cards to an Array of Strings
 	 * @return
