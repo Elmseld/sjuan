@@ -20,16 +20,11 @@ public class ConnectToServer {
 	 * @param port
 	 */
 	public ConnectToServer(Server server, int port) {
-		if ((getCounter() >=0) && (getCounter() <=2)) {
 
 		this.server = server;
 		this.port = port;
 			Thread thread = new Thread(new Connect());
 			thread.start();
-		}
-		else {
-			System.out.println("Nä, nu kan inte fler klienter ansluta: " + getCounter());
-		}
 	}
 
 	public int getCounter() {
