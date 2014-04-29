@@ -1,12 +1,23 @@
 package sjuan;
 
+import java.util.ArrayList;
+/**
+ * This class handles the Server
+ * @author Tobbe
+ *
+ */
 public class Server {
-	private String[] playerCards;
+	private ArrayList<Card> playerCards;
 
+	/**
+	 * comstructs a server
+	 * @param port takes a portNumber
+	 * @param player takes in a player
+	 */
 	public Server(int port, Player player) {
 		try {
-			
-			getPlayerCards(player);
+			playerCards = player.getPlayerCards();
+			//	getPlayerCards(player);
 			new ConnectToServer(this,port);
 
 		}
@@ -14,15 +25,15 @@ public class Server {
 			System.out.println(e);
 		}
 	}
-	public void getPlayerCards(Player player) {
-		this.playerCards = player.getPlayerCardsToString();
+	public void setPlayerCards(Player player) {
+		this.playerCards = player.getPlayerCards();
 	}
 	public void newClient(ServerConnection connection) {
 		// om servern behöver lagra referens till klienterna
 	}
 
-	public synchronized void newRequest(ServerConnection connection, Request request) {
-			connection.newResponse(new Response(request.getRequest(),playerCards));
+	public void newRequest(ServerConnection connection, Request request) {
+		connection.newResponse(new Response(request.getRequest(),playerCards));
 	}
 
 	public static void main(String[] args) {

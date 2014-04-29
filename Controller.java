@@ -36,11 +36,16 @@ public class Controller {
 
 		}
 	}
+	/**
+	 * This method deals card to a player
+	 * @param player takes in a player
+	 */
 	public void dealCards(Player player) {
 		for(int i = 0; i < 10; i++) {
 			player.setPlayerCards(deck.dealCard());
 		}
 	}
+	// för test
 	public Player getPlayer1() {
 		return player1;
 	}

@@ -1,12 +1,13 @@
 package sjuan;
 import java.io.*;
+import java.util.ArrayList;
 
 public class Response implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
-	private String[] cards;
+	private ArrayList<Card> cards;
 
-	public Response(String request, String[] cards) {
+	public Response(String request, ArrayList<Card> cards) {
 		this.request = request;
 		this.cards = cards;
 	}
@@ -15,7 +16,7 @@ public class Response implements Serializable {
 		return request;
 	}
 
-	public String[] getCards() {
+	public ArrayList<Card> getCards() {
 		return cards;
 	}
 }
