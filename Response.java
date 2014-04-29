@@ -1,5 +1,6 @@
 package sjuan;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * this class handle response
@@ -11,7 +12,7 @@ public class Response implements Serializable {
 	private String request;
 	private Card [] cards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
-	private Server server;
+
 
 	/**
 	 * constructs a response containing a string
@@ -57,12 +58,14 @@ public class Response implements Serializable {
 		return request;
 	}
 
+
 	/**
 	 * this method returns cards
 	 * @return cards returns a list of strings
 	 */
 	public Card [] getCards() {
 		return cards;
+
 	}
 	/**
 	 * this method returns cards size of a player

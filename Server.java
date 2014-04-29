@@ -1,4 +1,8 @@
 package sjuan;
+
+import java.util.ArrayList;
+/**
+ * This class handles the Server
 /**
  * This class handles the server communication with clients
  * @author Tobbe
@@ -31,7 +35,6 @@ public class Server {
 			System.out.println(e);
 		}
 	}
-	// om servern behöver lagra referens till klienterna
 
 	public void newClient(ServerConnection connection , int counter) {
 		clientID = counter;
@@ -48,6 +51,7 @@ public class Server {
 	 * @param request takes in a string to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
+
 		if (request.getRequest().equals("new")) {
 			if (clientID==1)
 				connection.newResponse(new Response(player1.getPlayerCardList(),
