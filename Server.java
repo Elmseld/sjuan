@@ -40,11 +40,11 @@ public class Server {
 		clientID = counter;
 		// om servern behöver lagra referens till klienterna
 	}
-	
+
 	public int getClientID() {
 		return clientID;
 	}
-	
+
 	/**
 	 * this method creates a response that a client recieve
 	 * @param connection takes in connection from a client
