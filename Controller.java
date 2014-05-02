@@ -44,35 +44,35 @@ public class Controller {
 
 		}
 	}
-	public void NewRequest(ServerConnection connection, Request request) {
-		if (request.getRequest().equals("new")) {
-			clientID = server.getClientID();
-			if (clientID==1)
-				connection.newResponse(new Response(player1.getPlayerCardList(),
-						player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(),
-						player4.getPlayerCardSize(), "new", clientID));
-			else if (clientID==2)
-				connection.newResponse(new Response(player2.getPlayerCardList(),
-						player3.getPlayerCardSize(),
-						player4.getPlayerCardSize(),
-						player1.getPlayerCardSize(), "new", clientID));
-			else if (clientID==3)
-				connection.newResponse(new Response(player3.getPlayerCardList(),
-						player4.getPlayerCardSize(),
-						player1.getPlayerCardSize(),
-						player2.getPlayerCardSize(), "new", clientID));
-			else if (clientID==4)
-				connection.newResponse(new Response(player4.getPlayerCardList(),
-						player1.getPlayerCardSize(),
-						player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(), "new", clientID));
-			else 
-				System.out.println("clientID stämmer inte");
-		}
-		else if(request.getRequest().equals("pass")) {
-			connection.newResponse(new Response("pass"));
-		}	
+//	public void NewRequest(ServerConnection connection, Request request) {
+//		if (request.getRequest().equals("new")) {
+//			clientID = server.getClientID();
+//			if (clientID==1)
+//				connection.newResponse(new Response(player1.getPlayerCardList(),
+//						player2.getPlayerCardSize(),
+//						player3.getPlayerCardSize(),
+//						player4.getPlayerCardSize(), "new", clientID));
+//			else if (clientID==2)
+//				connection.newResponse(new Response(player2.getPlayerCardList(),
+//						player3.getPlayerCardSize(),
+//						player4.getPlayerCardSize(),
+//						player1.getPlayerCardSize(), "new", clientID));
+//			else if (clientID==3)
+//				connection.newResponse(new Response(player3.getPlayerCardList(),
+//						player4.getPlayerCardSize(),
+//						player1.getPlayerCardSize(),
+//						player2.getPlayerCardSize(), "new", clientID));
+//			else if (clientID==4)
+//				connection.newResponse(new Response(player4.getPlayerCardList(),
+//						player1.getPlayerCardSize(),
+//						player2.getPlayerCardSize(),
+//						player3.getPlayerCardSize(), "new", clientID));
+//			else 
+//				System.out.println("clientID stämmer inte");
+//		}
+//		else if(request.getRequest().equals("pass")) {
+//			connection.newResponse(new Response("pass"));
+//		}	
 
 		//	public void dealCards(Player player) {
 		//		for(int i = 0; i < 10; i++) {
@@ -80,5 +80,5 @@ public class Controller {
 		//		}
 		//	}
 
-	}
+//	}
 }

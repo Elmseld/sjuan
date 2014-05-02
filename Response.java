@@ -1,5 +1,6 @@
 package sjuan;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * this class handle response
@@ -9,7 +10,7 @@ import java.io.*;
 public class Response implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
-	private Card [] cards;
+	private ArrayList <Card> cards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
@@ -38,7 +39,7 @@ public class Response implements Serializable {
 	 * @param playerCardSize2 takes in a player cards size
 	 * @param playerCardSize3 takes in a player cards size
 	 */
-	public Response(Card[] playerCardList, int playerCardSize,
+	public Response(ArrayList<Card> playerCardList, int playerCardSize,
 			int playerCardSize2, int playerCardSize3, String request, int clientID ) {
 		this.cards = playerCardList;
 		this.opponentCards1 = playerCardSize;
@@ -61,7 +62,7 @@ public class Response implements Serializable {
 	 * this method returns cards
 	 * @return cards returns a list of strings
 	 */
-	public Card [] getCards() {
+	public ArrayList <Card> getCards() {
 		return cards;
 
 	}
@@ -70,7 +71,7 @@ public class Response implements Serializable {
 	 * @return card.length returns size of a players hand
 	 */
 	public int getCardSize(){
-		return cards.length;
+		return cards.size();
 	}
 
 	/**
