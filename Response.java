@@ -12,6 +12,7 @@ public class Response implements Serializable {
 	private String request;
 	private Card [] cards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
+	private Card card;
 
 
 	/**
@@ -21,17 +22,15 @@ public class Response implements Serializable {
 	public Response(String request) {
 		this.request = request;
 	}
-
 	/**
-	 * constructs a response containing a list of cards and a string-Objekt
-	 * @param request takes in a request
-	 * @param cards takes in cards from e.g. a player
+	 * constructs a response containing a string and a card-Object
+	 * @param request takes in a string-Object
+	 * @param card takes in a card-Object
 	 */
-	public Response(String request, Card[] cards) {
+	public Response (String request, Card card) {
 		this.request = request;
-		this.cards = cards;
+		this.card = card;
 	}
-
 
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
@@ -74,6 +73,7 @@ public class Response implements Serializable {
 	public int getCardSize(){
 		return cards.length;
 	}
+
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
@@ -81,6 +81,7 @@ public class Response implements Serializable {
 	public int getOpponentCards1() {
 		return opponentCards1;
 	}
+
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
@@ -88,6 +89,7 @@ public class Response implements Serializable {
 	public int getOpponentCards2() {
 		return opponentCards2;
 	}
+
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
@@ -102,5 +104,13 @@ public class Response implements Serializable {
 	 */
 	public int getClientID() {
 		return clientID;
+	}
+
+	/**
+	 * this method returns a Card-Object
+	 * @return card returns a Card-Object
+	 */
+	public Card getCard(){
+		return card;
 	}
 }
