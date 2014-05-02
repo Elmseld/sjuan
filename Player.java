@@ -9,14 +9,14 @@ import java.util.ArrayList;
  */
 public class Player {
 	private ArrayList<Card> playerCards;
-	
+
 	/**
 	 * the constructor creates a player
 	 */
 	public Player() {
 		playerCards = new ArrayList<Card>();
 	}
-	
+
 	/**
 	 * This method sets the players cards
 	 * @param card gets a card
@@ -24,7 +24,7 @@ public class Player {
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
 	}
-	
+
 	/**
 	 * this method translates players ArrayList of Cards to an Array of Strings
 	 * @return
@@ -41,12 +41,11 @@ public class Player {
 	 * this method returns a player cards as a list of strings
 	 * @return cards returns a players cards as a list of strings
 	 */
-	public Card[] getPlayerCardList() {
-		Card[] cards = new Card[playerCards.size()];
-		for (int i = 0; i < cards.length; i++){
-			cards[i] = playerCards.get(i);
+	public ArrayList<Card> getPlayerCardList() {
+		for (int i = 0; i < playerCards.size(); i++){
+			playerCards.get(i);
 		}
-		return cards;
+		return playerCards;
 
 	}
 	/**
