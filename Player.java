@@ -1,6 +1,8 @@
 package sjuan;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * This class handle a players cards
@@ -46,8 +48,8 @@ public class Player {
 			playerCards.get(i);
 		}
 		return playerCards;
-
 	}
+
 	/**
 	 * this method returns a player cards as in a ArrayList of Card
 	 * @return playerCards returns a ArrayList of Card
