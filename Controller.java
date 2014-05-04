@@ -1,4 +1,7 @@
 package sjuan;
+
+import java.util.ArrayList;
+
 /**
  * This class control the logic of the game "Sjuan"
  * @author Tobbe
@@ -11,6 +14,7 @@ public class Controller {
 	private Player player3 = new Player();
 	private Player player4 = new Player();
 	private Deck deck = new Deck();
+	private ArrayList <Card> gameBoardCards = null;
 	private int clientID;
 
 	private Server server;
@@ -44,41 +48,39 @@ public class Controller {
 
 		}
 	}
-//	public void NewRequest(ServerConnection connection, Request request) {
-//		if (request.getRequest().equals("new")) {
-//			clientID = server.getClientID();
-//			if (clientID==1)
-//				connection.newResponse(new Response(player1.getPlayerCardList(),
-//						player2.getPlayerCardSize(),
-//						player3.getPlayerCardSize(),
-//						player4.getPlayerCardSize(), "new", clientID));
-//			else if (clientID==2)
-//				connection.newResponse(new Response(player2.getPlayerCardList(),
-//						player3.getPlayerCardSize(),
-//						player4.getPlayerCardSize(),
-//						player1.getPlayerCardSize(), "new", clientID));
-//			else if (clientID==3)
-//				connection.newResponse(new Response(player3.getPlayerCardList(),
-//						player4.getPlayerCardSize(),
-//						player1.getPlayerCardSize(),
-//						player2.getPlayerCardSize(), "new", clientID));
-//			else if (clientID==4)
-//				connection.newResponse(new Response(player4.getPlayerCardList(),
-//						player1.getPlayerCardSize(),
-//						player2.getPlayerCardSize(),
-//						player3.getPlayerCardSize(), "new", clientID));
-//			else 
-//				System.out.println("clientID stämmer inte");
-//		}
-//		else if(request.getRequest().equals("pass")) {
-//			connection.newResponse(new Response("pass"));
-//		}	
 
-		//	public void dealCards(Player player) {
-		//		for(int i = 0; i < 10; i++) {
-		//			player.setPlayerCards(deck.dealCard());
-		//		}
-		//	}
+	/**
+	 * this method add a card to the gameboard
+	 * @param card takes in a card from a player to be set to the gameboard
+	 */
+	public void setGameBoardCards(Card card) {
+		gameBoardCards.add(card);
 
-//	}
+	}
+
+	/**
+	 * this method add a card to the gameboard
+	 * gameboardcards is for controller to know what card that are played to game board
+	 * @return gameBoardCards returns an ArrayList of the cards at gameboard
+	 */
+	public ArrayList <Card> getGameBoardCards () {
+		return gameBoardCards;
+	}
+
+	/**
+	 * this method returns a boolean if a card is playable or not
+	 * @param card takes in a card
+	 * @return boolean returns a boolean if the card is playable or not
+	 */
+	public boolean checkIfCardIsPlayable(Card card) {
+		//test för kommunikation
+		if (gameBoardCards == null) {
+			if (card.getValue()==0 || card.getValue()==9)
+				return true;
+			else
+				return false;
+
+		}
+		return true;
+	}
 }

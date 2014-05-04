@@ -1,6 +1,5 @@
 package sjuan;
 
-import java.util.ArrayList;
 /**
  * This class handles the Server
 /**
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 public class Server {
 	private Player player1, player2, player3, player4;
 	private int clientID;
+	private Controller controller;
 
 	/**
 	 * constructs a server 
@@ -23,7 +23,8 @@ public class Server {
 	 */
 	public Server(int port, Player player1, Player player2, Player player3, Player player4, Controller control) {
 		try {
-			control.Deal();
+			this.controller = control;
+			controller.Deal();
 			this.player1 = player1;
 			this.player2 = player2;
 			this.player3 = player3;
@@ -48,11 +49,12 @@ public class Server {
 	/**
 	 * this method creates a response that a client recieve
 	 * @param connection takes in connection from a client
-	 * @param request takes in a string to decide what to do
+	 * @param request takes in a request to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
 
 		if (request.getRequest().equals("new")) {
+
 			if (clientID==1)
 				connection.newResponse(new Response(player1.getPlayerCardList(),
 						player2.getPlayerCardSize(),
@@ -75,9 +77,20 @@ public class Server {
 						player3.getPlayerCardSize(), "new", clientID));
 			else 
 				System.out.println("clientID stämmer inte");
+
 		}
+
 		else if(request.getRequest().equals("pass")) {
 			connection.newResponse(new Response("pass"));
-		}	
+		}
+
+		else if (request.getRequest().equals("playCard")) {
+			if (controller.checkIfCardIsPlayable(request.getCard())){
+				connection.newResponse(new Response("playCard", request.getCard()));
+			}
+			else {
+				connection.newResponse(new Response("dontPlayCard"));
+			}
+		}
 	}
 }

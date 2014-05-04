@@ -14,7 +14,6 @@ public class Response implements Serializable {
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
-
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
@@ -22,6 +21,7 @@ public class Response implements Serializable {
 	public Response(String request) {
 		this.request = request;
 	}
+
 	/**
 	 * constructs a response containing a string and a card-Object
 	 * @param request takes in a string-Object
