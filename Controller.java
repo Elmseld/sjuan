@@ -83,4 +83,8 @@ public class Controller {
 //		}
 		return true;
 	}
+	public boolean checkIfPassIsPossible() {
+		return false;
+		
+	}
 }

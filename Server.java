@@ -81,7 +81,12 @@ public class Server {
 		}
 
 		else if(request.getRequest().equals("pass")) {
-			connection.newResponse(new Response("pass"));
+			if (controller.checkIfPassIsPossible()) {
+				connection.newResponse(new Response("pass"));
+			}
+			else {
+				connection.newResponse(new Response("passainte"));
+			}
 		}
 
 		else if (request.getRequest().equals("playCard")) {
