@@ -15,8 +15,8 @@ public class Controller {
 	private Player player4 = new Player();
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = null;
-	private Rules rules = new Rules();
 	private int clientID;
+	private Rules rules = new Rules(this);
 
 	private Server server;
 
@@ -73,13 +73,26 @@ public class Controller {
 	 * @param card takes in a card
 	 * @return boolean returns a boolean if the card is playable or not
 	 */
-	public boolean checkIfCardIsPlayable(Card card) {
-		//test för kommunikation
-		
-		return rules.correct(card, player1, gameBoardCards);
-	}
-	public boolean checkIfPassIsPossible() {
+
+	public boolean checkIfCardIsPlayable(Card card, int clientID){
+		if (clientID==1) {
+			return rules.correct(card, player1, gameBoardCards);
+		}
+		else if (clientID==2) {
+			return rules.correct(card, player2, gameBoardCards);
+		}
+		else if (clientID==3) {
+			return rules.correct(card, player3, gameBoardCards);
+		}
+		else if (clientID==4) {
+			return rules.correct(card, player4, gameBoardCards);
+		}
 		return false;
-		
+
+	}
+
+	public boolean checkIfPassIsPossible() {
+		return true;
+
 	}
 }

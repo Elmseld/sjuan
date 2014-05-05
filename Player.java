@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+
 /**
  * This class handle a players cards
  * @author Tobbe
@@ -11,12 +12,14 @@ import java.util.Comparator;
  */
 public class Player {
 	private ArrayList<Card> playerCards;
+	private String name;
 
 	/**
 	 * the constructor creates a player
 	 */
 	public Player() {
 		playerCards = new ArrayList<Card>();
+	
 	}
 
 	/**
@@ -25,6 +28,7 @@ public class Player {
 	 */
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
+	
 	}
 
 	/**
@@ -37,17 +41,6 @@ public class Player {
 			cards[i] = playerCards.get(i).toString();
 		}
 		return cards;
-
-	}
-	/**
-	 * this method returns a player cards as a list of strings
-	 * @return cards returns a players cards as a list of strings
-	 */
-	public ArrayList<Card> getPlayerCardList() {
-		for (int i = 0; i < playerCards.size(); i++){
-			playerCards.get(i);
-		}
-		return playerCards;
 	}
 
 	/**
