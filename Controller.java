@@ -15,6 +15,7 @@ public class Controller {
 	private Player player4 = new Player();
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = null;
+	private Rules rules = new Rules();
 	private int clientID;
 
 	private Server server;
@@ -74,14 +75,8 @@ public class Controller {
 	 */
 	public boolean checkIfCardIsPlayable(Card card) {
 		//test för kommunikation
-//		if (gameBoardCards == null) {
-//			if (card.getValue()==0 || card.getValue()==9)
-//				return true;
-//			else
-//				return false;
-
-//		}
-		return true;
+		
+		return rules.correct(card, player1, gameBoardCards);
 	}
 	public boolean checkIfPassIsPossible() {
 		return false;
