@@ -10,6 +10,7 @@ public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
 	private Card card;
+	private int clientID;
 
 	/**
 	 * constructs a request
@@ -28,6 +29,13 @@ public class Request implements Serializable {
 		this.request = request;
 		this.card = card;
 	}
+	
+	public Request(String request, Card card, int clientID) {
+		this.request = request;
+		this.card = card;
+		this.clientID = clientID;
+	}
+	
 	/**
 	 * this method returns a request
 	 * @return request returns a request as a string
@@ -42,5 +50,9 @@ public class Request implements Serializable {
 	 */
 	public Card getCard() {
 		return card;
+	}
+	
+	public int getClientID() {
+		return clientID;
 	}
 }

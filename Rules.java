@@ -1,35 +1,33 @@
 package sjuan;
 
+import java.util.ArrayList;
+
 public class Rules {
-	private Card tablecard;
+private Player player;
+private Controller controller;
 
-	public Rules() {
-
+	public Rules(Controller controller) {
+		this.controller = controller;
 	}
 
-	public void correct(Card card, Card tablecards) {
-
-		if(card.getValue() == 7) {
-			//Play it! 
+	public boolean correct(Card card, Player player, ArrayList<Card> gameBoardCards) {
+		this.player = player;
+		//test för kommunikation
+		if (card.getType()==0&&card.getValue()==6) {
+			moveCardToBoard(card);
+			return true;
+//		}
+//		else if ((card!=gameBoardCards.iterator().next())&&(card.getValue()<6)&&(card.getValue()>6)) {
+//			return true;
 		}
-		else if(card.getValue() == (tablecard.getValue() -1 || tablecard.getValue()s +1)) {
-			if(card.getValue() == 6) {
 
-			}
-			else if(card.getValue() == 8) {
-
-			}
-			else {
-				if(card.getValue() <6 ){
-
-				}
-				else {
-
-				}
-			}
-		}
-		else {
-
-		}
+		return false;
+	}
+	public void moveCardToBoard(Card card) {
+		Card temp = card;
+		player.getPlayerCards().remove(card);
+		controller.setGameBoardCards(temp);
+		
 	}
 }
+
