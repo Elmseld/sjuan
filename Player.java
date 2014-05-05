@@ -26,6 +26,10 @@ public class Player {
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
 	}
+	
+	public void setPlayerCards(ArrayList<Card> playerCards) {
+		this.playerCards = playerCards;
+	}
 
 	/**
 	 * this method translates players ArrayList of Cards to an Array of Strings
