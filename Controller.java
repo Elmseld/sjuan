@@ -74,13 +74,13 @@ public class Controller {
 	 */
 	public boolean checkIfCardIsPlayable(Card card) {
 		//test för kommunikation
-		if (gameBoardCards == null) {
-			if (card.getValue()==0 || card.getValue()==9)
-				return true;
-			else
-				return false;
+//		if (gameBoardCards == null) {
+//			if (card.getValue()==0 || card.getValue()==9)
+//				return true;
+//			else
+//				return false;
 
-		}
+//		}
 		return true;
 	}
 }
