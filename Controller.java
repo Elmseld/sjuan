@@ -14,7 +14,7 @@ public class Controller {
 	private Player player3 = new Player();
 	private Player player4 = new Player();
 	private Deck deck = new Deck();
-	private ArrayList <Card> gameBoardCards = null;
+	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
 	private Rules rules = new Rules(this);
 
@@ -76,16 +76,16 @@ public class Controller {
 
 	public boolean checkIfCardIsPlayable(Card card, int clientID){
 		if (clientID==1) {
-			return rules.correct(card, player1, gameBoardCards);
+			return rules.correct(card, player1);
 		}
 		else if (clientID==2) {
-			return rules.correct(card, player2, gameBoardCards);
+			return rules.correct(card, player2);
 		}
 		else if (clientID==3) {
-			return rules.correct(card, player3, gameBoardCards);
+			return rules.correct(card, player3);
 		}
 		else if (clientID==4) {
-			return rules.correct(card, player4, gameBoardCards);
+			return rules.correct(card, player4);
 		}
 		return false;
 
