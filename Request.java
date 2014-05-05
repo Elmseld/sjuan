@@ -9,6 +9,7 @@ import java.io.*;
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
+	private String sql;
 	private Card card;
 
 	/**
@@ -18,6 +19,7 @@ public class Request implements Serializable {
 	public Request(String request) {
 		this.request = request;
 	}
+
 
 	/**
 	 * constructs a request
@@ -35,6 +37,8 @@ public class Request implements Serializable {
 	public String getRequest() {
 		return request;
 	}
+	
+
 
 	/**
 	 * this method returns a card
@@ -43,4 +47,4 @@ public class Request implements Serializable {
 	public Card getCard() {
 		return card;
 	}
-}
+	}

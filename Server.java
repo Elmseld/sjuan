@@ -88,6 +88,10 @@ public class Server {
 				connection.newResponse(new Response("passainte"));
 			}
 		}
+		
+		else if(request.getRequest().equals("end")){
+			connection.newResponse(new Response("end", controller.getDataBas()));
+		}
 
 		else if (request.getRequest().equals("playCard")) {
 			if (controller.checkIfCardIsPlayable(request.getCard())){
