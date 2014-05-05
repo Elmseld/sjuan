@@ -41,17 +41,6 @@ public class Player {
 			cards[i] = playerCards.get(i).toString();
 		}
 		return cards;
-
-	}
-	/**
-	 * this method returns a player cards as a list of strings
-	 * @return cards returns a players cards as a list of strings
-	 */
-	public ArrayList<Card> getPlayerCardList() {
-		for (int i = 0; i < playerCards.size(); i++){
-			playerCards.get(i);
-		}
-		return playerCards;
 	}
 
 	/**

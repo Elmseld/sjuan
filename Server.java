@@ -57,22 +57,22 @@ public class Server {
 		if (request.getRequest().equals("new")) {
 
 			if (clientID==1)
-				connection.newResponse(new Response(player1.getPlayerCardList(),
+				connection.newResponse(new Response(player1.getPlayerCards(),
 						player2.getPlayerCardSize(),
 						player3.getPlayerCardSize(),
 						player4.getPlayerCardSize(), "new", clientID));
 			else if (clientID==2)
-				connection.newResponse(new Response(player2.getPlayerCardList(),
+				connection.newResponse(new Response(player2.getPlayerCards(),
 						player3.getPlayerCardSize(),
 						player4.getPlayerCardSize(),
 						player1.getPlayerCardSize(), "new", clientID));
 			else if (clientID==3)
-				connection.newResponse(new Response(player3.getPlayerCardList(),
+				connection.newResponse(new Response(player3.getPlayerCards(),
 						player4.getPlayerCardSize(),
 						player1.getPlayerCardSize(),
 						player2.getPlayerCardSize(), "new", clientID));
 			else if (clientID==4)
-				connection.newResponse(new Response(player4.getPlayerCardList(),
+				connection.newResponse(new Response(player4.getPlayerCards(),
 						player1.getPlayerCardSize(),
 						player2.getPlayerCardSize(),
 						player3.getPlayerCardSize(), "new", clientID));
@@ -91,7 +91,7 @@ public class Server {
 		}
 
 		else if (request.getRequest().equals("playCard")) {
-			if (controller.checkIfCardIsPlayable(request.getCard())){
+			if (controller.checkIfCardIsPlayable(request.getCard(), request.getClientID())){
 				connection.newResponse(new Response("playCard", request.getCard()));
 			}
 			else {
