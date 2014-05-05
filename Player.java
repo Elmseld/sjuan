@@ -2,6 +2,7 @@ package sjuan;
 
 import java.util.ArrayList;
 
+
 /**
  * This class handle a players cards
  * @author Tobbe
@@ -9,12 +10,14 @@ import java.util.ArrayList;
  */
 public class Player {
 	private ArrayList<Card> playerCards;
+	private String name;
 
 	/**
 	 * the constructor creates a player
 	 */
 	public Player() {
 		playerCards = new ArrayList<Card>();
+	
 	}
 	/**
 	 * This method sets the players cards
@@ -22,6 +25,7 @@ public class Player {
 	 */
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
+	
 	}
 	/**
 	 * this method translates players ArrayList of Cards to an Array of Strings

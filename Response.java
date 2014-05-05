@@ -1,5 +1,6 @@
 package sjuan;
 import java.io.*;
+import java.sql.ResultSet;
 
 /**
  * this class handle response
@@ -11,6 +12,10 @@ public class Response implements Serializable {
 	private String request;
 	private Card [] cards;
 	private int opponentCards1, opponentCards2, opponentCards3;
+
+
+	
+	
 	/**
 	 * constructs a response
 	 * @param cards takes in cards
@@ -57,6 +62,7 @@ public class Response implements Serializable {
 	public Card [] getCards() {
 		return cards;
 	}
+	
 	/**
 	 * this method returns cards size of a player
 	 * @return card.length returns size of a players hand

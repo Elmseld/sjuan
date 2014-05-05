@@ -6,6 +6,7 @@ package sjuan;
  */
 public class Server {
 	private Player player1, player2, player3, player4;
+	private String database;
 
 
 	/**

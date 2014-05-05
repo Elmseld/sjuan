@@ -1,5 +1,7 @@
 package sjuan;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.Statement;
 
 /**
  * this class handles request
@@ -9,6 +11,7 @@ import java.io.*;
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request;
+
 
 	/**
 	 * constructs a request
