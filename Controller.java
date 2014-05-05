@@ -56,9 +56,11 @@ public class Controller {
 	 */
 	public void setGameBoardCards(Card card) {
 		gameBoardCards.add(card);
-
 	}
 
+	public void setGameBoardCardsList(ArrayList<Card> gameBoardCards) {
+		this.gameBoardCards = gameBoardCards;
+	}
 	/**
 	 * this method add a card to the gameboard
 	 * gameboardcards is for controller to know what card that are played to game board
@@ -75,20 +77,35 @@ public class Controller {
 	 */
 
 	public boolean checkIfCardIsPlayable(Card card, int clientID){
-		if (clientID==1) {
+
+		this.clientID = clientID;
+		if (this.clientID==1) {
 			return rules.correct(card, player1);
 		}
-		else if (clientID==2) {
+		else if (this.clientID==2) {
 			return rules.correct(card, player2);
 		}
-		else if (clientID==3) {
+		else if (this.clientID==3) {
 			return rules.correct(card, player3);
 		}
-		else if (clientID==4) {
+		else if (this.clientID==4) {
 			return rules.correct(card, player4);
 		}
 		return false;
 
+	}
+
+	public Player getPlayer(int clientID) {
+		this.clientID = clientID;
+		if (this.clientID==1)
+			return player1;
+		else if (this.clientID==2)
+			return player2;
+		else if (this.clientID==3)
+			return player3;
+		else if (this.clientID==4)
+			return player4;
+		return null;
 	}
 
 	public boolean checkIfPassIsPossible() {

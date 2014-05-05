@@ -2,10 +2,10 @@ package sjuan;
 
 import java.util.ArrayList;
 
-public class Rules {
+
+public class Rules  {
 	private Player player;
 	private Controller controller;
-
 
 	public Rules(Controller controller) {
 		this.controller = controller;
@@ -13,6 +13,7 @@ public class Rules {
 
 	public boolean correct(Card card, Player player) {
 		this.player = player;
+
 
 		// if hjärter7
 		if(card.getType()== 0) {
@@ -93,23 +94,22 @@ public class Rules {
 		}
 		
 		return false;
+		
 	}
+	
 	public void moveCardToBoard(Card card) {
-		int i = 0; 
+		int i = 0;
 		ArrayList<Card> playerCards = player.getPlayerCards();
-		ArrayList<Card> boardCards = controller.getGameBoardCards();
-		for(Card a : playerCards) {
-			if(a.toString().equals(card.toString())) {
-				playerCards.remove(i);
-				boardCards.add(card);
-				break;
 
+		for (Card a : playerCards) {
+			if (a.toString().equals(card.toString())) {
+				playerCards.remove(i);
+				controller.setGameBoardCards(card);
+				break;
 			}
 			i++;
 		}
-//		player.setPlayerCards(playerCards);
-		
-
+				player.setPlayerCards(playerCards);
 	}
 }
 
