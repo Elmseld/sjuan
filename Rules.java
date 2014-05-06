@@ -1,35 +1,115 @@
 package sjuan;
 
-public class Rules {
-	private Card tablecard;
+import java.util.ArrayList;
 
-	public Rules() {
 
+public class Rules  {
+	private Player player;
+	private Controller controller;
+
+	public Rules(Controller controller) {
+		this.controller = controller;
 	}
 
-	public void correct(Card card, Card tablecards) {
+	public boolean correct(Card card, Player player) {
+		this.player = player;
 
-		if(card.getValue() == 7) {
-			//Play it! 
-		}
-		else if(card.getValue() == (tablecard.getValue() -1 || tablecard.getValue()s +1)) {
+
+		// if hjärter7
+		if(card.getType()== 0) {
 			if(card.getValue() == 6) {
-
+				moveCardToBoard(card);
+				return true;
 			}
-			else if(card.getValue() == 8) {
-
-			}
-			else {
-				if(card.getValue() <6 ){
-
-				}
-				else {
-
-				}
-			}
+			
 		}
-		else {
-
+		// if någon annan sjua och hjärter7 utlagd
+		else if(card.getValue() == 6 && controller.getGameBoardCards().equals("h7")) {
+			moveCardToBoard(card);
+			return true;
 		}
+		
+		else if(card.getType() == 0) {
+			if(card.getValue() == 5 || card.getValue() == 7 && controller.getGameBoardCards().equals("h7")) {
+				moveCardToBoard(card);
+				return true;
+			}
+			else if(card.getValue() <5 && controller.getGameBoardCards().equals(card.getValue()+1)) {
+				moveCardToBoard(card);
+				return true;	
+			}
+			else if(card.getValue() >7 && controller.getGameBoardCards().equals(card.getValue()-1)) {
+				moveCardToBoard(card);
+				return true;
+			}
+			return false;
+		}
+		
+		else if(card.getType() == 1) {
+			if(card.getValue() == 5 || card.getValue() == 7 && controller.getGameBoardCards().equals("s7")) {
+				moveCardToBoard(card);
+				return true;
+			}
+			else if(card.getValue() <5 && controller.getGameBoardCards().equals(card.getValue()+1)) {
+				moveCardToBoard(card);
+				return true;	
+			}
+			else if(card.getValue() >7 && controller.getGameBoardCards().equals(card.getValue()-1)) {
+				moveCardToBoard(card);
+				return true;
+			}
+			return false;
+		}
+		
+		else if(card.getType() == 2) {
+			if(card.getValue() == 5 || card.getValue() == 7 && controller.getGameBoardCards().equals("d7")) {
+				moveCardToBoard(card);
+				return true;
+			}
+			else if(card.getValue() <5 && controller.getGameBoardCards().equals(card.getValue()+1)) {
+				moveCardToBoard(card);
+				return true;	
+			}
+			else if(card.getValue() >7 && controller.getGameBoardCards().equals(card.getValue()-1)) {
+				moveCardToBoard(card);
+				return true;
+			}
+			return false;
+		}
+
+		else if(card.getType() == 3) {
+			if(card.getValue() == 5 || card.getValue() == 7 && controller.getGameBoardCards().equals("c7")) {
+				moveCardToBoard(card);
+				return true;
+			}
+			else if(card.getValue() <5 && controller.getGameBoardCards().equals(card.getValue()+1)) {
+				moveCardToBoard(card);
+				return true;	
+			}
+			else if(card.getValue() >7 && controller.getGameBoardCards().equals(card.getValue()-1)) {
+				moveCardToBoard(card);
+				return true;
+			}
+			return false;
+		}
+		
+		return false;
+		
+	}
+	
+	public void moveCardToBoard(Card card) {
+		int i = 0;
+		ArrayList<Card> playerCards = player.getPlayerCards();
+
+		for (Card a : playerCards) {
+			if (a.toString().equals(card.toString())) {
+				playerCards.remove(i);
+				controller.setGameBoardCards(card);
+				break;
+			}
+			i++;
+		}
+				player.setPlayerCards(playerCards);
 	}
 }
+

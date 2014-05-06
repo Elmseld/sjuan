@@ -1,5 +1,6 @@
 package sjuan;
 import java.io.*;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ public class Response implements Serializable {
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
+
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
@@ -22,6 +24,9 @@ public class Response implements Serializable {
 		this.request = request;
 	}
 
+	public Response(String request, String str) {
+		this.request = request;
+	}
 	/**
 	 * constructs a response containing a string and a card-Object
 	 * @param request takes in a string-Object
@@ -32,6 +37,12 @@ public class Response implements Serializable {
 		this.card = card;
 	}
 
+	public Response (String request, Card card, ArrayList<Card> cards) {
+		this.request = request;
+		this.card = card;
+		this.cards = cards;
+	
+	}
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
 	 * @param playerCardList takes in a cards of a player
@@ -57,7 +68,6 @@ public class Response implements Serializable {
 		return request;
 	}
 
-
 	/**
 	 * this method returns cards
 	 * @return cards returns a list of strings
@@ -66,6 +76,7 @@ public class Response implements Serializable {
 		return cards;
 
 	}
+	
 	/**
 	 * this method returns cards size of a player
 	 * @return card.length returns size of a players hand
