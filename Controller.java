@@ -89,6 +89,11 @@ public class Controller {
 		return false;
 		
 	}
+	
+	/**
+	 * this method returns a String from the database containing its context
+	 * @return
+	 */
 	public String getDataBas (){
 		String str = "";
 		try {
