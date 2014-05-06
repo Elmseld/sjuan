@@ -1,4 +1,9 @@
 package sjuan;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  * This class control the logic of the game "Sjuan"
  * @author Tobbe
@@ -11,6 +16,10 @@ public class Controller {
 	private Player player3 = new Player();
 	private Player player4 = new Player();
 	private Deck deck = new Deck();
+	private ArrayList <Card> gameBoardCards = null;
+	private int clientID;
+	private Server server;
+	private DataBase databas = new DataBase();
 
 
 	/**
@@ -22,7 +31,8 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		new Server(7766,player1, player2, player3,player4, this);
+		server = new Server(7766, player1, player2, player3, player4, this);
+
 	}
 	/**
 	 * This method deals the deck to all players
@@ -32,18 +42,70 @@ public class Controller {
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
-			player2.setPlayerCards(deck.dealCard());
+				player2.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
-			player3.setPlayerCards(deck.dealCard());
+				player3.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
-			player4.setPlayerCards(deck.dealCard());
+				player4.setPlayerCards(deck.dealCard());
 
 		}
 	}
+	
+	/**
+	 * this method add a card to the gameboard
+	 * @param card takes in a card from a player to be set to the gameboard
+	 */
+	public void setGameBoardCards(Card card) {
+		gameBoardCards.add(card);
 
-	//	public void dealCards(Player player) {
-	//		for(int i = 0; i < 10; i++) {
-	//			player.setPlayerCards(deck.dealCard());
-	//		}
-	//	}
+	}
+
+	/**
+	 * this method add a card to the gameboard
+	 * gameboardcards is for controller to know what card that are played to game board
+	 * @return gameBoardCards returns an ArrayList of the cards at gameboard
+	 */
+	public ArrayList <Card> getGameBoardCards () {
+		return gameBoardCards;
+	}
+
+	/**
+	 * this method returns a boolean if a card is playable or not
+	 * @param card takes in a card
+	 * @return boolean returns a boolean if the card is playable or not
+	 */
+	public boolean checkIfCardIsPlayable(Card card) {
+		//test för kommunikation
+//		if (gameBoardCards == null) {
+//			if (card.getValue()==0 || card.getValue()==9)
+//				return true;
+//			else
+//				return false;
+
+//		}
+		return true;
+	}
+	public boolean checkIfPassIsPossible() {
+		return false;
+		
+	}
+	
+	/**
+	 * this method returns a String from the database containing its context
+	 * @return
+	 */
+	public String getDataBas (){
+		String str = "";
+		try {
+			databas.connect();
+			ResultSet result = databas.statement.executeQuery("SELECT * FROM ab4607.statistics");
+			str = databas.showResultSet(result);
+
+			databas.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return str; 
+	}
 }
