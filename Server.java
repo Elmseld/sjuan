@@ -9,7 +9,6 @@ package sjuan;
  */
 public class Server {
 	private Player player1, player2, player3, player4;
-	
 	private int clientID;
 	private Controller controller;
 
@@ -89,7 +88,7 @@ public class Server {
 				connection.newResponse(new Response("passainte"));
 			}
 		}
-		
+
 		else if(request.getRequest().equals("end")){
 			connection.newResponse(new Response("end", controller.getDataBas()));
 		}
