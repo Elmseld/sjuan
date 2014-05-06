@@ -25,7 +25,7 @@ public class Server {
 			this.player3 = player3;
 			this.player4 = player4;
 			System.out.println(player1.getPlayerCardSize() + " "  +player2.getPlayerCardSize() + " " + player3.getPlayerCardSize() + " " + player4.getPlayerCardSize());
-			
+
 			new ConnectToServer(this,port);
 
 		}
