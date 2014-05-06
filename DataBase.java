@@ -5,12 +5,12 @@ public class DataBase {
 
 	public static Connection connection;
 	public static Statement statement;
-	private static String sql ="";
+	private static String sql = "";
 
 	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datam�ngden som utg�r resultatet av en SQL-sats.
 
 		ResultSetMetaData meta = resultSet.getMetaData();
-		//String sql = "";
+		sql = "";
 
 		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatm�ngden
 		for(int i=1; i<=colCount; i++)

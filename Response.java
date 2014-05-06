@@ -44,7 +44,7 @@ public class Response implements Serializable {
 		this.request = request;
 		this.card = card;
 		this.cards = cards;
-	
+		cards.trimToSize();
 	}
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object

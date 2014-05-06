@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-	private Player player1 = new Player();
-	private Player player2 = new Player();
-	private Player player3 = new Player();
-	private Player player4 = new Player();
+	private Player player1 = new Player(1);
+	private Player player2 = new Player(2);
+	private Player player3 = new Player(3);
+	private Player player4 = new Player(4);
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
