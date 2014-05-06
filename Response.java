@@ -16,7 +16,6 @@ public class Response implements Serializable {
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
-
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
@@ -41,10 +40,11 @@ public class Response implements Serializable {
 	}
 	
 
-	public Response (String request, Card card, int clientID) {
+	public Response (String request, Card card, ArrayList<Card> cards) {
 		this.request = request;
 		this.card = card;
-		this.clientID = clientID;
+		this.cards = cards;
+		cards.trimToSize();
 	}
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
@@ -69,12 +69,12 @@ public class Response implements Serializable {
 	 */
 	public String getRequest() {
 		return request;
+
 	}
 	
 	public String getSql(){
 		return sql;
 	}
-
 
 	/**
 	 * this method returns cards

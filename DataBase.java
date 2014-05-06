@@ -2,18 +2,19 @@ package sjuan;
 import java.sql.*;
 
 public class DataBase {
+
 	public static Connection connection;
 	public static Statement statement;
-	private static String sql ="";
+	private static String sql = "";
 
 	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datamï¿½ngden som utgï¿½r resultatet av en SQL-sats.
 
 		ResultSetMetaData meta = resultSet.getMetaData();
-		//String sql = "";
+		sql = "";
 
-		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatmängden
+		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatmï¿½ngden
 		for(int i=1; i<=colCount; i++)
-			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet på kolumnen med angivet index
+			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet pï¿½ kolumnen med angivet index
 
 		sql += "\n";
 

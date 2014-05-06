@@ -11,12 +11,12 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-	private Player player1 = new Player();
-	private Player player2 = new Player();
-	private Player player3 = new Player();
-	private Player player4 = new Player();
+	private Player player1 = new Player(1);
+	private Player player2 = new Player(2);
+	private Player player3 = new Player(3);
+	private Player player4 = new Player(4);
 	private Deck deck = new Deck();
-	private ArrayList <Card> gameBoardCards = null;
+	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
 	private Rules rules = new Rules(this);
 	private Server server;
@@ -58,9 +58,11 @@ public class Controller {
 	 */
 	public void setGameBoardCards(Card card) {
 		gameBoardCards.add(card);
-
 	}
 
+	public void setGameBoardCardsList(ArrayList<Card> gameBoardCards) {
+		this.gameBoardCards = gameBoardCards;
+	}
 	/**
 	 * this method add a card to the gameboard
 	 * gameboardcards is for controller to know what card that are played to game board
@@ -75,20 +77,36 @@ public class Controller {
 	 * @param card takes in a card
 	 * @return boolean returns a boolean if the card is playable or not
 	 */
+
 	public boolean checkIfCardIsPlayable(Card card, int clientID){
-		if (clientID==1) {
-			return rules.correct(card, player1, gameBoardCards);
+		this.clientID = clientID;
+		if (this.clientID==1) {
+			return rules.correct(card, player1);
 		}
-		else if (clientID==2) {
-			return rules.correct(card, player2, gameBoardCards);
+		else if (this.clientID==2) {
+			return rules.correct(card, player2);
 		}
-		else if (clientID==3) {
-			return rules.correct(card, player3, gameBoardCards);
+		else if (this.clientID==3) {
+			return rules.correct(card, player3);
 		}
-		else if (clientID==4) {
-			return rules.correct(card, player4, gameBoardCards);
+		else if (this.clientID==4) {
+			return rules.correct(card, player4);
 		}
 		return false;
+
+	}
+
+	public Player getPlayer(int clientID) {
+		this.clientID = clientID;
+		if (this.clientID==1)
+			return player1;
+		else if (this.clientID==2)
+			return player2;
+		else if (this.clientID==3)
+			return player3;
+		else if (this.clientID==4)
+			return player4;
+		return null;
 	}
 
 	public boolean checkIfPassIsPossible() {
