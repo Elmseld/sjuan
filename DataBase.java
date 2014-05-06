@@ -11,9 +11,9 @@ public class DataBase {
 		ResultSetMetaData meta = resultSet.getMetaData();
 		//String sql = "";
 
-		int colCount = meta.getColumnCount();
+		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatmängden
 		for(int i=1; i<=colCount; i++)
-			sql += meta.getColumnLabel(i) + ", ";
+			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet på kolumnen med angivet index
 
 		sql += "\n";
 
