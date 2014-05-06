@@ -24,7 +24,7 @@ public class Rules  {
 			
 		}
 		// if någon annan sjua och hjärter7 utlagd
-		else if(card.getValue() == 6 && controller.getGameBoardCards().equals("h7")) {
+		else if(card.getValue() == 6 && controller.getGameBoardCards().contains(card.getType() == 0 && card.getType() == 6)) {
 			moveCardToBoard(card);
 			return true;
 		}
