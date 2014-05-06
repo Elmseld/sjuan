@@ -19,7 +19,7 @@ public class Card implements Serializable {
 	 * @param type
 	 * @param value
 	 */
-	Card(int type, int value) {
+	public Card(int type, int value) {
 		this.type=type;
 		this.value=value;
 	}
