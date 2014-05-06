@@ -58,12 +58,9 @@ public class Request implements Serializable {
 	public Card getCard() {
 		return card;
 	}
-<<<<<<< HEAD
 	
 	public int getClientID() {
 		return clientID;
 	}
 }
-=======
-	}
->>>>>>> FETCH_HEAD
+

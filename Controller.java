@@ -18,11 +18,7 @@ public class Controller {
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = null;
 	private int clientID;
-<<<<<<< HEAD
 	private Rules rules = new Rules(this);
-
-=======
->>>>>>> FETCH_HEAD
 	private Server server;
 	private DataBase databas = new DataBase();
 
@@ -55,7 +51,7 @@ public class Controller {
 
 		}
 	}
-	
+
 	/**
 	 * this method add a card to the gameboard
 	 * @param card takes in a card from a player to be set to the gameboard
@@ -99,7 +95,7 @@ public class Controller {
 		return true;
 
 	}
-	
+
 	/**
 	 * this method returns a String from the database containing its context
 	 * @return

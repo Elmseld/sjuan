@@ -9,13 +9,9 @@ import java.util.ArrayList;
  *
  */
 public class Response implements Serializable {
-<<<<<<< HEAD
-	private static final long serialVersionUID = 1L;
-	private String request;
-=======
+
 	private static final long serialVersionUID = 1L;
 	private String request, sql;
->>>>>>> FETCH_HEAD
 	private ArrayList <Card> cards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
@@ -29,13 +25,6 @@ public class Response implements Serializable {
 		this.request = request;
 	}
 
-<<<<<<< HEAD
-	public Response(String request, String str) {
-		this.request = request;
-	}
-=======
-
->>>>>>> FETCH_HEAD
 	/**
 	 * constructs a response containing a string and a card-Object
 	 * @param request takes in a string-Object

@@ -30,10 +30,6 @@ public class Server {
 			this.player2 = player2;
 			this.player3 = player3;
 			this.player4 = player4;
-<<<<<<< HEAD
-=======
-
->>>>>>> FETCH_HEAD
 
 			new ConnectToServer(this,port);
 		}
