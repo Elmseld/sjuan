@@ -15,7 +15,6 @@ public class Response implements Serializable {
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
-
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object

@@ -77,7 +77,6 @@ public class Controller {
 	 */
 
 	public boolean checkIfCardIsPlayable(Card card, int clientID){
-
 		this.clientID = clientID;
 		if (this.clientID==1) {
 			return rules.correct(card, player1);

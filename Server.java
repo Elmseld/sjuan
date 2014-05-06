@@ -91,7 +91,6 @@ public class Server {
 		}
 
 		else if (request.getRequest().equals("playCard")) {
-//			this.clientID = request.getClientID();
 			if (controller.checkIfCardIsPlayable(request.getCard(), request.getClientID())){
 				connection.newResponse(new Response("playCard", request.getCard(), 
 						controller.getPlayer(request.getClientID()).getPlayerCards()));
