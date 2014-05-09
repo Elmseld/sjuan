@@ -1,5 +1,7 @@
 package sjuan;
 
+import java.util.ArrayList;
+
 /**
  * This class handles the Server
 /**
@@ -9,7 +11,6 @@ package sjuan;
  */
 public class Server {
 	private Player player1, player2, player3, player4;
-	
 	private int clientID;
 	private Controller controller;
 
@@ -90,14 +91,22 @@ public class Server {
 			}
 		}
 
+		else if(request.getRequest().equals("end")){
+			connection.newResponse(new Response("end", controller.getDataBas()));
+		}
+
 		else if (request.getRequest().equals("playCard")) {
-//			this.clientID = request.getClientID();
+			//			ArrayList<Card> cards = controller.getPlayer(request.getClientID()).getPlayerCards();
+			//			cards.remove(0);
+			//			connection.newResponse(new Response("playCard", request.getCard(), 
+			//					cards));
 			if (controller.checkIfCardIsPlayable(request.getCard(), request.getClientID())){
 				connection.newResponse(new Response("playCard", request.getCard(), 
 						controller.getPlayer(request.getClientID()).getPlayerCards()));
 			}
 			else {
 				connection.newResponse(new Response("dontPlayCard"));
+				//			}
 			}
 		}
 	}

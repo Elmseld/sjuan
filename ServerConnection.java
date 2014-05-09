@@ -27,12 +27,14 @@ public class ServerConnection {
 	}
 	/**
 	 * this method gets a response from a client
-	 * @param response takes in a response from a client
+	 * @param response takes in a response from server
 	 */
 	public void newResponse(Response response) {
 		try {
 			output.writeObject(response);
 			output.flush();
+			output.reset();
+
 		}catch (IOException e) {
 			System.out.println(e);
 		}

@@ -1,5 +1,7 @@
 package sjuan;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -9,16 +11,16 @@ import java.util.ArrayList;
  */
 public class Controller {
 
-	private Player player1 = new Player();
-	private Player player2 = new Player();
-	private Player player3 = new Player();
-	private Player player4 = new Player();
+	private Player player1 = new Player(1);
+	private Player player2 = new Player(2);
+	private Player player3 = new Player(3);
+	private Player player4 = new Player(4);
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
 	private Rules rules = new Rules(this);
-
 	private Server server;
+	private DataBase databas = new DataBase();
 
 
 	/**
@@ -77,7 +79,6 @@ public class Controller {
 	 */
 
 	public boolean checkIfCardIsPlayable(Card card, int clientID){
-
 		this.clientID = clientID;
 		if (this.clientID==1) {
 			return rules.correct(card, player1, gameBoardCards);
@@ -111,5 +112,24 @@ public class Controller {
 	public boolean checkIfPassIsPossible() {
 		return true;
 
+	}
+
+	/**
+	 * this method returns a String from the database containing its context
+	 * @return
+	 */
+	public String getDataBas (){
+		String str = "";
+		try {
+			databas.connect();
+			ResultSet result = databas.statement.executeQuery("SELECT * FROM ab4607.statistics");
+			str = databas.showResultSet(result);
+
+			databas.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return str; 
 	}
 }

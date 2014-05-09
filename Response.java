@@ -9,12 +9,12 @@ import java.util.ArrayList;
  *
  */
 public class Response implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private String request;
+	private String request, sql;
 	private ArrayList <Card> cards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
-
 
 	/**
 	 * constructs a response containing a string
@@ -24,9 +24,6 @@ public class Response implements Serializable {
 		this.request = request;
 	}
 
-	public Response(String request, String str) {
-		this.request = request;
-	}
 	/**
 	 * constructs a response containing a string and a card-Object
 	 * @param request takes in a string-Object
@@ -36,12 +33,18 @@ public class Response implements Serializable {
 		this.request = request;
 		this.card = card;
 	}
+	
+	public Response (String request, String sql) {
+		this.request = request;
+		this.sql = sql;
+	}
+	
 
 	public Response (String request, Card card, ArrayList<Card> cards) {
 		this.request = request;
 		this.card = card;
 		this.cards = cards;
-	
+		cards.trimToSize();
 	}
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
@@ -66,6 +69,11 @@ public class Response implements Serializable {
 	 */
 	public String getRequest() {
 		return request;
+
+	}
+	
+	public String getSql(){
+		return sql;
 	}
 
 	/**
