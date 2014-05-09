@@ -63,12 +63,6 @@ public class DataBase {
 		try {
 			connect();
 
-			ResultSet resultId = statement.executeQuery("SELECT id FROM ab4607.statistics"); // St�lla en fr�ga som ger en resultatm�ngd
-			showResultSet(resultId);
-
-			ResultSet resultNamn = statement.executeQuery("SELECT namn FROM ab4607.statistics"); // Ställa en fråga som ger en resultatm�ngd
-			showResultSet(resultNamn);
-
 			disconnect();
 		} catch(SQLException e) {
 			System.out.println(e);
