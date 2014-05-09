@@ -10,7 +10,7 @@ import java.sql.Statement;
  */
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String request;
+	private String request, cardName;
 	private String sql;
 	private Card card;
 	private int clientID;
@@ -35,9 +35,9 @@ public class Request implements Serializable {
 		this.card = card;
 	}
 	
-	public Request(String request, Card card, int clientID) {
+	public Request(String request, String cardName, int clientID) {
 		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 		this.clientID = clientID;
 	}
 	
@@ -61,6 +61,10 @@ public class Request implements Serializable {
 	
 	public int getClientID() {
 		return clientID;
+	}
+	
+	public String getCardName() {
+		return cardName;
 	}
 }
 

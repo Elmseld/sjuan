@@ -11,10 +11,11 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql;
-	private ArrayList <Card> cards;
-	private int opponentCards1, opponentCards2, opponentCards3, clientID;
+	private String request, sql, cardName;
+	private int clientID;
+	private Player player1, player2, player3, player4;
 	private Card card;
+	private ArrayList<Card> gameBoardCards;
 
 	/**
 	 * constructs a response containing a string
@@ -33,19 +34,19 @@ public class Response implements Serializable {
 		this.request = request;
 		this.card = card;
 	}
-	
+
 	public Response (String request, String sql) {
 		this.request = request;
 		this.sql = sql;
 	}
-	
 
-	public Response (String request, Card card, ArrayList<Card> cards) {
+
+	public Response (String request, String cardName, Player player1) {
 		this.request = request;
-		this.card = card;
-		this.cards = cards;
-		cards.trimToSize();
+		this.cardName = cardName;
+		this.player1 = player1;
 	}
+
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
 	 * @param playerCardList takes in a cards of a player
@@ -53,16 +54,29 @@ public class Response implements Serializable {
 	 * @param playerCardSize2 takes in a player cards size
 	 * @param playerCardSize3 takes in a player cards size
 	 */
-	public Response(ArrayList<Card> playerCardList, int playerCardSize,
-			int playerCardSize2, int playerCardSize3, String request, int clientID ) {
-		this.cards = playerCardList;
-		this.opponentCards1 = playerCardSize;
-		this.opponentCards2 = playerCardSize2;
-		this.opponentCards3 = playerCardSize3;
+	public Response(String request, int clientID, Player player1,
+			Player player2, Player player3, Player player4 ) {
 		this.request = request;
-		this.clientID = clientID;		
+		this.clientID = clientID;
+		this.player1 = player1;
+		this.player2 = player2;
+		this.player3 = player3;
+		this.player4 = player4;		
 
 	}
+	public Response(String request, String cardName, int clientID, Player player1,
+			Player player2, Player player3, Player player4, ArrayList<Card> gameBoardCards) {
+		this.request = request;
+		this.cardName = cardName;
+		this.clientID = clientID;
+		this.player1 = player1;
+		this.player2 = player2;
+		this.player3 = player3;
+		this.player4 = player4;
+		this.gameBoardCards = gameBoardCards;
+
+	}
+
 	/**
 	 * this method returns a request
 	 * @return request returns a request
@@ -71,7 +85,7 @@ public class Response implements Serializable {
 		return request;
 
 	}
-	
+
 	public String getSql(){
 		return sql;
 	}
@@ -80,41 +94,41 @@ public class Response implements Serializable {
 	 * this method returns cards
 	 * @return cards returns a list of strings
 	 */
-	public ArrayList <Card> getCards() {
-		return cards;
+	//	public ArrayList <Card> getCards() {
+	//		return cards;
+	//
+	//	}
 
-	}
-	
 	/**
 	 * this method returns cards size of a player
 	 * @return card.length returns size of a players hand
 	 */
-	public int getCardSize(){
-		return cards.size();
+	public Player getPlayer1() {
+		return player1;
 	}
 
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
 	 */
-	public int getOpponentCards1() {
-		return opponentCards1;
+	public Player getPlayer2() {
+		return player2;
 	}
 
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
 	 */
-	public int getOpponentCards2() {
-		return opponentCards2;
+	public Player getPlayer3() {
+		return player3;
 	}
 
 	/**
 	 * this method returns cards size of a opponent player
 	 * @return opponentCards1 returns a int of a opponent card size
 	 */
-	public int getOpponentCards3() {
-		return opponentCards3;
+	public Player getPlayer4() {
+		return player4;
 	}
 
 	/**
@@ -131,5 +145,13 @@ public class Response implements Serializable {
 	 */
 	public Card getCard(){
 		return card;
+	}
+
+	public String getCardName() {
+		return cardName;
+
+	}
+	public ArrayList<Card> getGameBoardCards() {
+		return gameBoardCards;
 	}
 }

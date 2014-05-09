@@ -66,7 +66,7 @@ public class DataBase {
 			ResultSet resultId = statement.executeQuery("SELECT id FROM ab4607.statistics"); // St�lla en fr�ga som ger en resultatm�ngd
 			showResultSet(resultId);
 
-			ResultSet resultNamn = statement.executeQuery("SELECT namn FROM ab4607.statistics"); // St�lla en fr�ga som ger en resultatm�ngd
+			ResultSet resultNamn = statement.executeQuery("SELECT namn FROM ab4607.statistics"); // Ställa en fråga som ger en resultatm�ngd
 			showResultSet(resultNamn);
 
 			disconnect();
