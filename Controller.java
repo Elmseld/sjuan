@@ -80,16 +80,16 @@ public class Controller {
 
 		this.clientID = clientID;
 		if (this.clientID==1) {
-			return rules.correct(card, player1);
+			return rules.correct(card, player1, gameBoardCards);
 		}
 		else if (this.clientID==2) {
-			return rules.correct(card, player2);
+			return rules.correct(card, player2, gameBoardCards);
 		}
 		else if (this.clientID==3) {
-			return rules.correct(card, player3);
+			return rules.correct(card, player3, gameBoardCards);
 		}
 		else if (this.clientID==4) {
-			return rules.correct(card, player4);
+			return rules.correct(card, player4, gameBoardCards);
 		}
 		return false;
 

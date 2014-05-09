@@ -11,7 +11,7 @@ public class Rules  {
 		this.controller = controller;
 	}
 
-	public boolean correct(Card card, Player player) {
+	public boolean correct(Card card, Player player, ArrayList<Card> gameBoardCards) {
 		this.player = player;
 
 
@@ -21,28 +21,16 @@ public class Rules  {
 				moveCardToBoard(card);
 				return true;
 			}
-			
-		}
-		// if någon annan sjua och hjärter7 utlagd
-		else if(card.getValue() == 6 && controller.getGameBoardCards().contains(card.getType() == 0 && card.getType() == 6)) {
-			moveCardToBoard(card);
-			return true;
-		}
-		
-		else if(card.getType() == 0) {
-			if(card.getValue() == 5 || card.getValue() == 7 && controller.getGameBoardCards().equals("h7")) {
-				moveCardToBoard(card);
-				return true;
-			}
-			else if(card.getValue() <5 && controller.getGameBoardCards().equals(card.getValue()+1)) {
-				moveCardToBoard(card);
-				return true;	
-			}
-			else if(card.getValue() >7 && controller.getGameBoardCards().equals(card.getValue()-1)) {
+			else if(controller.getGameBoardCards().equals(card.getValue() +1) || controller.getGameBoardCards().equals(card.getValue() -1)) {
 				moveCardToBoard(card);
 				return true;
 			}
 			return false;
+		}
+		// if någon annan sjua och hjärter7 utlagd
+		else if((card.getValue() == 6) && (gameBoardCards.listIterator().equals(card.toString() == "h7" ))) {
+			moveCardToBoard(card);
+			return true;
 		}
 		
 		else if(card.getType() == 1) {
