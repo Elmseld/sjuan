@@ -31,9 +31,8 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		server = new Server(7766, player1 = new Player(1), player2 = new Player(2), 
-				player3 = new Player(3), player4 = new Player(4), this);
-
+		server = new Server(7766, player1 = new Player(), player2 = new Player(), 
+				player3 = new Player(), player4 = new Player(), this);
 	}
 	/**
 	 * This method deals the deck to all players
@@ -57,10 +56,14 @@ public class Controller {
 	 * @param card takes in a card from a player to be set to the gameboard
 	 */
 	public void moveGameBoardCards(Card card) {
-//		player1.getPlayerCards().remove(card);
+		//		player1.getPlayerCards().remove(card);
 		gameBoardCards.add(card);
 	}
 
+	/**
+	 * this method sets the gameboards cards that are played
+	 * @param gameBoardCards takes in the cards that are out at game board
+	 */
 	public void setGameBoardCardsList(ArrayList<Card> gameBoardCards) {
 		this.gameBoardCards = gameBoardCards;
 	}
@@ -97,6 +100,11 @@ public class Controller {
 
 	}
 
+	/**
+	 * this method returns a player by taking in a clientID	
+	 * @param clientID takes in a clientID
+	 * @return player returns a player
+	 */
 	public Player getPlayer(int clientID) {
 		this.clientID = clientID;
 		if (this.clientID==player1.getClientID())
@@ -110,6 +118,10 @@ public class Controller {
 		return null;
 	}
 
+	/**
+	 * this method checks if there are cards are able to play
+	 * @return true if there are no cards to play, false if there is cards to play
+	 */
 	public boolean checkIfPassIsPossible() {
 		return true;
 
@@ -117,7 +129,7 @@ public class Controller {
 
 	/**
 	 * this method returns a String from the database containing its context
-	 * @return
+	 * @return str returns a string
 	 */
 	public String getDataBas (){
 		String str = "";
@@ -131,5 +143,45 @@ public class Controller {
 			e.printStackTrace();
 		}
 		return str; 
+	}
+
+	/**
+	 * this method finds out the player that have the starting card (h7) 
+	 * and sets the client id for the player
+	 */
+	public void whoHaveHeartSeven () {
+		for (Card card : player1.getPlayerCards())
+			if (card.toString().equals("h7")) {
+				player1.setClientID(1);	
+				player2.setClientID(2);
+				player3.setClientID(3);
+				player4.setClientID(4);
+				break;
+			}
+		for (Card card : player2.getPlayerCards())
+			if (card.toString().equals("h7")) {
+				player2.setClientID(1);	
+				player3.setClientID(2);
+				player4.setClientID(3);
+				player1.setClientID(4);	
+				break;
+			}
+		for (Card card : player3.getPlayerCards())
+			if (card.toString().equals("h7")) {
+				player3.setClientID(1);	
+				player4.setClientID(2);
+				player1.setClientID(3);
+				player2.setClientID(4);	
+				break;
+			}
+		for (Card card : player4.getPlayerCards())
+			if (card.toString().equals("h7")) {
+				player4.setClientID(1);	
+				player1.setClientID(2);
+				player2.setClientID(3);
+				player3.setClientID(4);	
+				break;
+			}
+
 	}
 }
