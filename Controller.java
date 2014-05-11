@@ -122,9 +122,9 @@ public class Controller {
 		String str = "";
 		try {
 			databas.connect();
-			ResultSet result = databas.statement.executeQuery("SELECT * FROM ab4607.statistics");
+			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
 			str = databas.showResultSet(result);
-
+			
 			databas.disconnect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
