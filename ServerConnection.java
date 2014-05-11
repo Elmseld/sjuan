@@ -36,6 +36,7 @@ public class ServerConnection {
 			output.flush();
 
 		}catch (IOException e) {
+			e.getStackTrace();
 			System.out.println(e);
 		}
 	}
@@ -52,6 +53,7 @@ public class ServerConnection {
 					server.newRequest(ServerConnection.this, request);
 				}
 			} catch (Exception e1) {
+				e1.getStackTrace();
 				System.out.println(e1);
 			}
 		}
