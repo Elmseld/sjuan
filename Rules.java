@@ -11,7 +11,7 @@ public class Rules  {
 		this.controller = controller;
 	}
 
-	public boolean correct(Card card, Player player, ArrayList<Card> gameBoardCards) {
+	public boolean correct(Card card, Player player) {
 		this.player = player;
 
 
@@ -84,9 +84,8 @@ public class Rules  {
 //		
 		return false;
 		
-
 	}
-	
+
 	public void moveCardToBoard(Card card) {
 		int i = 0;
 		ArrayList<Card> playerCards = player.getPlayerCards();
@@ -94,7 +93,7 @@ public class Rules  {
 		for (Card a : playerCards) {
 			if (a.toString().equals(card.toString())) {
 				playerCards.remove(i);
-				controller.setGameBoardCards(card);
+				controller.moveGameBoardCards(card);
 				player.setPlayerCards(playerCards);
 				break;
 			}

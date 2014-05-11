@@ -1,5 +1,6 @@
 package sjuan;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,11 @@ import java.util.Comparator;
  * @author Tobbe
  *
  */
-public class Player {
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
 	private int clientID;
@@ -29,9 +34,9 @@ public class Player {
 	 */
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
-	
+
 	}
-	
+
 	public void setPlayerCards(ArrayList<Card> playerCards) {
 		this.playerCards = playerCards;
 	}
@@ -70,13 +75,21 @@ public class Player {
 	public int getPlayerCardSize() {
 		return playerCards.size();
 	}
-	
+
 	public int getClientID() {
 		return clientID;
 	}
 
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
+	}
+	public Card getCardByName(String cardName) {
+		for (Card card : playerCards) {
+			if (card.toString().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
 	}
 }
 

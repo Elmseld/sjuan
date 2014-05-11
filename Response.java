@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql;
-	private ArrayList <Card> cards;
+	private String request, sql, cardName;
+	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
@@ -33,19 +33,22 @@ public class Response implements Serializable {
 		this.request = request;
 		this.card = card;
 	}
-	
+
 	public Response (String request, String sql) {
 		this.request = request;
 		this.sql = sql;
 	}
-	
 
-	public Response (String request, Card card, ArrayList<Card> cards) {
+	public Response (String request, String cardName, ArrayList<Card> cards,
+			ArrayList<Card> gameBoardCards) {
 		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 		this.cards = cards;
+		this.gameBoardCards = gameBoardCards;
 		cards.trimToSize();
+		gameBoardCards.trimToSize();
 	}
+
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
 	 * @param playerCardList takes in a cards of a player
@@ -53,16 +56,17 @@ public class Response implements Serializable {
 	 * @param playerCardSize2 takes in a player cards size
 	 * @param playerCardSize3 takes in a player cards size
 	 */
-	public Response(ArrayList<Card> playerCardList, int playerCardSize,
-			int playerCardSize2, int playerCardSize3, String request, int clientID ) {
-		this.cards = playerCardList;
-		this.opponentCards1 = playerCardSize;
-		this.opponentCards2 = playerCardSize2;
-		this.opponentCards3 = playerCardSize3;
+	public Response(String request, int clientID, Player player1,
+			Player player2, Player player3, Player player4 ) {
 		this.request = request;
-		this.clientID = clientID;		
+		this.clientID = clientID;
+		this.cards = player1.getPlayerCards();
+		this.opponentCards1 = player2.getPlayerCardSize();
+		this.opponentCards2 = player3.getPlayerCardSize();
+		this.opponentCards3 = player4.getPlayerCardSize();
 
 	}
+
 	/**
 	 * this method returns a request
 	 * @return request returns a request
@@ -71,48 +75,19 @@ public class Response implements Serializable {
 		return request;
 
 	}
-	
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
+
 	public String getSql(){
 		return sql;
 	}
-
-	/**
-	 * this method returns cards
-	 * @return cards returns a list of strings
-	 */
-	public ArrayList <Card> getCards() {
-		return cards;
-
-	}
-	
-	/**
-	 * this method returns cards size of a player
-	 * @return card.length returns size of a players hand
-	 */
-	public int getCardSize(){
-		return cards.size();
-	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
 	public int getOpponentCards1() {
 		return opponentCards1;
 	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
 	public int getOpponentCards2() {
 		return opponentCards2;
 	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
 	public int getOpponentCards3() {
 		return opponentCards3;
 	}
@@ -131,5 +106,12 @@ public class Response implements Serializable {
 	 */
 	public Card getCard(){
 		return card;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+	public ArrayList<Card> getGameBoardCards () {
+		return gameBoardCards;
 	}
 }

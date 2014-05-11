@@ -10,11 +10,10 @@ import java.sql.Statement;
  */
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String request;
+	private String request, cardName;
 	private String sql;
-	private Card card;
+//	private Card card;
 	private int clientID;
-
 
 	/**
 	 * constructs a request
@@ -24,20 +23,19 @@ public class Request implements Serializable {
 		this.request = request;
 	}
 
-
 	/**
 	 * constructs a request
 	 * @param request takes in a request
 	 * @param card takes in a card
 	 */
-	public Request(String request, Card card) {
+	public Request(String request, String cardName) {
 		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 	}
 	
-	public Request(String request, Card card, int clientID) {
+	public Request(String request, String cardName, int clientID) {
 		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 		this.clientID = clientID;
 	}
 	
@@ -49,18 +47,20 @@ public class Request implements Serializable {
 		return request;
 	}
 	
-
-
 	/**
 	 * this method returns a card
 	 * @return card returns a requested card
 	 */
-	public Card getCard() {
-		return card;
-	}
+//	public Card getCard() {
+//		return card;
+//	}
 	
 	public int getClientID() {
 		return clientID;
+	}
+	
+	public String getCardName() {
+		return cardName;
 	}
 }
 
