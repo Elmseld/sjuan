@@ -1,5 +1,6 @@
 package sjuan;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,11 @@ import java.util.Comparator;
  * @author Tobbe
  *
  */
-public class Player {
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
 	private int clientID;

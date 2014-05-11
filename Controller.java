@@ -10,7 +10,6 @@ import java.util.ArrayList;
  *
  */
 public class Controller {
-
 	private Player player1;
 	private Player player2;
 	private Player player3;
@@ -40,7 +39,7 @@ public class Controller {
 	 * This method deals the deck to all players
 	 */
 
-	public void Deal() { 
+	public void Deal(Player player1, Player player2, Player player3, Player player4) { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)

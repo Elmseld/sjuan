@@ -1,9 +1,5 @@
 package sjuan;
 
-import java.util.ArrayList;
-
-/**
- * This class handles the Server
 /**
  * This class handles the server communication with clients
  * @author Tobbe
@@ -26,7 +22,7 @@ public class Server {
 	public Server(int port, Player player1, Player player2, Player player3, Player player4, Controller control) {
 		try {
 			this.controller = control;
-			controller.Deal();
+			controller.Deal(player1, player2, player3, player4);
 			this.player1 = player1;
 			this.player2 = player2;
 			this.player3 = player3;
@@ -59,28 +55,19 @@ public class Server {
 		if (request.getRequest().equals("new")) {
 
 			if (clientID==1)
-				connection.newResponse(new Response(player1.getPlayerCards(),
-						player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(),
-						player4.getPlayerCardSize(), "new", clientID));
+				connection.newResponse(new Response("new", clientID, player1,player2,
+						player3, player4));
 			else if (clientID==2)
-				connection.newResponse(new Response(player2.getPlayerCards(),
-						player3.getPlayerCardSize(),
-						player4.getPlayerCardSize(),
-						player1.getPlayerCardSize(), "new", clientID));
+				connection.newResponse(new Response("new", clientID, player2, player3,
+						player4, player1));
 			else if (clientID==3)
-				connection.newResponse(new Response(player3.getPlayerCards(),
-						player4.getPlayerCardSize(),
-						player1.getPlayerCardSize(),
-						player2.getPlayerCardSize(), "new", clientID));
+				connection.newResponse(new Response("new", clientID, player3, player4,
+						player1, player2));
 			else if (clientID==4)
-				connection.newResponse(new Response(player4.getPlayerCards(),
-						player1.getPlayerCardSize(),
-						player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(), "new", clientID));
+				connection.newResponse(new Response("new", clientID, player4, player1,
+						player2, player3));
 			else 
 				System.out.println("clientID stämmer inte");
-
 		}
 
 		else if(request.getRequest().equals("pass")) {
@@ -99,11 +86,11 @@ public class Server {
 		else if (request.getRequest().equals("playCard")) {
 			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID())){
 				connection.newResponse(new Response("playCard", request.getCardName(), 
-						controller.getPlayer(request.getClientID()).getPlayerCards(), controller.getGameBoardCards()));
+						controller.getPlayer(request.getClientID()).getPlayerCards(), 
+						controller.getGameBoardCards()));
 			}
 			else {
 				connection.newResponse(new Response("dontPlayCard"));
-				//			}
 			}
 		}
 	}
