@@ -23,9 +23,8 @@ public class Player implements Serializable{
 	/**
 	 * the constructor creates a player
 	 */
-	public Player(int clientID) {
+	public Player() {
 		playerCards = new ArrayList<Card>();
-		setClientID(clientID);
 	}
 
 	/**
@@ -36,7 +35,11 @@ public class Player implements Serializable{
 		playerCards.add(card);
 
 	}
-
+	
+	/**
+	 * this method sets a players hand of cards
+	 * @param playerCards takes in a hand of cards
+	 */
 	public void setPlayerCards(ArrayList<Card> playerCards) {
 		this.playerCards = playerCards;
 	}
@@ -76,13 +79,27 @@ public class Player implements Serializable{
 		return playerCards.size();
 	}
 
+	/**
+	 * this method returns the clientID of a player
+	 * @return clientID returns a clientID of a player
+	 */
 	public int getClientID() {
 		return clientID;
 	}
 
+	/**
+	 * this method sets the ClientID
+	 * @param clientID takes in an int as clientID
+	 */
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
 	}
+
+	/**
+	 * this method returns a card from a players hand using a String name of the card
+	 * @param cardName takes in a name of a card as a String
+	 * @return a card the matches the cardName
+	 */
 	public Card getCardByName(String cardName) {
 		for (Card card : playerCards) {
 			if (card.toString().equals(cardName)) {
