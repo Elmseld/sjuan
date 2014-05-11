@@ -39,6 +39,14 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
+	/**
+	 * constructs a response containing a request, cardName, list of a players cards
+	 * and a list of game board cards 
+	 * @param request
+	 * @param cardName
+	 * @param cards
+	 * @param gameBoardCards
+	 */
 	public Response (String request, String cardName, ArrayList<Card> cards,
 			ArrayList<Card> gameBoardCards) {
 		this.request = request;
@@ -73,8 +81,12 @@ public class Response implements Serializable {
 	 */
 	public String getRequest() {
 		return request;
-
 	}
+
+	/**
+	 * this method returns a players cards
+	 * @return cards returns a players cards
+	 */
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
@@ -82,12 +94,27 @@ public class Response implements Serializable {
 	public String getSql(){
 		return sql;
 	}
+
+	/**
+	 * this method returns how many cards the one of the oppenent have
+	 * @return opponentCards1 return an int of opponents cards size
+	 */
 	public int getOpponentCards1() {
 		return opponentCards1;
 	}
+
+	/**
+	 * this method returns how many cards the one of the oppenent have
+	 * @return opponentCards2 return an int of opponents cards size
+	 */
 	public int getOpponentCards2() {
 		return opponentCards2;
 	}
+
+	/**
+	 * this method returns how many cards the one of the oppenent have
+	 * @return opponentCards3 return an int of opponents cards size
+	 */
 	public int getOpponentCards3() {
 		return opponentCards3;
 	}
@@ -108,9 +135,18 @@ public class Response implements Serializable {
 		return card;
 	}
 
+	/**
+	 * this method returns a String of a card name
+	 * @return cardName returns a name of a card
+	 */
 	public String getCardName() {
 		return cardName;
 	}
+
+	/**
+	 * this methos returns the cards that is played at game board
+	 * @return gameBoardCards return the cards that been played
+	 */
 	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
 	}
