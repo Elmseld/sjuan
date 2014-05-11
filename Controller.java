@@ -10,11 +10,10 @@ import java.util.ArrayList;
  *
  */
 public class Controller {
-
-//	private Player player1 = new Player(1);
-//	private Player player2 = new Player(2);
-//	private Player player3 = new Player(3);
-//	private Player player4 = new Player(4);
+	private Player player1;
+	private Player player2;
+	private Player player3;
+	private Player player4;
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
@@ -32,7 +31,8 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		server = new Server(7766, new Player(1), new Player(2), new Player(3), new Player(4), this);
+		server = new Server(7766, player1 = new Player(1), player2 = new Player(2), 
+				player3 = new Player(3), player4 = new Player(4), this);
 
 	}
 	/**
@@ -56,7 +56,8 @@ public class Controller {
 	 * this method add a card to the gameboard
 	 * @param card takes in a card from a player to be set to the gameboard
 	 */
-	public void setGameBoardCards(Card card) {
+	public void moveGameBoardCards(Card card) {
+//		player1.getPlayerCards().remove(card);
 		gameBoardCards.add(card);
 	}
 
@@ -78,37 +79,36 @@ public class Controller {
 	 * @return boolean returns a boolean if the card is playable or not
 	 */
 
-	public boolean checkIfCardIsPlayable(String cardName, int clientID, Player player1, Player player2,
-			Player player3, Player player4) {
+	public boolean checkIfCardIsPlayable(String cardName, int clientID){
 		this.clientID = clientID;
-		if (player1.getClientID()==this.clientID) {
-			return rules.correct(cardName, player1);
+		if (this.clientID==player1.getClientID()) {
+			return rules.correct(player1.getCardByName(cardName), player1);
 		}
-		else if (player2.getClientID()==this.clientID) {
-			return rules.correct(cardName, player2);
+		else if (this.clientID==player2.getClientID()) {
+			return rules.correct(player2.getCardByName(cardName), player2);
 		}
-		else if (player3.getClientID()==this.clientID) {
-			return rules.correct(cardName, player3);
+		else if (this.clientID==player3.getClientID()) {
+			return rules.correct(player3.getCardByName(cardName), player3);
 		}
-		else if (player4.getClientID()==this.clientID) {
-			return rules.correct(cardName, player4);
+		else if (this.clientID==player4.getClientID()) {
+			return rules.correct(player4.getCardByName(cardName), player4);
 		}
 		return false;
 
 	}
 
-//	public Player getPlayer(int clientID) {
-//		this.clientID = clientID;
-//		if (this.clientID==1)
-//			return player1;
-//		else if (this.clientID==2)
-//			return player2;
-//		else if (this.clientID==3)
-//			return player3;
-//		else if (this.clientID==4)
-//			return player4;
-//		return null;
-//	}
+	public Player getPlayer(int clientID) {
+		this.clientID = clientID;
+		if (this.clientID==player1.getClientID())
+			return player1;
+		else if (this.clientID==player2.getClientID())
+			return player2;
+		else if (this.clientID==player3.getClientID())
+			return player3;
+		else if (this.clientID==player4.getClientID())
+			return player4;
+		return null;
+	}
 
 	public boolean checkIfPassIsPossible() {
 		return true;
@@ -128,7 +128,6 @@ public class Controller {
 
 			databas.disconnect();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return str; 

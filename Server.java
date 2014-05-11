@@ -32,6 +32,7 @@ public class Server {
 		}
 		catch (Exception e) { // IOException, ClassNotFoundException
 			System.out.println(e);
+			e.getStackTrace();
 		}
 	}
 
@@ -83,10 +84,10 @@ public class Server {
 		}
 
 		else if (request.getRequest().equals("playCard")) {
-			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(), 
-					player1, player2, player3, player4)) {
+			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID())){
 				connection.newResponse(new Response("playCard", request.getCardName(), 
-						request.getClientID(), player1, player2, player3, player4, controller.getGameBoardCards()));
+						controller.getPlayer(request.getClientID()).getPlayerCards(), 
+						controller.getGameBoardCards()));
 			}
 			else {
 				connection.newResponse(new Response("dontPlayCard"));

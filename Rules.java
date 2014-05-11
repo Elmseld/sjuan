@@ -11,14 +11,14 @@ public class Rules  {
 		this.controller = controller;
 	}
 
-	public boolean correct(String cardName, Player player) {
+	public boolean correct(Card card, Player player) {
 		this.player = player;
 
 
 		//		// if hjärter7
 		//		if(card.getType()== 0) {
 		//			if(card.getValue() == 6) {
-		moveCardToBoard(cardName);
+		moveCardToBoard(card);
 		return true;
 		//			}
 		//			
@@ -97,16 +97,14 @@ public class Rules  {
 		//		
 	}
 
-	public void moveCardToBoard(String cardName) {
+	public void moveCardToBoard(Card card) {
 		int i = 0;
 		ArrayList<Card> playerCards = player.getPlayerCards();
 
 		for (Card a : playerCards) {
-			if (a.toString().equals(cardName)) {
-				Card card = a;
+			if (a.toString().equals(card.toString())) {
 				playerCards.remove(i);
-				playerCards.trimToSize();
-				controller.setGameBoardCards(card);
+				controller.moveGameBoardCards(card);
 				player.setPlayerCards(playerCards);
 				break;
 			}

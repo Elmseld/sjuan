@@ -83,5 +83,13 @@ public class Player implements Serializable{
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
 	}
+	public Card getCardByName(String cardName) {
+		for (Card card : playerCards) {
+			if (card.toString().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
+	}
 }
 

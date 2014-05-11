@@ -12,10 +12,9 @@ public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String request, sql, cardName;
-	private int clientID;
-	private Player player1, player2, player3, player4;
+	private ArrayList <Card> cards, gameBoardCards;
+	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
-	private ArrayList<Card> gameBoardCards;
 
 	/**
 	 * constructs a response containing a string
@@ -40,11 +39,14 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
-
-	public Response (String request, String cardName, Player player1) {
+	public Response (String request, String cardName, ArrayList<Card> cards,
+			ArrayList<Card> gameBoardCards) {
 		this.request = request;
 		this.cardName = cardName;
-		this.player1 = player1;
+		this.cards = cards;
+		this.gameBoardCards = gameBoardCards;
+		cards.trimToSize();
+		gameBoardCards.trimToSize();
 	}
 
 	/**
@@ -58,23 +60,11 @@ public class Response implements Serializable {
 			Player player2, Player player3, Player player4 ) {
 		this.request = request;
 		this.clientID = clientID;
-		this.player1 = player1;
-		this.player2 = player2;
-		this.player3 = player3;
-		this.player4 = player4;		
-
-	}
-	public Response(String request, String cardName, int clientID, Player player1,
-			Player player2, Player player3, Player player4, ArrayList<Card> gameBoardCards) {
-		this.request = request;
-		this.cardName = cardName;
-		this.clientID = clientID;
-		this.player1 = player1;
-		this.player2 = player2;
-		this.player3 = player3;
-		this.player4 = player4;
-		this.gameBoardCards = gameBoardCards;
-
+		this.cards = player1.getPlayerCards();
+		this.opponentCards1 = player2.getPlayerCardSize();
+		this.opponentCards2 = player3.getPlayerCardSize();
+		this.opponentCards3 = player4.getPlayerCardSize();
+		
 	}
 
 	/**
@@ -88,47 +78,6 @@ public class Response implements Serializable {
 
 	public String getSql(){
 		return sql;
-	}
-
-	/**
-	 * this method returns cards
-	 * @return cards returns a list of strings
-	 */
-	//	public ArrayList <Card> getCards() {
-	//		return cards;
-	//
-	//	}
-
-	/**
-	 * this method returns cards size of a player
-	 * @return card.length returns size of a players hand
-	 */
-	public Player getPlayer1() {
-		return player1;
-	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
-	public Player getPlayer2() {
-		return player2;
-	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
-	public Player getPlayer3() {
-		return player3;
-	}
-
-	/**
-	 * this method returns cards size of a opponent player
-	 * @return opponentCards1 returns a int of a opponent card size
-	 */
-	public Player getPlayer4() {
-		return player4;
 	}
 
 	/**
@@ -149,9 +98,8 @@ public class Response implements Serializable {
 
 	public String getCardName() {
 		return cardName;
-
 	}
-	public ArrayList<Card> getGameBoardCards() {
+	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
 	}
 }
