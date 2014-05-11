@@ -64,7 +64,7 @@ public class Response implements Serializable {
 		this.opponentCards1 = player2.getPlayerCardSize();
 		this.opponentCards2 = player3.getPlayerCardSize();
 		this.opponentCards3 = player4.getPlayerCardSize();
-		
+
 	}
 
 	/**
@@ -75,9 +75,21 @@ public class Response implements Serializable {
 		return request;
 
 	}
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
 
 	public String getSql(){
 		return sql;
+	}
+	public int getOpponentCards1() {
+		return opponentCards1;
+	}
+	public int getOpponentCards2() {
+		return opponentCards2;
+	}
+	public int getOpponentCards3() {
+		return opponentCards3;
 	}
 
 	/**
