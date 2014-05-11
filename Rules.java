@@ -15,19 +15,19 @@ public class Rules  {
 		this.player = player;
 
 
-//		// if hjärter7
-//		if(card.getType()== 0) {
-//			if(card.getValue() == 6) {
+		// if hjärter7
+		if(card.getType()== 0) {
+			if(card.getValue() == 6) {
 				moveCardToBoard(card);
 				return true;
 				
 			}
-//			else if(controller.getGameBoardCards().equals(card.getValue() +1) || controller.getGameBoardCards().equals(card.getValue() -1)) {
-//				moveCardToBoard(card);
-//				return true;
-//			}
-//			return false;
-//		}
+			else if(controller.getGameBoardCards().equals(card.getValue() +1) || controller.getGameBoardCards().equals(card.getValue() -1)) {
+				moveCardToBoard(card);
+				return true;
+			}
+			return false;
+		}
 //		// if någon annan sjua och hjärter7 utlagd
 //		else if((card.getValue() == 6) && (gameBoardCards.listIterator().equals(card.toString() == "h7" ))) {
 //			moveCardToBoard(card);
@@ -82,10 +82,10 @@ public class Rules  {
 //			return false;
 //		}
 //		
-//		return false;
-//		
-//
-//	}
+		return false;
+		
+
+	}
 	
 	public void moveCardToBoard(Card card) {
 		int i = 0;
