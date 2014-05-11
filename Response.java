@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql;
-	private ArrayList <Card> cards;
+	private String request, sql, cardName;
+	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
 
@@ -33,18 +33,21 @@ public class Response implements Serializable {
 		this.request = request;
 		this.card = card;
 	}
-	
+
 	public Response (String request, String sql) {
 		this.request = request;
 		this.sql = sql;
 	}
-	
 
-	public Response (String request, Card card, ArrayList<Card> cards) {
+
+	public Response (String request, String cardName, ArrayList<Card> cards,
+			ArrayList<Card> gameBoardCards) {
 		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 		this.cards = cards;
+		this.gameBoardCards = gameBoardCards;
 		cards.trimToSize();
+		gameBoardCards.trimToSize();
 	}
 	/**
 	 * constructs a response containing four players hands of cards and a string-Object
@@ -71,7 +74,7 @@ public class Response implements Serializable {
 		return request;
 
 	}
-	
+
 	public String getSql(){
 		return sql;
 	}
@@ -84,7 +87,7 @@ public class Response implements Serializable {
 		return cards;
 
 	}
-	
+
 	/**
 	 * this method returns cards size of a player
 	 * @return card.length returns size of a players hand
@@ -131,5 +134,11 @@ public class Response implements Serializable {
 	 */
 	public Card getCard(){
 		return card;
+	}
+	public String getCardName() {
+		return cardName;
+	}
+	public ArrayList<Card> getGameBoardCards () {
+		return gameBoardCards;
 	}
 }

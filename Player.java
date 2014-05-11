@@ -29,9 +29,9 @@ public class Player {
 	 */
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
-	
+
 	}
-	
+
 	public void setPlayerCards(ArrayList<Card> playerCards) {
 		this.playerCards = playerCards;
 	}
@@ -70,13 +70,21 @@ public class Player {
 	public int getPlayerCardSize() {
 		return playerCards.size();
 	}
-	
+
 	public int getClientID() {
 		return clientID;
 	}
 
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
+	}
+	public Card getCardByName(String cardName) {
+		for (Card card : playerCards) {
+			if (card.toString().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
 	}
 }
 

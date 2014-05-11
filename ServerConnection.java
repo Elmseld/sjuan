@@ -31,11 +31,12 @@ public class ServerConnection {
 	 */
 	public void newResponse(Response response) {
 		try {
+			output.reset();
 			output.writeObject(response);
 			output.flush();
-			output.reset();
 
 		}catch (IOException e) {
+			e.getStackTrace();
 			System.out.println(e);
 		}
 	}
@@ -52,6 +53,7 @@ public class ServerConnection {
 					server.newRequest(ServerConnection.this, request);
 				}
 			} catch (Exception e1) {
+				e1.getStackTrace();
 				System.out.println(e1);
 			}
 		}

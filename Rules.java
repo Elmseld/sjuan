@@ -104,7 +104,7 @@ public class Rules  {
 		for (Card a : playerCards) {
 			if (a.toString().equals(card.toString())) {
 				playerCards.remove(i);
-				controller.setGameBoardCards(card);
+				controller.moveGameBoardCards(card);
 				player.setPlayerCards(playerCards);
 				break;
 			}
