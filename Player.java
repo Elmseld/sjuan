@@ -1,5 +1,6 @@
 package sjuan;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,11 @@ import java.util.Comparator;
  * @author Tobbe
  *
  */
-public class Player {
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
 	private int clientID;
@@ -18,9 +23,8 @@ public class Player {
 	/**
 	 * the constructor creates a player
 	 */
-	public Player(int clientID) {
+	public Player() {
 		playerCards = new ArrayList<Card>();
-		setClientID(clientID);
 	}
 
 	/**
@@ -29,9 +33,13 @@ public class Player {
 	 */
 	public void setPlayerCards(Card card) {
 		playerCards.add(card);
-	
+
 	}
 	
+	/**
+	 * this method sets a players hand of cards
+	 * @param playerCards takes in a hand of cards
+	 */
 	public void setPlayerCards(ArrayList<Card> playerCards) {
 		this.playerCards = playerCards;
 	}
@@ -70,13 +78,35 @@ public class Player {
 	public int getPlayerCardSize() {
 		return playerCards.size();
 	}
-	
+
+	/**
+	 * this method returns the clientID of a player
+	 * @return clientID returns a clientID of a player
+	 */
 	public int getClientID() {
 		return clientID;
 	}
 
+	/**
+	 * this method sets the ClientID
+	 * @param clientID takes in an int as clientID
+	 */
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
+	}
+
+	/**
+	 * this method returns a card from a players hand using a String name of the card
+	 * @param cardName takes in a name of a card as a String
+	 * @return a card the matches the cardName
+	 */
+	public Card getCardByName(String cardName) {
+		for (Card card : playerCards) {
+			if (card.toString().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
 	}
 }
 

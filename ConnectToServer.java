@@ -49,11 +49,13 @@ public class ConnectToServer {
 					server.newClient(new ServerConnection(server,socket), getCounter());
 				}
 			} catch (IOException e1) {
+				e1.getStackTrace();
 				System.out.println(e1);
 			}
 			try {
 				serverSocket.close();
 			} catch (Exception e) {
+				e.getStackTrace();
 			}
 		}
 	}

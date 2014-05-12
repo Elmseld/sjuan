@@ -10,11 +10,9 @@ import java.sql.Statement;
  */
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String request;
+	private String request, cardName;
 	private String sql;
-	private Card card;
 	private int clientID;
-
 
 	/**
 	 * constructs a request
@@ -24,23 +22,28 @@ public class Request implements Serializable {
 		this.request = request;
 	}
 
+	/**
+	 * constructs a request
+	 * @param request takes in a request
+	 * @param cardName takes in a name of a card
+	 */
+	public Request(String request, String cardName) {
+		this.request = request;
+		this.cardName = cardName;
+	}
 
 	/**
 	 * constructs a request
 	 * @param request takes in a request
-	 * @param card takes in a card
+	 * @param cardName takes in a cardName of a card
+	 * @param clientID takes in the clients ID
 	 */
-	public Request(String request, Card card) {
+	public Request(String request, String cardName, int clientID) {
 		this.request = request;
-		this.card = card;
-	}
-	
-	public Request(String request, Card card, int clientID) {
-		this.request = request;
-		this.card = card;
+		this.cardName = cardName;
 		this.clientID = clientID;
 	}
-	
+
 	/**
 	 * this method returns a request
 	 * @return request returns a request as a string
@@ -48,19 +51,22 @@ public class Request implements Serializable {
 	public String getRequest() {
 		return request;
 	}
-	
-
 
 	/**
-	 * this method returns a card
-	 * @return card returns a requested card
+	 * this method returns a clientID
+	 * @return clientID returns a requested clientID
 	 */
-	public Card getCard() {
-		return card;
-	}
-	
+
 	public int getClientID() {
 		return clientID;
+	}
+
+	/**
+	 * this method returns a cardName of a card
+	 * @return cardName returns a cardName of a card
+	 */
+	public String getCardName() {
+		return cardName;
 	}
 }
 
