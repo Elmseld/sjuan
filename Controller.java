@@ -10,15 +10,14 @@ import java.util.ArrayList;
  *
  */
 public class Controller {
-	private Player player1;
-	private Player player2;
-	private Player player3;
-	private Player player4;
+	private Player player1 = null;
+	private Player player2 = null;
+	private Player player3 = null;
+	private Player player4 = null;
 	private Deck deck = new Deck();
 	private ArrayList <Card> gameBoardCards = new ArrayList<Card>();
 	private int clientID;
 	private Rules rules = new Rules(this);
-	private Server server;
 	private DataBase databas = new DataBase();
 
 
@@ -31,17 +30,17 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		server = new Server(7766, this);
+		new Server(7766, this);
+	}
+	
+	public Controller(int port) {
+		new Server(port+1, this);
 	}
 	/**
 	 * This method deals the deck to all players
 	 */
 
-	public void Deal(Player player1, Player player2, Player player3, Player player4) { 
-		this.player1 = player1;
-		this.player2 = player2;
-		this.player3 = player3;
-		this.player4 = player4;
+	public void deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
@@ -59,7 +58,6 @@ public class Controller {
 	 * @param card takes in a card from a player to be set to the gameboard
 	 */
 	public void moveGameBoardCards(Card card) {
-		//		player1.getPlayerCards().remove(card);
 		gameBoardCards.add(card);
 	}
 
@@ -109,14 +107,13 @@ public class Controller {
 	 * @return player returns a player
 	 */
 	public Player getPlayer(int clientID) {
-		this.clientID = clientID;
-		if (this.clientID==player1.getClientID())
+		if (clientID==player1.getClientID())
 			return player1;
-		else if (this.clientID==player2.getClientID())
+		else if (clientID==player2.getClientID())
 			return player2;
-		else if (this.clientID==player3.getClientID())
+		else if (clientID==player3.getClientID())
 			return player3;
-		else if (this.clientID==player4.getClientID())
+		else if (clientID==player4.getClientID())
 			return player4;
 		return null;
 	}
@@ -152,43 +149,82 @@ public class Controller {
 	 * this method finds out the player that have the starting card (h7) 
 	 * and sets the client id for the player
 	 */
-	public int whoHaveHeartSeven () {
+	public Player whoHaveHeartSeven () {
 		for (Card card : player1.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				return player1.getClientID();
-				//				player1.setClientID(player1.getClientID());	
-				//				player2.setClientID(player2.getClientID());
-				//				player3.setClientID(player3.getClientID());
-				//				player4.setClientID(player4.getClientID());
-				//				break;
+				return player1;
 			}
 		for (Card card : player2.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				return player2.getClientID();
-				//				player1.setClientID(player2.getClientID());	
-				//				player2.setClientID(player3.getClientID());
-				//				player3.setClientID(player4.getClientID());
-				//				player4.setClientID(player1.getClientID());	
-				//				break;
+				Player temp = player2;
+				player2 = player3;
+				player3 = player4;
+				player4 = player1;
+				player1 = temp;
+				return player1;
 			}
 		for (Card card : player3.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				return player3.getClientID();
-				//				player1.setClientID(player3.getClientID());	
-				//				player2.setClientID(player4.getClientID());
-				//				player3.setClientID(player1.getClientID());
-				//				player4.setClientID(player2.getClientID());	
-				//				break;
+				Player temp = player3;
+				player3 = player1;
+				player1 = temp;
+				Player temp2 = player4;
+				player4 = player2;
+				player2 = temp2;
+				return player1;
+
 			}
 		for (Card card : player4.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				return player4.getClientID();
-				//				player1.setClientID(player4.getClientID());	
-				//				player2.setClientID(player1.getClientID());
-				//				player3.setClientID(player2.getClientID());
-				//				player4.setClientID(player3.getClientID());	
-				//				break;
+				Player temp = player4;
+				player4 = player3;
+				player3 = player2;
+				player2 = player1;
+				player1 = temp;
+				return player1;
+
 			}
-		return -1;
+
+		return null;
+	}
+
+	public void setPlayerOrder(Player player) {
+		if (player1==null) {
+			player1 = player;
+		}
+
+		else if (player2==null) {
+			player2 = player;
+		}
+
+		else if (player3==null) {
+			player3 = player;
+
+		}
+		else if (player4==null) {
+			player4 = player;
+
+		}
+		else {
+			System.out.println("Ny server bör skapas");
+			new Server(7766, this);
+		}
+	}
+	public boolean playersExist() {
+		if (player1!=null && player2!=null && player3!=null && player4!=null){
+			deal();
+			return true;
+		}
+		return false;
+
+	}
+	public Player getPlayer2() {
+		return player2;
+	}
+	public Player getPlayer3() {
+		return player3;
+	}
+	public Player getPlayer4() {
+		return player4;
 	}
 }

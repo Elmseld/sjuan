@@ -45,9 +45,8 @@ public class ConnectToServer {
 				while (true) {
 					socket = serverSocket.accept();
 					setCounter(getCounter() + 1);
-					Player player = new Player(getCounter());
 					System.out.println("New client" + getCounter());
-					server.newClient(new ServerConnection(server,socket), player);
+					server.newClient(new ServerConnection(server,socket), counter);
 				}
 			} catch (IOException e1) {
 				e1.getStackTrace();
