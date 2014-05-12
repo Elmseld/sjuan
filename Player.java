@@ -23,8 +23,9 @@ public class Player implements Serializable{
 	/**
 	 * the constructor creates a player
 	 */
-	public Player() {
+	public Player(int clientID) {
 		playerCards = new ArrayList<Card>();
+		this.clientID = clientID;
 	}
 
 	/**

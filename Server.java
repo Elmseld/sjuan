@@ -6,9 +6,10 @@ package sjuan;
  *
  */
 public class Server {
-	private Player player1, player2, player3, player4;
+	private Player player1 = null, player2 = null, player3 = null, player4 = null;
 	private int clientID;
 	private Controller controller;
+	private ServerConnection connection1, connection2, connection3, connection4;
 
 	/**
 	 * constructs a server 
@@ -19,13 +20,9 @@ public class Server {
 	 * @param player4 takes in a player
 	 * @param control takes in a controller
 	 */
-	public Server(int port, Player player1, Player player2, Player player3, Player player4, Controller control) {
+	public Server(int port, Controller control) {
 		try {
 			this.controller = control;
-			this.player1 = player1;
-			this.player2 = player2;
-			this.player3 = player3;
-			this.player4 = player4;
 
 			new ConnectToServer(this,port);
 		}
@@ -35,9 +32,29 @@ public class Server {
 		}
 	}
 
-	public void newClient(ServerConnection connection , int counter) {
-		clientID = counter;
+	public void newClient(ServerConnection connection, Player player) {
+		if (player1==null) {
+			player1 = player;
+			connection1 = connection;
+		}
+		else if (player2==null) {
+			player2 = player;
+			connection2 = connection;
 
+		}
+		else if (player3==null) {
+			player3 = player;
+			connection3 = connection;
+
+		}
+		else if (player4==null) {
+			player4 = player;
+			connection4 = connection;
+
+		}
+		else {
+			System.out.println("Ny server bör skapas");
+		}
 	}
 	/**
 	 * this method returns a clientID
@@ -45,6 +62,12 @@ public class Server {
 	 */
 	public int getClientID() {
 		return clientID;
+	}
+	public boolean playersExist() {
+		if (player1!=null && player2!=null && player3!=null && player4!=null){
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -55,45 +78,50 @@ public class Server {
 	public synchronized void newRequest(ServerConnection connection, Request request) {
 
 		if (request.getRequest().equals("new")) {
-			controller.Deal(player1, player2, player3, player4);
-			controller.whoHaveHeartSeven();
-			if (clientID==player1.getClientID())
-				connection.newResponse(new Response("new", clientID, player1, player2,
-						player3, player4));
-			else if (clientID==player2.getClientID())
-				connection.newResponse(new Response("new", clientID, player2, player3,
-						player4, player1));
-			else if (clientID==player3.getClientID())
-				connection.newResponse(new Response("new", clientID, player3, player4,
-						player1, player2));
-			else if (clientID==player4.getClientID())
-				connection.newResponse(new Response("new", clientID, player4, player1,
-						player2, player3));
-			else 
-				System.out.println("clientID stämmer inte");
-		}
+			if (playersExist()) {
+				controller.Deal(player1, player2, player3, player4);
+//				controller.whoHaveHeartSeven();
+					connection1.newResponse(new Response("new", player1, player2.getPlayerCardSize(),
+							player3.getPlayerCardSize(), player4.getPlayerCardSize()));
+//				else if (clientID==player2.getClientID())
+					connection2.newResponse(new Response("new", player2, player3.getPlayerCardSize(), 
+							player4.getPlayerCardSize(), player1.getPlayerCardSize()));
+//				else if (clientID==player3.getClientID())
+					connection3.newResponse(new Response("new", player3, player4.getPlayerCardSize(),
+							player1.getPlayerCardSize(), player2.getPlayerCardSize()));
+//				else if (clientID==player4.getClientID())
+					connection4.newResponse(new Response("new", player4, player1.getPlayerCardSize(),
+							player2.getPlayerCardSize(), player3.getPlayerCardSize()));
+//				else 
+//					System.out.println("clientID stämmer inte");
+			}
 
-		else if(request.getRequest().equals("pass")) {
-			if (controller.checkIfPassIsPossible()) {
-				connection.newResponse(new Response("pass"));
+			else if(request.getRequest().equals("pass")) {
+				if (controller.checkIfPassIsPossible()) {
+					connection.newResponse(new Response("pass"));
+				}
+				else {
+					connection.newResponse(new Response("passainte"));
+				}
+			}
+
+			else if(request.getRequest().equals("end")){
+				connection.newResponse(new Response("end", controller.getDataBas()));
+			}
+
+			else if (request.getRequest().equals("playCard")) {
+				if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID())){
+					connection.newResponse(new Response("playCard", request.getCardName(), 
+							controller.getPlayer(1), 
+							controller.getGameBoardCards()));
+				}
+				else {
+					connection.newResponse(new Response("dontPlayCard"));
+				}
 			}
 			else {
-				connection.newResponse(new Response("passainte"));
-			}
-		}
+				connection.newResponse(new Response("clientsMissing"));
 
-		else if(request.getRequest().equals("end")){
-			connection.newResponse(new Response("end", controller.getDataBas()));
-		}
-
-		else if (request.getRequest().equals("playCard")) {
-			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID())){
-				connection.newResponse(new Response("playCard", request.getCardName(), 
-						controller.getPlayer(request.getClientID()).getPlayerCards(), 
-						controller.getGameBoardCards()));
-			}
-			else {
-				connection.newResponse(new Response("dontPlayCard"));
 			}
 		}
 	}

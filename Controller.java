@@ -31,14 +31,17 @@ public class Controller {
 	 * @param deck takes in a deck
 	 */
 	public Controller() {
-		server = new Server(7766, player1 = new Player(), player2 = new Player(), 
-				player3 = new Player(), player4 = new Player(), this);
+		server = new Server(7766, this);
 	}
 	/**
 	 * This method deals the deck to all players
 	 */
 
 	public void Deal(Player player1, Player player2, Player player3, Player player4) { 
+		this.player1 = player1;
+		this.player2 = player2;
+		this.player3 = player3;
+		this.player4 = player4;
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
@@ -149,39 +152,43 @@ public class Controller {
 	 * this method finds out the player that have the starting card (h7) 
 	 * and sets the client id for the player
 	 */
-	public void whoHaveHeartSeven () {
+	public int whoHaveHeartSeven () {
 		for (Card card : player1.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				player1.setClientID(1);	
-				player2.setClientID(2);
-				player3.setClientID(3);
-				player4.setClientID(4);
-				break;
+				return player1.getClientID();
+				//				player1.setClientID(player1.getClientID());	
+				//				player2.setClientID(player2.getClientID());
+				//				player3.setClientID(player3.getClientID());
+				//				player4.setClientID(player4.getClientID());
+				//				break;
 			}
 		for (Card card : player2.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				player2.setClientID(1);	
-				player3.setClientID(2);
-				player4.setClientID(3);
-				player1.setClientID(4);	
-				break;
+				return player2.getClientID();
+				//				player1.setClientID(player2.getClientID());	
+				//				player2.setClientID(player3.getClientID());
+				//				player3.setClientID(player4.getClientID());
+				//				player4.setClientID(player1.getClientID());	
+				//				break;
 			}
 		for (Card card : player3.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				player3.setClientID(1);	
-				player4.setClientID(2);
-				player1.setClientID(3);
-				player2.setClientID(4);	
-				break;
+				return player3.getClientID();
+				//				player1.setClientID(player3.getClientID());	
+				//				player2.setClientID(player4.getClientID());
+				//				player3.setClientID(player1.getClientID());
+				//				player4.setClientID(player2.getClientID());	
+				//				break;
 			}
 		for (Card card : player4.getPlayerCards())
 			if (card.toString().equals("h7")) {
-				player4.setClientID(1);	
-				player1.setClientID(2);
-				player2.setClientID(3);
-				player3.setClientID(4);	
-				break;
+				return player4.getClientID();
+				//				player1.setClientID(player4.getClientID());	
+				//				player2.setClientID(player1.getClientID());
+				//				player3.setClientID(player2.getClientID());
+				//				player4.setClientID(player3.getClientID());	
+				//				break;
 			}
-
+		return -1;
 	}
 }
