@@ -13,7 +13,7 @@ public class Rules {
 	public boolean correct(Card card, Player player) {
 		this.player = player;
 
-		// if hjärter7
+		// if hjärter, sju först resten sen
 		if (card.getType() == 0) {
 			if (card.getValue() == 6) {
 				moveCardToBoard(card);
@@ -41,7 +41,7 @@ public class Rules {
 				}
 			}
 		}
-		//
+		//if spader utöver 7-an
 		else if (card.getType() == 1) {
 			ArrayList<Card> res = controller.getGameBoardCards();
 			for (int i = 0; i < res.size(); i++) {
@@ -53,7 +53,7 @@ public class Rules {
 			}
 
 		}
-
+		// if ruter utöver 7-an
 		else if (card.getType() == 2) {
 			ArrayList<Card> res = controller.getGameBoardCards();
 			for (int i = 0; i < res.size(); i++) {
@@ -64,7 +64,7 @@ public class Rules {
 				}
 			}
 		}
-
+		// if klöver utöver 7-an
 		else if (card.getType() == 3) {
 			ArrayList<Card> res = controller.getGameBoardCards();
 			for (int i = 0; i < res.size(); i++) {

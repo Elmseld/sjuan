@@ -7,14 +7,14 @@ public class DataBase {
 	public static Statement statement;
 	private static String sql = "";
 
-	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datam�ngden som utg�r resultatet av en SQL-sats.
+	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datamängden som utgör resultatet av en SQL-sats.
 
 		ResultSetMetaData meta = resultSet.getMetaData();
 		sql = "";
 
-		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatm�ngden
+		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatmängden
 		for(int i=1; i<=colCount; i++)
-			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet p� kolumnen med angivet index
+			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet på kolumnen med angivet index
 
 		sql += "\n";
 
