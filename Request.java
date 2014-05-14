@@ -22,6 +22,12 @@ public class Request implements Serializable {
 		this.request = request;
 	}
 
+	public Request(String request, int clientID) {
+		this.request = request;
+		this.clientID = clientID;
+
+	}
+
 	/**
 	 * constructs a request
 	 * @param request takes in a request

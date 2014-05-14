@@ -40,6 +40,11 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
+	public Response(String request, int clientID) {
+		this.request = request;
+		this.clientID = clientID;
+	}
+
 	/**
 	 * constructs a response containing a request, cardName, list of a players cards
 	 * and a list of game board cards 
@@ -53,7 +58,6 @@ public class Response implements Serializable {
 		this.request = request;
 		this.cardName = cardName;
 		this.player = player;
-//		this.cards = cards;
 		this.gameBoardCards = gameBoardCards;
 		cards.trimToSize();
 		gameBoardCards.trimToSize();
@@ -67,16 +71,26 @@ public class Response implements Serializable {
 	 * @param playerCardSize3 takes in a player cards size
 	 */
 	public Response(String request, Player player,
-			int opponentCards1, int opponentCards2, int opponentCards3 ) {
+			int opponentCards1, int opponentCards2, int opponentCards3, int clientID ) {
 		this.request = request;
-//		this.clientID = clientID;
-		this.clientID = player.getClientID();
+		this.clientID = clientID;
 		this.cards = player.getPlayerCards();
 		this.opponentCards1 = opponentCards1;
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 
 	}
+
+	public Response(String request, Player player,
+			int opponentCards1, int opponentCards2, int opponentCards3) {
+		this.request = request;
+		this.cards = player.getPlayerCards();
+		this.opponentCards1 = opponentCards1;
+		this.opponentCards2 = opponentCards2;
+		this.opponentCards3 = opponentCards3;
+
+	}
+
 
 	/**
 	 * this method returns a request
@@ -153,9 +167,9 @@ public class Response implements Serializable {
 	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
 	}
-	
+
 	public Player getPlayer () {
 		return player;
-		
+
 	}
 }
