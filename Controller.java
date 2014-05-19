@@ -57,7 +57,6 @@ public class Controller {
 				player3.setPlayerCards(deck.dealCard());
 			if (deck.getAllCards()>0)
 				player4.setPlayerCards(deck.dealCard());
-
 		}
 	}
 
@@ -67,7 +66,6 @@ public class Controller {
 	 */
 	public void moveGameBoardCards(Card card, int gameID) {
 		gameBoardList.get(gameID).add(card);
-
 	}
 
 	/**
@@ -96,7 +94,6 @@ public class Controller {
 	 * @param card takes in a card
 	 * @return boolean returns a boolean if the card is playable or not
 	 */
-
 	public boolean checkIfCardIsPlayable(String cardName, int clientID, int gameID){
 		if (clientID==player1.getClientID()) {
 			return rules.correct(player1.getCardByName(cardName), player1, gameID);
@@ -134,9 +131,40 @@ public class Controller {
 	 * this method checks if there are cards are able to play
 	 * @return true if there are no cards to play, false if there is cards to play
 	 */
-	public boolean checkIfPassIsPossible() {
-		return true;
-
+	public boolean checkIfPassIsPossible(int clientID, int gameID) {
+		if (clientID==player1.getClientID()) {
+			for (Card card : player1.getPlayerCards()) {
+				if (rules.checkPass(card, player1, gameID)) {
+					return false;
+				}
+			}
+			return true; 
+		}
+		else if (clientID==player2.getClientID()) {
+			for (Card card : player2.getPlayerCards()) {
+				if (rules.checkPass(card, player2, gameID)) {
+					return false;
+				}
+			}
+			return true; 
+		}
+		else if (clientID==player3.getClientID()) {
+			for (Card card : player3.getPlayerCards()) {
+				if (rules.checkPass(card, player3, gameID)) {
+					return false;
+				}
+			}
+			return true; 
+		}
+		else if (clientID==player4.getClientID()) {
+			for (Card card : player4.getPlayerCards()) {
+				if (rules.checkPass(card, player4, gameID)) {
+					return false;
+				}
+			}
+			return true; 
+		}
+		return false;
 	}
 
 	/**
