@@ -184,4 +184,9 @@ public class Controller {
 			}
 
 	}
+	
+	public boolean logInDb(String userName, String passWord){
+		return databas.logInDb(userName, passWord);
+	}
+	
 }

@@ -1,5 +1,7 @@
 package sjuan;
 
+import javax.swing.JOptionPane;
+
 /**
  * This class handles the server communication with clients
  * @author Tobbe
@@ -71,6 +73,11 @@ public class Server {
 						player2, player3));
 			else 
 				System.out.println("clientID stämmer inte");
+		}
+		
+		else if(request.getRequest().equals("Login")){
+			
+			connection.newResponse(new Response("Login", controller.logInDb(request.getUserName(), request.getPassWord())));
 		}
 
 		else if(request.getRequest().equals("pass")) {

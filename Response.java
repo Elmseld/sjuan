@@ -15,6 +15,7 @@ public class Response implements Serializable {
 	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID;
 	private Card card;
+	private boolean logOk;
 
 	/**
 	 * constructs a response containing a string
@@ -22,6 +23,11 @@ public class Response implements Serializable {
 	 */
 	public Response(String request) {
 		this.request = request;
+	}
+	
+	public Response(String request, boolean logOk){
+		this.request = request;
+		this.logOk = logOk;
 	}
 
 	/**
@@ -149,5 +155,9 @@ public class Response implements Serializable {
 	 */
 	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
+	}
+	
+	public boolean getLogOk(){
+		return logOk;
 	}
 }
