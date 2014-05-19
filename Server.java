@@ -17,7 +17,6 @@ public class Server {
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
 
-
 	/**
 	 * constructs a server 
 	 * @param port takes in a portNumber
@@ -82,7 +81,7 @@ public class Server {
 			}
 		}
 		else if(request.getRequest().equals("pass")) {
-			if (controller.checkIfPassIsPossible()) {
+			if (controller.checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
 				connection.newResponse(new Response("pass"));
 			}
 			else {
