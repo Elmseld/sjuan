@@ -18,8 +18,8 @@ public class Player implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
-	private boolean humanPlayer;
-	private int clientID;
+	private boolean humanPlayer, hasHeart7 = false;
+	private int clientID, gameID;
 
 
 
@@ -30,9 +30,10 @@ public class Player implements Serializable{
 	/**
 	 * the constructor creates a player
 	 */
-	public Player(int clientID) {
+	public Player(int clientID, int gameID) {
 		playerCards = new ArrayList<Card>();
 		this.clientID = clientID;
+		this.setGameID(gameID);
 	}
 
 
@@ -101,13 +102,25 @@ public class Player implements Serializable{
 		}
 		return null;
 	}
-	
+
 	public int getClientID() {
 		return clientID;
 	}
-	
+
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
+	}
+	public int getGameID() {
+		return gameID;
+	}
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+	public boolean isHasHeart7() {
+		return hasHeart7;
+	}
+	public void hasHeart7() {
+		this.hasHeart7 = true;
 	}
 }
 
