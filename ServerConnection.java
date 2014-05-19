@@ -31,9 +31,9 @@ public class ServerConnection {
 	 */
 	public void newResponse(Response response) {
 		try {
-			output.reset();
 			output.writeObject(response);
 			output.flush();
+			output.reset();
 
 		}catch (IOException e) {
 			e.getStackTrace();

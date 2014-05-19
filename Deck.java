@@ -29,8 +29,8 @@ public class Deck {
 
 		// this is the part when the deck gets shuffled
 		for (int i=0; i<100; i++) {
-			index1 = rand.nextInt(size);
-			index2 = rand.nextInt(size);
+			index1 = rand.nextInt(size+1);
+			index2 = rand.nextInt(size+1);
 
 			temp = cards.get( index2 );
 			cards.set( index2 , cards.get( index1 ) );
@@ -45,6 +45,7 @@ public class Deck {
 	public Card dealCard() {       
 		return cards.remove( 0 );
 	}
+	
 	/**
 	 * this method returns the number of cards deck
 	 * @return cards.size() returns the size of the deck

@@ -1,9 +1,9 @@
 package sjuan;
 
-public class StartSjuan {
+public class StartServer {
 
 	public static void main (String[] args) {
-		new Controller();
+		new Server(7766);
 	}
 
 }

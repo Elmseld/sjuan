@@ -18,14 +18,24 @@ public class Player implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
-	private int clientID;
+	private boolean humanPlayer, hasHeart7 = false;
+	private int clientID, gameID;
 
+
+
+	public Player() {
+		playerCards = new ArrayList<Card>();
+		humanPlayer = false;
+	}
 	/**
 	 * the constructor creates a player
 	 */
-	public Player() {
+	public Player(int clientID, int gameID) {
 		playerCards = new ArrayList<Card>();
+		this.clientID = clientID;
+		this.setGameID(gameID);
 	}
+
 
 	/**
 	 * This method sets the players cards
@@ -35,7 +45,7 @@ public class Player implements Serializable{
 		playerCards.add(card);
 
 	}
-	
+
 	/**
 	 * this method sets a players hand of cards
 	 * @param playerCards takes in a hand of cards
@@ -80,22 +90,6 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * this method returns the clientID of a player
-	 * @return clientID returns a clientID of a player
-	 */
-	public int getClientID() {
-		return clientID;
-	}
-
-	/**
-	 * this method sets the ClientID
-	 * @param clientID takes in an int as clientID
-	 */
-	public void setClientID(int clientID) {
-		this.clientID = clientID;
-	}
-
-	/**
 	 * this method returns a card from a players hand using a String name of the card
 	 * @param cardName takes in a name of a card as a String
 	 * @return a card the matches the cardName
@@ -107,6 +101,26 @@ public class Player implements Serializable{
 			}
 		}
 		return null;
+	}
+
+	public int getClientID() {
+		return clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
+	}
+	public int getGameID() {
+		return gameID;
+	}
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+	public boolean isHasHeart7() {
+		return hasHeart7;
+	}
+	public void hasHeart7() {
+		this.hasHeart7 = true;
 	}
 }
 
