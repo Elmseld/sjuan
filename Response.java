@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * this class handle response
+ * this class handle responses
  * @author Sjuan
  *
  */
@@ -49,7 +49,7 @@ public class Response implements Serializable {
 	public Response(String request, int clientID, int gameID) {
 		this.request = request;
 		this.clientID = clientID;
-		this.setGameID(gameID);
+		this.gameID = gameID;
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Response implements Serializable {
 		this.gameBoardCards = gameBoardCards;
 
 	}
-	
+
 	public Response(String request, Player player,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
 			ArrayList<Card> gameBoardCards) {
@@ -138,6 +138,10 @@ public class Response implements Serializable {
 		return cards;
 	}
 
+	/**
+	 * this method returns sql String
+	 * @return sql returns a string of sql
+	 */
 	public String getSql(){
 		return sql;
 	}
@@ -198,19 +202,18 @@ public class Response implements Serializable {
 		return gameBoardCards;
 	}
 
-	public Player getPlayer () {
-		return player;
-
-	}
-
+	/**
+	 * this method returns a gameID of the game
+	 * @return gameID returns a Integer of a gameID
+	 */
 	public int getGameID() {
 		return gameID;
 	}
 
-	public void setGameID(int gameID) {
-		this.gameID = gameID;
-	}
-
+	/**
+	 * this method returns a boolean if a player have hearts of seven card
+	 * @return hasheart7 returns a boolean if a player have card "h7"
+	 */
 	public boolean isHasHeart7() {
 		return hasHeart7;
 	}

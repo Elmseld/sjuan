@@ -24,13 +24,7 @@ public class Controller {
 
 	/**
 	 * Constructs a controller 
-	 * @param player1 takes in a player
-	 * @param player2 takes in a player
-	 * @param player3 takes in a player
-	 * @param player4 takes in a player
-	 * @param deck takes in a deck
 	 */
-
 	public Controller(Server server, int gameID, 
 			int client1, int  client2, int client3, int client4) {
 		this.gameID = gameID;
@@ -50,10 +44,10 @@ public class Controller {
 		server.setController(this);
 
 	}
+
 	/**
 	 * This method deals the deck to all players
 	 */
-
 	public void deal() { 
 		while (deck.getAllCards()!=0) {
 			player1.setPlayerCards(deck.dealCard());
@@ -83,8 +77,8 @@ public class Controller {
 	public void setGameBoardCardsList(ArrayList<Card> gameBoardCards, int gameID) {
 		gameBoardList.get(gameID).clear();
 		gameBoardList.get(gameID).addAll(gameBoardCards);
-		//		this.gameBoardCards = gameBoardCards;
 	}
+
 	/**
 	 * this method add a card to the gameboard
 	 * gameboardcards is for controller to know what card that are played to game board
@@ -186,6 +180,10 @@ public class Controller {
 			}
 	}
 
+	/**
+	 * this method sets playerOrder
+	 * @param player takes in a player
+	 */
 	public void setPlayerOrder(Player player) {
 		if (player1==null) {
 			player1 = player;
@@ -203,6 +201,11 @@ public class Controller {
 			player4 = player;
 		}
 	}
+
+	/**
+	 * checks that no player is null
+	 * @return boolean returns if true or false
+	 */
 	public boolean playersExist() {
 		if (player1!=null && player2!=null && player3!=null && player4!=null){
 			deal();
@@ -211,32 +214,75 @@ public class Controller {
 		return false;
 
 	}
+
+	/**
+	 * this method returns player1 in a game
+	 * @param gameID takes in the gameID of a game
+	 * @return player1 returns player1 of a game
+	 */
 	public Player getPlayer1(int gameID) {
 		player1 = game.get(gameID).get(0);
 
 		return player1;
 	}
+
+	/**
+	 * this method returns player2 in a game
+	 * @param gameID takes in the gameID of a game
+	 * @return player2 returns player2 of a game
+	 */
 	public Player getPlayer2(int gameID) {
 		player2 = game.get(gameID).get(1);
 
 		return player2;
 	}
+
+	/**
+	 * this method returns player3 in a game
+	 * @param gameID takes in the gameID of a game
+	 * @return player3 returns player3 of a game
+	 */
 	public Player getPlayer3(int gameID) {
 		player3 = game.get(gameID).get(2);
 
 		return player3;
 	}
+
+	/**
+	 * this method returns player4 in a game
+	 * @param gameID takes in the gameID of a game
+	 * @return player4 returns player4 of a game
+	 */
 	public Player getPlayer4(int gameID) {
 		player4 = game.get(gameID).get(3);
 
 		return player4;
 	}
+
+	/**
+	 * this method returns a controller of a game
+	 * @param gameID takes in a gameID
+	 * @return controller returns this controller
+	 */
 	public Controller getController(int gameID) {
+
+		//det kan kanske behövas lite mer förklaring eller utökning här
 		return this;
 	}
+
+	/**
+	 * this method returns a gameID of a game
+	 * @return gameID returns a Integer of a gameID
+	 */
 	public int getGameID() {
 		return gameID;
 	}
+
+	/**
+	 * this method sets a player to a client
+	 * @param clientID takes in a Integer of a clientID
+	 */
+	//vet inte ifall vi använder denna längre, kolla upp det när tid finnes
 	public void giveClientOnePlayer(int clientID) {
 		if (player1.getClientID()==0) {
 			player1.setClientID(clientID);
@@ -251,6 +297,13 @@ public class Controller {
 			player4.setClientID(clientID);
 		}
 	}
+
+	/**
+	 * this method returns the next player turn in a game as a clientID
+	 * @param clientID takes in current players clientID
+	 * @param gameID takes in a Integer of the gameID
+	 * @return clientID returns a clientID of the next players clientID
+	 */
 	public int setNextPlayersTurn(int clientID, int gameID) {
 		for (int i = 0; i <= game.get(gameID).size();i++){
 			if (game.get(gameID).get(i).getClientID()==clientID) {
@@ -264,6 +317,13 @@ public class Controller {
 		}
 		return -1;
 	}
+
+	/**
+	 * this method returns a player with help of a gameID and a clientID
+	 * @param clientID takes in a Integer of a clientID
+	 * @param gameID takes in a Integer of a gameID
+	 * @return player returns a player
+	 */
 	public Player getPlayerByClientID(int clientID, int gameID) {
 		ArrayList <Player> List = game.get(gameID);
 		for (Player player : List) {
@@ -273,6 +333,13 @@ public class Controller {
 		}
 		return null;
 	}
+
+	/**
+	 * this method returns a Integer of hand size of opponent1 from a clients perspective
+	 * @param gameID takes in a Integer of a gameID
+	 * @param clientID takes in a Integer of a clientID
+	 * @return Integer returns a Integer of a opponents hand size of cards
+	 */
 	public int getOpponent1HandSize(int gameID, int clientID) {
 		if (getPlayer1(gameID).getClientID()==clientID) {
 			return getPlayer2(gameID).getPlayerCardSize();
@@ -288,6 +355,13 @@ public class Controller {
 
 		}
 	}
+
+	/**
+	 * this method returns a Integer of hand size of opponent1 from a clients perspective
+	 * @param gameID takes in a Integer of a gameID
+	 * @param clientID takes in a Integer of a clientID
+	 * @return Integer returns a Integer of a opponents hand size of cards
+	 */
 	public int getOpponent2HandSize(int gameID, int clientID) {
 
 		if (getPlayer1(gameID).getClientID()==clientID) {
@@ -303,6 +377,13 @@ public class Controller {
 			return getPlayer2(gameID).getPlayerCardSize();
 		}
 	}
+
+	/**
+	 * this method returns a Integer of hand size of opponent1 from a clients perspective
+	 * @param gameID takes in a Integer of a gameID
+	 * @param clientID takes in a Integer of a clientID
+	 * @return Integer returns a Integer of a opponents hand size of cards
+	 */
 	public int getOpponent3HandSize(int gameID, int clientID) {
 
 		if (getPlayer1(gameID).getClientID()==clientID) {
