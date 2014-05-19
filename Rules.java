@@ -2,14 +2,29 @@ package sjuan;
 
 import java.util.ArrayList;
 
+/**
+ * this class handles the rules of the game sjuan
+ *
+ */
 public class Rules {
 	private Player player;
 	private Controller controller;
 
+	/**
+	 * Constructs a rules object
+	 * @param controller
+	 */
 	public Rules(Controller controller) {
 		this.controller = controller;
 	}
 
+	/**
+	 * this method checks if a card is playable
+	 * @param card takes in a card-Object
+	 * @param player takes in a player
+	 * @param gameID takes in a gameID
+	 * @return boolean if the card is playable or not
+	 */
 	public boolean correct(Card card, Player player, int gameID) {
 		this.player = player;
 
@@ -80,6 +95,11 @@ public class Rules {
 
 	}
 
+	/**
+	 * this method moves a card from a players hand to the gameBoard
+	 * @param card takes in a card
+	 * @param gameID takes in a gameID
+	 */
 	public void moveCardToBoard(Card card, int gameID) {
 		int i = 0;
 		ArrayList<Card> playerCards = player.getPlayerCards();

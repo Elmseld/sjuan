@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 
 /**
- * this class handles request
+ * this class handles requests
  * @author Sjuan
  *
  */
@@ -80,6 +80,10 @@ public class Request implements Serializable {
 		return cardName;
 	}
 
+	/**
+	 * this method returns a gameID
+	 * @return gameID returns a Integer of a game
+	 */
 	public int getGameID() {
 		return gameID;
 	}

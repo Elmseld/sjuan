@@ -14,18 +14,13 @@ public class Server {
 	private int clientID;
 	private Controller controller;
 	private Lobby lobby = new Lobby();
-	private HashMap <Integer, ServerConnection> connections = new HashMap <Integer, ServerConnection>() ;
+	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
 
 
 	/**
 	 * constructs a server 
 	 * @param port takes in a portNumber
-	 * @param player1 takes in a player
-	 * @param player2 takes in a player
-	 * @param player3 takes in a player
-	 * @param player4 takes in a player
-	 * @param control takes in a controller
 	 */
 	public Server(int port) {
 		try {
@@ -37,17 +32,15 @@ public class Server {
 		}
 	}
 
+	/**
+	 * this method store a clients connection in connectionsList
+	 * @param connection takes in a connection from a client
+	 * @param counter takes in a counter that sets the clients ID
+	 */
 	public void newClient(ServerConnection connection, int counter) {
 		clientID = counter;
-		connections.put(clientID, connection);
+		connectionsList.put(clientID, connection);
 		controller = null;
-	}
-	/**
-	 * this method returns a clientID
-	 * @return clientID returns a int of a clientID
-	 */
-	public int getClientID() {
-		return clientID;
 	}
 
 	/**
@@ -59,10 +52,6 @@ public class Server {
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
 		}
-		//		else if (request.getRequest().equals("ready")) {
-		//			lobby.waitingRoom(request.getClientID(), this);
-		//			connection.newResponse(new Response(request.getRequest(), request.getClientID()));
-		//		}
 		else if (request.getRequest().equals("newGame")) {
 			lobby.waitingRoom(request.getClientID(), this);
 			connection.newResponse(new Response("newGame", request.getClientID()));
@@ -75,21 +64,19 @@ public class Server {
 				Player player4 = controller.getPlayer4(controller.getGameID());
 				controller.whoHaveHeartSeven();
 
-				//				if (request.getClientID() == player1.getClientID())
-
-				connections.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
+				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
 						player3.getPlayerCardSize(), player4.getPlayerCardSize(), request.getClientID(), 
 						controller.getGameID(), player1.isHasHeart7()));
-				//				else if (request.getClientID() == player2.getClientID())
-				connections.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
+
+				connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
 						player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
 						request.getClientID(), controller.getGameID(), player2.isHasHeart7()));
-				//				else if (request.getClientID() == player3.getClientID())
-				connections.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", player3, player4.getPlayerCardSize(),
+
+				connectionsList.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", player3, player4.getPlayerCardSize(),
 						player1.getPlayerCardSize(), player2.getPlayerCardSize(), 
 						request.getClientID(), controller.getGameID(), player3.isHasHeart7()));
-				//				else if (request.getClientID() == player4.getClientID())
-				connections.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", player4, player1.getPlayerCardSize(),
+
+				connectionsList.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", player4, player1.getPlayerCardSize(),
 						player2.getPlayerCardSize(), player3.getPlayerCardSize(), 
 						request.getClientID(), controller.getGameID(), player4.isHasHeart7())); 
 			}
@@ -119,7 +106,7 @@ public class Server {
 			}
 		}
 		else if (request.getRequest().equals("nextPlayer")) {
-			connections.get(controller.setNextPlayersTurn(request.getClientID(), 
+			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer"));
 		}
 		else if (request.getRequest().equals("getGameConditions")) {
@@ -133,10 +120,22 @@ public class Server {
 		}
 	}
 
+	/**
+	 * this method creates a new controller
+	 * @param client1 takes in a client
+	 * @param client2 takes in a client
+	 * @param client3 takes in a client
+	 * @param client4 takes in a client
+	 * @param gameID takes in a gameID
+	 */
 	public void createGame(int client1, int client2, int client3, int client4, int gameID) {
 		new Controller(this, gameID, client1, client2, client3, client4);
 	}
 
+	/**
+	 * this method sets a controller for the server
+	 * @param controller takes in a controller
+	 */
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}

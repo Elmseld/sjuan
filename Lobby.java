@@ -1,7 +1,10 @@
 package sjuan;
 
-import java.util.ArrayList;
-
+/**
+ * this class handles if a player is ready to play
+ * @author Tobbe
+ *
+ */
 public class Lobby {
 	private int client1, client2, client3, client4, gameID = 0;
 
