@@ -105,7 +105,6 @@ public class Server {
 				connection4.newResponse(new Response("new", player4, player1.getPlayerCardSize(),
 						player2.getPlayerCardSize(), player3.getPlayerCardSize()));
 				//				else 
-				System.out.println("clientID stämmer inte");
 			}
 
 			else if(request.getRequest().equals("pass")) {
