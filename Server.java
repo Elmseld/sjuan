@@ -1,9 +1,9 @@
 package sjuan;
 
+import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 /**
  * This class handles the server communication with clients
@@ -50,6 +50,10 @@ public class Server {
 	public synchronized void newRequest(ServerConnection connection, Request request) {
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
+		}
+		
+		else if(request.getRequest().equals("Login")){
+			connection.newResponse(new Response("Login", controller.logInDb(request.getUserName(), request.getPassWord())));
 		}
 		else if (request.getRequest().equals("newGame")) {
 			lobby.waitingRoom(request.getClientID(), this);

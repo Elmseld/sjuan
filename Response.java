@@ -16,6 +16,7 @@ public class Response implements Serializable {
 	private Player player;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID;
 	private Card card;
+	private boolean logOk;
 	private boolean hasHeart7;
 
 	/**
@@ -24,6 +25,16 @@ public class Response implements Serializable {
 	 */
 	public Response(String request) {
 		this.request = request;
+	}
+	
+	/**
+	 * constructs a response containing a string and a boolean
+	 * @param request takes in a string-Object
+	 * @param logOk takes in a boolean
+	 */
+		public Response(String request, boolean logOk){
+		this.request = request;
+		this.logOk = logOk;
 	}
 
 	/**
@@ -201,6 +212,11 @@ public class Response implements Serializable {
 	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
 	}
+	
+	public boolean getLogOk(){
+		return logOk;
+	}
+
 
 	/**
 	 * this method returns a gameID of the game

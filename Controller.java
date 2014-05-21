@@ -175,9 +175,9 @@ public class Controller {
 		String str = "";
 		try {
 			databas.connect();
-			ResultSet result = databas.statement.executeQuery("SELECT * FROM ab4607.statistics");
+			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
 			str = databas.showResultSet(result);
-
+			
 			databas.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -427,4 +427,14 @@ public class Controller {
 			return getPlayer3(gameID).getPlayerCardSize();
 		}
 	}
+	
+	/**
+	 * this method returns a boolean
+	 * @return true if the name and password is correct 
+	 */
+	
+	public boolean logInDb(String userName, String passWord){
+		return databas.logInDb(userName, passWord);
+	}
+	
 }
