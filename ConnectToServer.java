@@ -55,7 +55,7 @@ public class ConnectToServer {
 			try {
 				serverSocket.close();
 			} catch (Exception e) {
-				e.getStackTrace();
+ 				e.getStackTrace();
 			}
 		}
 	}

@@ -25,7 +25,12 @@ public class Response implements Serializable {
 		this.request = request;
 	}
 	
-	public Response(String request, boolean logOk){
+	/**
+	 * constructs a response containing a string and a boolean
+	 * @param request takes in a string-Object
+	 * @param logOk takes in a boolean
+	 */
+		public Response(String request, boolean logOk){
 		this.request = request;
 		this.logOk = logOk;
 	}

@@ -185,6 +185,11 @@ public class Controller {
 
 	}
 	
+	/**
+	 * this method returns a boolean
+	 * @return true if the name and password is correct 
+	 */
+	
 	public boolean logInDb(String userName, String passWord){
 		return databas.logInDb(userName, passWord);
 	}
