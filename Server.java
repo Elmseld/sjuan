@@ -1,9 +1,13 @@
 package sjuan;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 /**
  * This class handles the server communication with clients
@@ -16,6 +20,7 @@ public class Server {
 	private Lobby lobby = new Lobby();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
+	private DataBase databas = new DataBase();
 
 	/**
 	 * constructs a server 
@@ -53,7 +58,7 @@ public class Server {
 		}
 		
 		else if(request.getRequest().equals("Login")){
-			connection.newResponse(new Response("Login", controller.logInDb(request.getUserName(), request.getPassWord())));
+			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
 		else if (request.getRequest().equals("newGame")) {
 			lobby.waitingRoom(request.getClientID(), this);
@@ -93,9 +98,9 @@ public class Server {
 			}
 		}
 
-		else if(request.getRequest().equals("database")){
-			connection.newResponse(new Response("database", controller.getDataBas()));
-		}
+//		else if(request.getRequest().equals("database")){
+//			connection.newResponse(new Response("database", controller.getDataBas()));
+//		}
 
 		else if (request.getRequest().equals("playCard")) {
 			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
@@ -142,4 +147,14 @@ public class Server {
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
+	
+	/**
+	 * this method returns a boolean
+	 * @return true if the name and password is correct 
+	 */
+	
+	public boolean logInDb(String userName, String passWord){
+		return databas.logInDb(userName, passWord);
+	}
+	
 }
