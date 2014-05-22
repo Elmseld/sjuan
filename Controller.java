@@ -21,26 +21,28 @@ public class Controller {
 	private DataBase databas = new DataBase();
 	private HashMap<Integer, ArrayList <Card>> gameBoardList = new HashMap<Integer, ArrayList<Card>>();
 	private HashMap<Integer, ArrayList <Player>> game = new HashMap<Integer, ArrayList<Player>>();
-
+	private HashMap<Integer, ArrayList <Card>> passCardList = new HashMap<Integer, ArrayList<Card>>();
 	/**
 	 * Constructs a controller 
 	 */
 	public Controller(Server server, int gameID, 
-			int client1, int  client2, int client3, int client4) {
+			int clientID1, int  clientID2, int clientID3, int clientID4) {
 		this.gameID = gameID;
-		player1 = new Player(client1, gameID);
-		player2 = new Player(client2, gameID);
-		player3 = new Player(client3, gameID);
-		player4 = new Player(client4, gameID);
+		player1 = new Player(clientID1, gameID);
+		player2 = new Player(clientID2, gameID);
+		player3 = new Player(clientID3, gameID);
+		player4 = new Player(clientID4, gameID);
 		deal();
 		ArrayList <Player> playerList = new ArrayList<Player>(4);
 		ArrayList <Card> gameBoardCards = new ArrayList<Card>();
+		ArrayList <Card> tempList = new ArrayList<Card>();
 		playerList.add(player1);
 		playerList.add(player2);
 		playerList.add(player3);
 		playerList.add(player4);
 		game.put(gameID, playerList);
 		gameBoardList.put(gameID, gameBoardCards);
+		passCardList.put(gameID, tempList);
 		server.setController(this);
 
 	}
@@ -303,6 +305,7 @@ public class Controller {
 	 * @return gameID returns a Integer of a gameID
 	 */
 	public int getGameID() {
+
 		return gameID;
 	}
 
@@ -340,7 +343,6 @@ public class Controller {
 				}
 				i++;
 				return game.get(gameID).get(i).getClientID();
-
 			}
 		}
 		return -1;
@@ -426,5 +428,24 @@ public class Controller {
 		else {
 			return getPlayer3(gameID).getPlayerCardSize();
 		}
+	}
+	public void giveCard (String cardName, int clientID, int gameID) {
+		ArrayList<Card> list = getPlayerByClientID(clientID, gameID).getPlayerCards();
+		for (Card card : list) {
+			if (card.toString().equals(cardName)) {
+				passCardList.get(gameID).add(card);
+				getPlayerByClientID(clientID, gameID).getPlayerCards().remove(card);
+				break;
+			}
+		}
+	}
+
+	public ArrayList<Card> addRecievedCardsToPassedPlayer(int clientID, int gameID) {
+		ArrayList<Card> list = passCardList.get(gameID);
+		for (int i = list.size()-1; i >= 0 ; i--) {
+			getPlayerByClientID(clientID, gameID).getPlayerCards().add(list.remove(i));
+		}
+		passCardList.get(gameID).clear();
+		return getPlayerByClientID(clientID, gameID).getPlayerCards();
 	}
 }

@@ -12,7 +12,7 @@ public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request, cardName;
 	private String sql;
-	private int clientID, gameID;
+	private int clientID, gameID, passCounter;
 
 	/**
 	 * constructs a request
@@ -26,7 +26,6 @@ public class Request implements Serializable {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
-
 	}
 
 	/**
@@ -38,7 +37,13 @@ public class Request implements Serializable {
 		this.request = request;
 		this.cardName = cardName;
 		this.gameID = gameID;
-
+	}
+	
+	public Request(String request,int clientID, int gameID, int counter) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+		this.passCounter = counter;
 	}
 
 	/**
@@ -47,11 +52,12 @@ public class Request implements Serializable {
 	 * @param cardName takes in a cardName of a card
 	 * @param clientID takes in the clients ID
 	 */
-	public Request(String request, String cardName, int clientID, int gameID) {
+	public Request(String request, String cardName, int clientID, int gameID, int passCounter) {
 		this.request = request;
 		this.cardName = cardName;
 		this.clientID = clientID;
 		this.gameID = gameID;
+		this.passCounter = passCounter;
 
 	}
 
@@ -86,6 +92,10 @@ public class Request implements Serializable {
 	 */
 	public int getGameID() {
 		return gameID;
+	}
+
+	public int getPassCounter() {
+		return passCounter;
 	}
 }
 
