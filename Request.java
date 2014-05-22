@@ -10,9 +10,11 @@ import java.sql.Statement;
  */
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	private String request, cardName;
-	private String sql;
+	private String sql, userName, passWord;
 	private int clientID, gameID, passCounter;
+
 
 	/**
 	 * constructs a request
@@ -38,7 +40,7 @@ public class Request implements Serializable {
 		this.cardName = cardName;
 		this.gameID = gameID;
 	}
-	
+
 	public Request(String request,int clientID, int gameID, int counter) {
 		this.request = request;
 		this.clientID = clientID;
@@ -59,6 +61,12 @@ public class Request implements Serializable {
 		this.gameID = gameID;
 		this.passCounter = passCounter;
 
+	}
+
+	public Request(String request, String userName, String passWord){
+		this.request = request;
+		this.userName = userName;
+		this.passWord = passWord;
 	}
 
 	/**
@@ -84,6 +92,24 @@ public class Request implements Serializable {
 	 */
 	public String getCardName() {
 		return cardName;
+	}
+
+	/**
+	 * this method returns a username
+	 * @return username
+	 */
+
+	public String getUserName(){
+		return userName;
+	}
+
+	/**
+	 * this method returns a password
+	 * @return password
+	 */
+
+	public String getPassWord(){
+		return passWord;
 	}
 
 	/**

@@ -1,5 +1,4 @@
 package sjuan;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ public class Controller {
 	private Deck deck = new Deck();
 	private int gameID;
 	private Rules rules = new Rules(this);
-	private DataBase databas = new DataBase();
 	private HashMap<Integer, ArrayList <Card>> gameBoardList = new HashMap<Integer, ArrayList<Card>>();
 	private HashMap<Integer, ArrayList <Player>> game = new HashMap<Integer, ArrayList<Player>>();
 	private HashMap<Integer, ArrayList <Card>> passCardList = new HashMap<Integer, ArrayList<Card>>();
@@ -173,19 +171,19 @@ public class Controller {
 	 * this method returns a String from the database containing its context
 	 * @return str returns a string
 	 */
-	public String getDataBas (){
-		String str = "";
-		try {
-			databas.connect();
-			ResultSet result = databas.statement.executeQuery("SELECT * FROM ab4607.statistics");
-			str = databas.showResultSet(result);
-
-			databas.disconnect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return str; 
-	}
+	//	public String getDataBas (){
+	//		String str = "";
+	//		try {
+	//			databas.connect();
+	//			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
+	//			str = databas.showResultSet(result);
+	//			
+	//			databas.disconnect();
+	//		} catch (SQLException e) {
+	//			e.printStackTrace();
+	//		}
+	//		return str; 
+	//	}
 
 	/**
 	 * this method finds out the player that have the starting card (h7) 
@@ -429,6 +427,7 @@ public class Controller {
 			return getPlayer3(gameID).getPlayerCardSize();
 		}
 	}
+
 	public void giveCard (String cardName, int clientID, int gameID) {
 		ArrayList<Card> list = getPlayerByClientID(clientID, gameID).getPlayerCards();
 		for (Card card : list) {
@@ -448,4 +447,5 @@ public class Controller {
 		passCardList.get(gameID).clear();
 		return getPlayerByClientID(clientID, gameID).getPlayerCards();
 	}
+
 }
