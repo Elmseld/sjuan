@@ -16,16 +16,8 @@ public class Player implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> playerCards;
 	private String name;
-	private boolean humanPlayer, hasHeart7 = false;
+	private boolean humanPlayer = false, hasHeart7 = false;
 	private int clientID, gameID;
-
-	/**
-	 * Constructs a player
-	 */
-	public Player() {
-		playerCards = new ArrayList<Card>();
-		humanPlayer = false;
-	}
 	
 	/**
 	 * the constructor creates a player

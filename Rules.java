@@ -158,7 +158,6 @@ public class Rules {
 					return true;
 				}
 			}
-
 		}
 
 		else if (card.getType() == 2) {
