@@ -7,6 +7,7 @@ public class DataBase {
 
 	public static Connection connection;
 	public static Statement statement;
+	public static java.sql.PreparedStatement statement1;
 	private static String sql = "";
 
 	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datam�ngden som utg�r resultatet av en SQL-sats.
@@ -98,4 +99,5 @@ public class DataBase {
 		return false;
 
 	}
+
 }
