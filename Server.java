@@ -132,13 +132,18 @@ public class Server {
 		else if (request.getRequest().equals("recieveCards")) {
 			System.out.println(request.getClientID() + " tar emot kort");
 			controller.addRecievedCardsToPassedPlayer(request.getClientID(), request.getGameID());
+			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+					controller.getGameBoardCards(request.getGameID())));
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer", 
 							request.getClientID(), request.getGameID()));	
 		}
-//		else if(request.getRequest().equals("database")) {
-//			connection.newResponse(new Response("database", controller.getDataBas()));
-//		}
+		//		else if(request.getRequest().equals("database")) {
+		//			connection.newResponse(new Response("database", controller.getDataBas()));
+		//		}
 		else if (request.getRequest().equals("nextPlayer")) {
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer"));
@@ -148,6 +153,13 @@ public class Server {
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
 					controller.getGameBoardCards(request.getGameID()), null));
+		}
+		else if (request.getRequest().equals("getAllGameConditions")) {
+			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+					controller.getGameBoardCards(request.getGameID())));
 		}
 		else {
 			connection.newResponse(new Response("clientsMissing"));
