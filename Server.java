@@ -184,6 +184,7 @@ public class Server {
 	 */
 	public void setController(Controller controller) {
 		this.controller = controller;
+
 	}
 
 	/**
