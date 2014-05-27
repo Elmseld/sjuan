@@ -12,9 +12,8 @@ public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String request, sql, cardName;
-	private ArrayList <Card> cards, gameBoardCards;
-	private Player player;
-	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID;
+	private ArrayList <Card> cards, gameBoardCards, giveAwayCardList;
+	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter;
 	private Card card;
 	private boolean logOk;
 	private boolean hasHeart7;
@@ -22,6 +21,7 @@ public class Response implements Serializable {
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
+	 * 
 	 */
 	public Response(String request) {
 		this.request = request;
@@ -61,6 +61,12 @@ public class Response implements Serializable {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
+	}
+	public Response(String request, int clientID, int gameID, int count) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+		this.passCounter = count;
 	}
 
 	/**
@@ -109,14 +115,16 @@ public class Response implements Serializable {
 		this.opponentCards3 = opponentCards3;
 
 	}
+	
 	public Response(String request,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
-			ArrayList<Card> gameBoardCards) {
+			ArrayList<Card> gameBoardCards, ArrayList<Card> giveAwayCardList) {
 		this.request = request;
 		this.opponentCards1 = opponentCards1;
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.gameBoardCards = gameBoardCards;
+		this.giveAwayCardList = giveAwayCardList;
 
 	}
 
@@ -129,7 +137,6 @@ public class Response implements Serializable {
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.gameBoardCards = gameBoardCards;
-
 	}
 
 
@@ -232,5 +239,13 @@ public class Response implements Serializable {
 	 */
 	public boolean isHasHeart7() {
 		return hasHeart7;
+	}
+
+	public int getPassCounter() {
+		return passCounter;
+	}
+
+	public ArrayList <Card> getGiveAwayCardList() {
+		return giveAwayCardList;
 	}
 }

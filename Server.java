@@ -1,6 +1,9 @@
 package sjuan;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +19,8 @@ public class Server {
 	private Lobby lobby = new Lobby();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
+	private DataBase databas = new DataBase();
+
 
 	/**
 	 * constructs a server 
@@ -48,12 +53,12 @@ public class Server {
 	 * @param request takes in a request to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
+		
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
 		}
-		
 		else if(request.getRequest().equals("Login")){
-			connection.newResponse(new Response("Login", controller.logInDb(request.getUserName(), request.getPassWord())));
+			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
 		else if (request.getRequest().equals("newGame")) {
 			lobby.waitingRoom(request.getClientID(), this);
@@ -86,16 +91,18 @@ public class Server {
 		}
 		else if(request.getRequest().equals("pass")) {
 			if (controller.checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
-				connection.newResponse(new Response("pass"));
+				connection.newResponse(new Response("pass", request.getClientID(), request.getGameID()));
 			}
 			else {
 				connection.newResponse(new Response("passainte"));
 			}
 		}
 
-		else if(request.getRequest().equals("database")){
-			connection.newResponse(new Response("database", controller.getDataBas()));
-		}
+
+		//		else if(request.getRequest().equals("database")){
+		//			connection.newResponse(new Response("database", controller.getDataBas()));
+		//		}
+
 
 		else if (request.getRequest().equals("playCard")) {
 			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
@@ -108,12 +115,48 @@ public class Server {
 				connection.newResponse(new Response("dontPlayCard"));
 			}
 		}
+		else if (request.getRequest().equals("giveACard")) {
+			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
+					request.getGameID())).newResponse(new Response("giveACard",request.getClientID(), 
+							request.getGameID(), request.getPassCounter()));		
+		}
+		else if (request.getRequest().equals("giveACardToAPlayer")) {
+			System.out.println(request.getClientID() + " ger ett kort");
+			controller.giveCard(request.getCardName(), 
+					request.getClientID(), request.getGameID());
+			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
+					request.getGameID())).newResponse(new Response("giveACard",request.getClientID(), 
+							request.getGameID(), request.getPassCounter()+1));	
+		}
+
+		else if (request.getRequest().equals("recieveCards")) {
+			System.out.println(request.getClientID() + " tar emot kort");
+			controller.addRecievedCardsToPassedPlayer(request.getClientID(), request.getGameID());
+			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+					controller.getGameBoardCards(request.getGameID())));
+			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
+					request.getGameID())).newResponse(new Response("wakePlayer", 
+							request.getClientID(), request.getGameID()));	
+		}
+		//		else if(request.getRequest().equals("database")) {
+		//			connection.newResponse(new Response("database", controller.getDataBas()));
+		//		}
 		else if (request.getRequest().equals("nextPlayer")) {
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer"));
 		}
 		else if (request.getRequest().equals("getGameConditions")) {
 			connection.newResponse(new Response("updateGUI", controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+					controller.getGameBoardCards(request.getGameID()), null));
+		}
+		else if (request.getRequest().equals("getAllGameConditions")) {
+			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
 					controller.getGameBoardCards(request.getGameID())));
@@ -143,4 +186,14 @@ public class Server {
 		this.controller = controller;
 
 	}
+
+	/**
+	 * this method returns a boolean
+	 * @return true if the name and password is correct 
+	 */
+
+	public boolean logInDb(String userName, String passWord){
+		return databas.logInDb(userName, passWord);
+	}
+
 }
