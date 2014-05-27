@@ -53,10 +53,10 @@ public class Server {
 	 * @param request takes in a request to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
+		
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
 		}
-
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
