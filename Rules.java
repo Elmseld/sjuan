@@ -112,7 +112,7 @@ public class Rules {
 			i++;
 		}
 	}
-	
+
 	/**
 	 * this method checks if a player can pass or not
 	 * @param card takes in a card
