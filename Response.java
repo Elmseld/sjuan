@@ -137,7 +137,6 @@ public class Response implements Serializable {
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.gameBoardCards = gameBoardCards;
-
 	}
 
 
