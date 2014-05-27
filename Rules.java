@@ -33,11 +33,13 @@ public class Rules {
 			if (card.getValue() == 6) {
 				moveCardToBoard(card, gameID);
 				return true;
+				
 			} else {
 				ArrayList<Card> res = controller.getGameBoardCards(gameID);
 				for (int i = 0; i < res.size(); i++) {
 					Card right = res.get(i);
-					if (right.getType() == 0 && right.getValue() == (card.getValue() + 1) || (right.getType() == 0 && right.getValue() == (card.getValue() -1))) {
+					if (right.getType() == 0 && right.getValue() == (card.getValue() + 1) 
+							|| (right.getType() == 0 && right.getValue() == (card.getValue() -1))) {
 						moveCardToBoard(card, gameID);
 						return true;
 					}
@@ -61,7 +63,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 1 && right.getValue() == (card.getValue() + 1) || (right.getType() == 1 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 1 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 1 && right.getValue() == (card.getValue() -1))) {
 					moveCardToBoard(card, gameID);
 					return true;
 				}
@@ -73,7 +76,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 2 && right.getValue() == (card.getValue() + 1) || (right.getType() == 2 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 2 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 2 && right.getValue() == (card.getValue() -1))) {
 					moveCardToBoard(card, gameID);
 					return true;
 				}
@@ -84,7 +88,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 3 && right.getValue() == (card.getValue() + 1) || (right.getType() == 3 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 3 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 3 && right.getValue() == (card.getValue() -1))) {
 					moveCardToBoard(card, gameID);
 					return true;
 				}
@@ -132,7 +137,8 @@ public class Rules {
 				ArrayList<Card> res = controller.getGameBoardCards(gameID);
 				for (int i = 0; i < res.size(); i++) {
 					Card right = res.get(i);
-					if (right.getType() == 0 && right.getValue() == (card.getValue() + 1) || (right.getType() == 0 && right.getValue() == (card.getValue() -1))) {
+					if (right.getType() == 0 && right.getValue() == (card.getValue() + 1) 
+							|| (right.getType() == 0 && right.getValue() == (card.getValue() -1))) {
 						return true;
 					}
 				}
@@ -154,7 +160,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 1 && right.getValue() == (card.getValue() + 1) || (right.getType() == 1 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 1 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 1 && right.getValue() == (card.getValue() -1))) {
 					return true;
 				}
 			}
@@ -165,7 +172,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 2 && right.getValue() == (card.getValue() + 1) || (right.getType() == 2 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 2 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 2 && right.getValue() == (card.getValue() -1))) {
 					return true;
 				}
 			}
@@ -175,7 +183,8 @@ public class Rules {
 			ArrayList<Card> res = controller.getGameBoardCards(gameID);
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
-				if (right.getType() == 3 && right.getValue() == (card.getValue() + 1) || (right.getType() == 3 && right.getValue() == (card.getValue() -1))) {
+				if (right.getType() == 3 && right.getValue() == (card.getValue() + 1) 
+						|| (right.getType() == 3 && right.getValue() == (card.getValue() -1))) {
 					return true;
 				}
 			}
