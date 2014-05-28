@@ -141,5 +141,8 @@ public class Player implements Serializable{
 	public void hasHeart7() {
 		this.hasHeart7 = true;
 	}
+	public boolean isHumanPlayer() {
+		return humanPlayer;
+	}
 }
 
