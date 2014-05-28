@@ -60,6 +60,7 @@ public class Server {
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
+		
 		else if (request.getRequest().equals("newGame")) {
 			lobby.waitingRoom(request.getClientID(), this);
 			connection.newResponse(new Response("newGame", request.getClientID()));
