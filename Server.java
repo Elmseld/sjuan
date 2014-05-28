@@ -57,6 +57,8 @@ public class Server {
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
 		}
+		
+	
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
