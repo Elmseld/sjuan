@@ -46,14 +46,16 @@ public class ConnectToServer {
 					socket = serverSocket.accept();
 					setCounter(getCounter() + 1);
 					System.out.println("New client" + getCounter());
-					server.newClient(new ServerConnection(server,socket), getCounter());
+					server.newClient(new ServerConnection(server,socket), counter);
 				}
 			} catch (IOException e1) {
+				e1.getStackTrace();
 				System.out.println(e1);
 			}
 			try {
 				serverSocket.close();
 			} catch (Exception e) {
+ 				e.getStackTrace();
 			}
 		}
 	}
