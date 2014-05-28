@@ -76,6 +76,7 @@ public class Server {
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
+		
 		else if (request.getRequest().equals("newGame")) {
 //			if (readyClientsConnections.size()<4) {
 //				connection.newResponse(new Response("createAI"));

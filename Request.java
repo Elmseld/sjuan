@@ -13,6 +13,7 @@ public class Request implements Serializable {
 
 	private String request, cardName;
 	private String sql, userName, passWord;
+	private String newId;
 	private int clientID, gameID, passCounter;
 	private boolean humanPlayer;
 
@@ -70,6 +71,14 @@ public class Request implements Serializable {
 		this.userName = userName;
 		this.passWord = passWord;
 	}
+	
+	public Request(String request, String newId, String userName, String passWord){
+		this.request = request;
+		this.newId= newId;
+		this.userName = userName;
+		this.passWord = passWord;
+	}
+	
 
 	/**
 	 * this method returns a request
