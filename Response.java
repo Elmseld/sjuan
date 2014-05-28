@@ -95,7 +95,7 @@ public class Response implements Serializable {
 	 */
 	public Response(String request, Player player,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
-			int clientID, int gameID, boolean hasHeart7, boolean humanPlayer) {
+			int clientID, int gameID, boolean hasHeart7) {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
@@ -104,7 +104,7 @@ public class Response implements Serializable {
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.hasHeart7 = hasHeart7;
-		this.humanPlayer = humanPlayer;
+//		this.humanPlayer = humanPlayer;
 
 	}
 

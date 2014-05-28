@@ -1,4 +1,5 @@
 package sjuan;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,8 +16,10 @@ import java.util.HashMap;
  */
 public class Server {
 	private int clientID;
+	//	private boolean humanClient = false;
 	private Controller controller;
 	private Lobby lobby = new Lobby();
+	private HashMap <Integer, Boolean> humanList = new HashMap <Integer, Boolean>();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
 	private DataBase databas = new DataBase();
@@ -43,7 +46,7 @@ public class Server {
 	 */
 	public void newClient(ServerConnection connection, int counter) {
 		clientID = counter;
-		connectionsList.put(clientID, connection);
+		connectionsList.put(counter, connection);
 		controller = null;
 	}
 
@@ -55,32 +58,37 @@ public class Server {
 	public synchronized void newRequest(ServerConnection connection, Request request) {
 
 		if (request.getRequest().equals("clientID")) {
+			//			if (request.isHumanPlayer()==true)
+			//				humanList.put(request.getClientID(), true);
 			connection.newResponse(new Response("clientID" , clientID, request.isHumanPlayer()));
 		}
 		else if (request.getRequest().equals("newAIPlayer")) {
-			readyClientsConnections.add(clientID);
+			readyClientsConnections.add(request.getClientID());
 			if (readyClientsConnections.size()<4) {
-				connection.newResponse(new Response("createAI", request.getClientID(), request.isHumanPlayer()));
 				lobby.waitingRoom(clientID, this);
+				connection.newResponse(new Response("createAI", clientID, false));
 			}
 			else {
 				lobby.waitingRoom(clientID, this);
 				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame"));
 			}
 		}
-//		else if (request.getRequest().equals("setAIPlayer")) {
-//			readyClientsConnections.add(clientID);
-//			lobby.waitingRoom(clientID, this);
-//			connection.newResponse(new Response("setAIPlayer", clientID, request.isHumanPlayer()));
-//		}
+		//		else if (request.getRequest().equals("setAIPlayer")) {
+		//			readyClientsConnections.add(clientID);
+		//			lobby.waitingRoom(clientID, this);
+		//			connection.newResponse(new Response("setAIPlayer", clientID, request.isHumanPlayer()));
+		//		}
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
-		
+		else if (request.getRequest().equals("setPlayerHumanOrAI")) {
+			System.out.println(request.getClientID() + " "+ request.isHumanPlayer());
+
+		}
 		else if (request.getRequest().equals("newGame")) {
-//			if (readyClientsConnections.size()<4) {
-//				connection.newResponse(new Response("createAI"));
-//			}
+			//			if (readyClientsConnections.size()<4) {
+			//				connection.newResponse(new Response("createAI"));
+			//			}
 			//			else {
 			//			connection.newResponse(new Response("newGame", request.getClientID(), request.isHumanPlayer()));
 			//			System.out.println(request.getClientID() + " är tillagd i redolista");
@@ -89,32 +97,32 @@ public class Server {
 			//					lobby.waitingRoom(clientID, this);
 			//				}
 			//			if (controller!=null) {
-//			else {
-				System.out.println("spelet startas");
-				Player player1 = controller.getPlayer1(controller.getGameID());
-				Player player2 = controller.getPlayer2(controller.getGameID());
-				Player player3 = controller.getPlayer3(controller.getGameID());
-				Player player4 = controller.getPlayer4(controller.getGameID());
-				controller.whoHaveHeartSeven();
+			//			else {
+			System.out.println("spelet startas");
+			Player player1 = controller.getPlayer1(controller.getGameID());
+			Player player2 = controller.getPlayer2(controller.getGameID());
+			Player player3 = controller.getPlayer3(controller.getGameID());
+			Player player4 = controller.getPlayer4(controller.getGameID());
+			controller.whoHaveHeartSeven();
 
-				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(), player4.getPlayerCardSize(), request.getClientID(), 
-						controller.getGameID(), player1.isHasHeart7(), player1.isHumanPlayer()));
 
-				connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
-						player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
-						request.getClientID(), controller.getGameID(), player2.isHasHeart7(), player2.isHumanPlayer()));
+			connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
+					player3.getPlayerCardSize(), player4.getPlayerCardSize(), readyClientsConnections.get(0), 
+					controller.getGameID(), player1.isHasHeart7()));
 
-				connectionsList.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", player3, player4.getPlayerCardSize(),
-						player1.getPlayerCardSize(), player2.getPlayerCardSize(), 
-						request.getClientID(), controller.getGameID(), player3.isHasHeart7(), player3.isHumanPlayer()));
+			connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
+					player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
+					readyClientsConnections.get(1), controller.getGameID(), player2.isHasHeart7()));
 
-				connectionsList.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", player4, player1.getPlayerCardSize(),
-						player2.getPlayerCardSize(), player3.getPlayerCardSize(), 
-						request.getClientID(), controller.getGameID(), player4.isHasHeart7(), player4.isHumanPlayer())); 
+			connectionsList.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", player3, player4.getPlayerCardSize(),
+					player1.getPlayerCardSize(), player2.getPlayerCardSize(), 
+					readyClientsConnections.get(2), controller.getGameID(), player3.isHasHeart7()));
 
-			}
-//		}
+			connectionsList.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", player4, player1.getPlayerCardSize(),
+					player2.getPlayerCardSize(), player3.getPlayerCardSize(), 
+					readyClientsConnections.get(3), controller.getGameID(), player4.isHasHeart7()));
+		}
+		//		}
 		else if(request.getRequest().equals("pass")) {
 			if (controller.checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
 				connection.newResponse(new Response("pass", request.getClientID(), request.getGameID()));
