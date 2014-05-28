@@ -73,8 +73,8 @@ public class Server {
 				controller.whoHaveHeartSeven();
 
 				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
-						player3.getPlayerCardSize(), player4.getPlayerCardSize(), request.getClientID(), 
-						controller.getGameID(), player1.isHasHeart7()));
+						player3.getPlayerCardSize(), player4.getPlayerCardSize(), 
+						request.getClientID(), controller.getGameID(), player1.isHasHeart7()));
 
 				connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
 						player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
