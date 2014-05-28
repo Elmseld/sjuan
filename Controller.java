@@ -41,7 +41,7 @@ public class Controller {
 		game.put(gameID, playerList);
 		gameBoardList.put(gameID, gameBoardCards);
 		passCardList.put(gameID, tempList);
-		server.setController(this);
+		server.addControllerToList(this);
 
 	}
 

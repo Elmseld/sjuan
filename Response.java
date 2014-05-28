@@ -15,8 +15,8 @@ public class Response implements Serializable {
 	private ArrayList <Card> cards, gameBoardCards, giveAwayCardList;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter;
 	private Card card;
-	private boolean logOk;
-	private boolean hasHeart7;
+	private boolean hasHeart7, humanPlayer, logOk;
+
 
 	/**
 	 * constructs a response containing a string
@@ -52,9 +52,10 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
-	public Response(String request, int clientID) {
+	public Response(String request, int clientID, boolean humanPlayer) {
 		this.request = request;
 		this.clientID = clientID;
+		this.humanPlayer = humanPlayer;
 	}
 
 	public Response(String request, int clientID, int gameID) {
@@ -94,7 +95,7 @@ public class Response implements Serializable {
 	 */
 	public Response(String request, Player player,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
-			int clientID, int gameID, boolean hasHeart7) {
+			int clientID, int gameID, boolean hasHeart7, boolean humanPlayer) {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
@@ -103,6 +104,7 @@ public class Response implements Serializable {
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.hasHeart7 = hasHeart7;
+		this.humanPlayer = humanPlayer;
 
 	}
 
@@ -247,5 +249,9 @@ public class Response implements Serializable {
 
 	public ArrayList <Card> getGiveAwayCardList() {
 		return giveAwayCardList;
+	}
+
+	public boolean isHumanPlayer() {
+		return humanPlayer;
 	}
 }

@@ -14,6 +14,7 @@ public class Request implements Serializable {
 	private String request, cardName;
 	private String sql, userName, passWord;
 	private int clientID, gameID, passCounter;
+	private boolean humanPlayer;
 
 
 	/**
@@ -24,10 +25,11 @@ public class Request implements Serializable {
 		this.request = request;
 	}
 
-	public Request(String request, int clientID, int gameID) {
+	public Request(String request, int clientID, int gameID, boolean humanPlayer) {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
+		this.humanPlayer = humanPlayer;
 	}
 
 	/**
@@ -122,6 +124,9 @@ public class Request implements Serializable {
 
 	public int getPassCounter() {
 		return passCounter;
+	}
+	public boolean isHumanPlayer() {
+		return humanPlayer;
 	}
 }
 
