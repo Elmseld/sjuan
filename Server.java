@@ -53,9 +53,19 @@ public class Server {
 	 * @param request takes in a request to decide what to do
 	 */
 	public synchronized void newRequest(ServerConnection connection, Request request) {
-		
+
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID));
+		}
+		else if (request.getRequest().equals("createUser")) {
+			try {
+				DataBase.connect(request.getUserName(), request.getPassWord());
+				JOptionPane.showMessageDialog(null, "Välkommen till sjuan " + request.getUserName() + ":)");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
@@ -141,9 +151,9 @@ public class Server {
 					request.getGameID())).newResponse(new Response("wakePlayer", 
 							request.getClientID(), request.getGameID()));	
 		}
-		//		else if(request.getRequest().equals("database")) {
-		//			connection.newResponse(new Response("database", controller.getDataBas()));
-		//		}
+		else if(request.getRequest().equals("database")) {
+			connection.newResponse(new Response("database", getDataBas()));
+		}
 		else if (request.getRequest().equals("nextPlayer")) {
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer"));
@@ -162,7 +172,7 @@ public class Server {
 					controller.getGameBoardCards(request.getGameID())));
 		}
 		else {
-			connection.newResponse(new Response("clientsMissing"));
+			//			connection.newResponse(new Response("clientsMissing"));
 		}
 	}
 
@@ -195,5 +205,24 @@ public class Server {
 	public boolean logInDb(String userName, String passWord){
 		return databas.logInDb(userName, passWord);
 	}
+	
+	/**
+	 * this method returns a String from the database containing its context
+	 * @return str returns a string
+	 */
+		public String getDataBas (){
+			String str = "";
+			try {
+				databas.connect();
+				ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
+				str = databas.showResultSet(result);
+				
+				databas.disconnect();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return str; 
+		}
+
 
 }
