@@ -7,7 +7,6 @@ import java.util.ArrayList;
  *
  */
 public class Rules {
-	private Player player;
 	private Controller controller;
 
 	/**
@@ -25,22 +24,21 @@ public class Rules {
 	 * @param gameID takes in a gameID
 	 * @return boolean if the card is playable or not
 	 */
-	public boolean correct(Card card, Player player, int gameID) {
-		this.player = player;
+	public boolean correct(Card card, Player player, int gameID, int clientID) {
 
 		// if hjärter, sju först resten sen
 		if (card.getType() == 0) {
 			if (card.getValue() == 6) {
-				moveCardToBoard(card, gameID);
+				moveCardToBoard(card, gameID, clientID);
 				return true;
-				
+
 			} else {
 				ArrayList<Card> res = controller.getGameBoardCards(gameID);
 				for (int i = 0; i < res.size(); i++) {
 					Card right = res.get(i);
 					if (right.getType() == 0 && right.getValue() == (card.getValue() + 1) 
 							|| (right.getType() == 0 && right.getValue() == (card.getValue() -1))) {
-						moveCardToBoard(card, gameID);
+						moveCardToBoard(card, gameID, clientID);
 						return true;
 					}
 				}
@@ -53,7 +51,7 @@ public class Rules {
 			for (int i = 0; i < res.size(); i++) {
 				Card right = res.get(i);
 				if (right.getType() == 0) {
-					moveCardToBoard(card, gameID);
+					moveCardToBoard(card, gameID, clientID);
 					return true;
 				}
 			}
@@ -65,7 +63,7 @@ public class Rules {
 				Card right = res.get(i);
 				if (right.getType() == 1 && right.getValue() == (card.getValue() + 1) 
 						|| (right.getType() == 1 && right.getValue() == (card.getValue() -1))) {
-					moveCardToBoard(card, gameID);
+					moveCardToBoard(card, gameID, clientID);
 					return true;
 				}
 			}
@@ -78,7 +76,7 @@ public class Rules {
 				Card right = res.get(i);
 				if (right.getType() == 2 && right.getValue() == (card.getValue() + 1) 
 						|| (right.getType() == 2 && right.getValue() == (card.getValue() -1))) {
-					moveCardToBoard(card, gameID);
+					moveCardToBoard(card, gameID, clientID);
 					return true;
 				}
 			}
@@ -90,7 +88,7 @@ public class Rules {
 				Card right = res.get(i);
 				if (right.getType() == 3 && right.getValue() == (card.getValue() + 1) 
 						|| (right.getType() == 3 && right.getValue() == (card.getValue() -1))) {
-					moveCardToBoard(card, gameID);
+					moveCardToBoard(card, gameID, clientID);
 					return true;
 				}
 			}
@@ -103,15 +101,15 @@ public class Rules {
 	 * @param card takes in a card
 	 * @param gameID takes in a gameID
 	 */
-	public void moveCardToBoard(Card card, int gameID) {
+	public void moveCardToBoard(Card card, int gameID, int clientID) {
 		int i = 0;
-		ArrayList<Card> playerCards = player.getPlayerCards();
+		ArrayList<Card> playerCards = controller.getPlayerByClientID(gameID, clientID).getPlayerCards();
 
 		for (Card a : playerCards) {
 			if (a.toString().equals(card.toString())) {
 				playerCards.remove(i);
 				controller.moveGameBoardCards(card, gameID);
-				player.setPlayerCards(playerCards);
+				controller.setPlayerCards(gameID, clientID, playerCards);
 				break;
 			}
 			i++;
@@ -125,13 +123,11 @@ public class Rules {
 	 * @param gameID takes in a gameID
 	 * @return returns a boolean if a player have any possible moves
 	 */
-	public boolean checkPass(Card card, Player player, int gameID) {
-		this.player = player;
+	public boolean checkPass(Card card, int gameID) {
 
 		// if hjärter7
 		if (card.getType() == 0) {
 			if (card.getValue() == 6) {
-				moveCardToBoard(card, gameID);
 				return true;
 			} else {
 				ArrayList<Card> res = controller.getGameBoardCards(gameID);

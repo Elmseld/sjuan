@@ -17,9 +17,9 @@ import java.util.HashMap;
 public class Server {
 	private int clientID;
 	//	private boolean humanClient = false;
-	private Controller controller;
+	//	private Controller controller;
 	private Lobby lobby = new Lobby();
-	private HashMap <Integer, Boolean> humanList = new HashMap <Integer, Boolean>();
+	//	private HashMap <Integer, Boolean> humanList = new HashMap <Integer, Boolean>();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
 	private DataBase databas = new DataBase();
@@ -47,7 +47,6 @@ public class Server {
 	public void newClient(ServerConnection connection, int counter) {
 		clientID = counter;
 		connectionsList.put(counter, connection);
-		controller = null;
 	}
 
 	/**
@@ -65,12 +64,15 @@ public class Server {
 		else if (request.getRequest().equals("newAIPlayer")) {
 			readyClientsConnections.add(request.getClientID());
 			if (readyClientsConnections.size()<4) {
-				lobby.waitingRoom(clientID, this);
-				connection.newResponse(new Response("createAI", clientID, false));
+				lobby.waitingRoom(request.getClientID(), this);
+				connectionsList.get(request.getClientID()).newResponse(new Response
+						("createAI", request.getClientID(), false));
 			}
 			else {
-				lobby.waitingRoom(clientID, this);
-				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame"));
+				lobby.waitingRoom(request.getClientID(), this);
+				connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response
+						("newGame", readyClientsConnections.get(0), 
+								lobby.getGameID(request.getClientID())));
 			}
 		}
 		//		else if (request.getRequest().equals("setAIPlayer")) {
@@ -99,36 +101,43 @@ public class Server {
 			//			if (controller!=null) {
 			//			else {
 			System.out.println("spelet startas");
+			Controller controller = controllerList.get(request.getGameID());
 			Player player1 = controller.getPlayer1(controller.getGameID());
 			Player player2 = controller.getPlayer2(controller.getGameID());
 			Player player3 = controller.getPlayer3(controller.getGameID());
 			Player player4 = controller.getPlayer4(controller.getGameID());
 			controller.whoHaveHeartSeven();
 
-
-			connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", player1, player2.getPlayerCardSize(),
-					player3.getPlayerCardSize(), player4.getPlayerCardSize(), readyClientsConnections.get(0), 
+			connectionsList.get(readyClientsConnections.get(0)).newResponse(new Response("newGame", 
+					player1, player2.getPlayerCardSize(),player3.getPlayerCardSize(), 
+					player4.getPlayerCardSize(), readyClientsConnections.get(0),
 					controller.getGameID(), player1.isHasHeart7()));
 
-			connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", player2, player3.getPlayerCardSize(), 
-					player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
-					readyClientsConnections.get(1), controller.getGameID(), player2.isHasHeart7()));
+			connectionsList.get(readyClientsConnections.get(1)).newResponse(new Response("newGame", 
+					player2, player3.getPlayerCardSize(), player4.getPlayerCardSize(),
+					player1.getPlayerCardSize(), readyClientsConnections.get(1), 
+					controller.getGameID(), player2.isHasHeart7()));
 
-			connectionsList.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", player3, player4.getPlayerCardSize(),
-					player1.getPlayerCardSize(), player2.getPlayerCardSize(), 
-					readyClientsConnections.get(2), controller.getGameID(), player3.isHasHeart7()));
+			connectionsList.get(readyClientsConnections.get(2)).newResponse(new Response("newGame", 
+					player3, player4.getPlayerCardSize(), player1.getPlayerCardSize(), 
+					player2.getPlayerCardSize(), readyClientsConnections.get(2),
+					controller.getGameID(), player3.isHasHeart7()));
 
-			connectionsList.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", player4, player1.getPlayerCardSize(),
-					player2.getPlayerCardSize(), player3.getPlayerCardSize(), 
-					readyClientsConnections.get(3), controller.getGameID(), player4.isHasHeart7()));
+			connectionsList.get(readyClientsConnections.get(3)).newResponse(new Response("newGame", 
+					player4, player1.getPlayerCardSize(), player2.getPlayerCardSize(), 
+					player3.getPlayerCardSize(), readyClientsConnections.get(3), 
+					controller.getGameID(), player4.isHasHeart7()));
+
+			readyClientsConnections.clear();
 		}
+
 		//		}
 		else if(request.getRequest().equals("pass")) {
-			if (controller.checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
-				connection.newResponse(new Response("pass", request.getClientID(), request.getGameID()));
+			if (controllerList.get(request.getGameID()).checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
+				connectionsList.get(request.getGameID()).newResponse(new Response("pass", request.getClientID(), request.getGameID()));
 			}
 			else {
-				connection.newResponse(new Response("passainte"));
+				connection.newResponse(new Response("passainte", request.getClientID()));
 			}
 		}
 
@@ -139,38 +148,42 @@ public class Server {
 
 
 		else if (request.getRequest().equals("playCard")) {
-			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
+			if (controllerList.get(request.getGameID()).checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
 					request.getGameID())) { 
-				connection.newResponse(new Response("playCard", request.getCardName(),
-						controller.getPlayerByClientID(request.getClientID(), request.getGameID()), 
-						controller.getGameBoardCards(request.getGameID())));
+				System.out.println(request.getClientID() + ": har spelat: " + request.getCardName());
+
+				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI", request.getCardName(),
+						controllerList.get(request.getGameID()).getPlayerByClientID(request.getGameID(), request.getClientID()), 
+						controllerList.get(request.getGameID()).getGameBoardCards(request.getGameID()), request.getClientID()));
 			}
+			//			}
 			else {
-				connection.newResponse(new Response("dontPlayCard"));
+				connection.newResponse(new Response("dontPlayCard", request.getClientID()));
 			}
 		}
 		else if (request.getRequest().equals("giveACard")) {
-			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
+			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("giveACard",request.getClientID(), 
 							request.getGameID(), request.getPassCounter()));		
 		}
 		else if (request.getRequest().equals("giveACardToAPlayer")) {
 			System.out.println(request.getClientID() + " ger ett kort");
-			controller.giveCard(request.getCardName(), 
+			controllerList.get(request.getGameID()).giveCard(request.getCardName(), 
 					request.getClientID(), request.getGameID());
-			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
+			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("giveACard",request.getClientID(), 
 							request.getGameID(), request.getPassCounter()+1));	
 		}
 
 		else if (request.getRequest().equals("recieveCards")) {
+			Controller controller = controllerList.get(request.getGameID());
 			System.out.println(request.getClientID() + " tar emot kort");
 			controller.addRecievedCardsToPassedPlayer(request.getClientID(), request.getGameID());
-			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+			connection.newResponse(new Response("updateAll", controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
 					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID())));
+					controller.getGameBoardCards(request.getGameID()), request.getClientID()));
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer", 
 							request.getClientID(), request.getGameID()));	
@@ -179,24 +192,40 @@ public class Server {
 		//			connection.newResponse(new Response("database", controller.getDataBas()));
 		//		}
 		else if (request.getRequest().equals("nextPlayer")) {
-			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
-					request.getGameID())).newResponse(new Response("wakePlayer"));
+			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
+					request.getGameID())).newResponse(new Response("wakePlayer",
+							controllerList.get(request.getGameID()).setNextPlayersTurn
+							(request.getClientID(), request.getGameID())));
+			System.out.println(request.getClientID() + ": väcker nästa " );
+
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		else if (request.getRequest().equals("getGameConditions")) {
-			connection.newResponse(new Response("updateGUI", controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
-					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
-					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID()), null));
-		}
+//		else if (request.getRequest().equals("getGameConditions")) {
+//			Controller controller = controllerList.get(request.getGameID());
+//			connection.newResponse(new Response("update", 
+//					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+//					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+//					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+//					controller.getGameBoardCards(request.getGameID()), null, request.getClientID()));
+//		}
 		else if (request.getRequest().equals("getAllGameConditions")) {
-			connection.newResponse(new Response("updateGUI2", controller.getPlayerByClientID(request.getClientID(), request.getGameID()),
+			Controller controller = controllerList.get(request.getGameID());
+			connection.newResponse(new Response("updateAll", controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
 					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID())));
+					controller.getGameBoardCards(request.getGameID()), request.getClientID()));
+			System.out.println(request.getClientID() + ": uppdaterar spelet " );
+
 		}
 		else {
-			connection.newResponse(new Response("clientsMissing"));
+			connection.newResponse(new Response("clientsMissing", request.getClientID()));
 		}
 	}
 
@@ -209,18 +238,7 @@ public class Server {
 	 * @param gameID takes in a gameID
 	 */
 	public void createGame(int client1, int client2, int client3, int client4, int gameID) {
-		controller = new Controller(this, gameID, client1, client2, client3, client4);
-		controllerList.put(controller.getGameID(), controller);
-
-	}
-
-	/**
-	 * this method sets a controller for the server
-	 * @param controller takes in a controller
-	 */
-	public void addControllerToList(Controller controller) {
-		//		controllerList.put(controller.getGameID(), controller);
-		this.controller = controller;
+		controllerList.put(gameID, new Controller(this, gameID, client1, client2, client3, client4));
 	}
 
 	/**
@@ -230,5 +248,18 @@ public class Server {
 
 	public boolean logInDb(String userName, String passWord){
 		return databas.logInDb(userName, passWord);
+	}
+
+
+	public int[] getAllClientIDInAGame(int gameID) {
+		Player player1 = controllerList.get(gameID).getPlayer1(gameID);
+		Player player2 = controllerList.get(gameID).getPlayer2(gameID);
+		Player player3 = controllerList.get(gameID).getPlayer3(gameID);
+		Player player4 = controllerList.get(gameID).getPlayer4(gameID);
+
+		int[] clientIDs = {player1.getClientID(), player2.getClientID(),
+				player3.getClientID(), player4.getClientID()};
+
+		return clientIDs;
 	}
 }

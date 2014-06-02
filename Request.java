@@ -44,12 +44,12 @@ public class Request implements Serializable {
 		this.gameID = gameID;
 	}
 
-	public Request(String request,int clientID, int gameID, int counter) {
-		this.request = request;
-		this.clientID = clientID;
-		this.gameID = gameID;
-		this.passCounter = counter;
-	}
+//	public Request(String request, String cardName, int clientID, int gameID) {
+//		this.request = request;
+//		this.cardName = cardName;
+//		this.clientID = clientID;
+//		this.gameID = gameID;
+//	}
 
 	/**
 	 * constructs a request
@@ -134,6 +134,7 @@ public class Request implements Serializable {
 	public int getPassCounter() {
 		return passCounter;
 	}
+	
 	public boolean isHumanPlayer() {
 		return humanPlayer;
 	}
