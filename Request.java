@@ -131,6 +131,10 @@ public class Request implements Serializable {
 		return gameID;
 	}
 
+	/**
+	 * this method returns a passCounter
+	 * @return passCounter controlled how many that have give a card 
+	 */
 	public int getPassCounter() {
 		return passCounter;
 	}
