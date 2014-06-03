@@ -102,17 +102,12 @@ public class Rules {
 	 * @param gameID takes in a gameID
 	 */
 	public void moveCardToBoard(Card card, int gameID, int clientID) {
-		int i = 0;
-		ArrayList<Card> playerCards = controller.getPlayerByClientID(gameID, clientID).getPlayerCards();
-
-		for (Card a : playerCards) {
+		for (Card a : controller.getPlayerByClientID(gameID, clientID).getPlayerCards()) {
 			if (a.toString().equals(card.toString())) {
-				playerCards.remove(i);
-				controller.moveGameBoardCards(card, gameID);
-				controller.setPlayerCards(gameID, clientID, playerCards);
+				controller.getPlayerByClientID(gameID, clientID).getPlayerCards().remove(a);
+				controller.moveGameBoardCards(a, gameID);
 				break;
 			}
-			i++;
 		}
 	}
 

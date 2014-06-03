@@ -44,12 +44,12 @@ public class Request implements Serializable {
 		this.gameID = gameID;
 	}
 
-//	public Request(String request, String cardName, int clientID, int gameID) {
-//		this.request = request;
-//		this.cardName = cardName;
-//		this.clientID = clientID;
-//		this.gameID = gameID;
-//	}
+	public Request(String request, String cardName, int clientID, int gameID) {
+		this.request = request;
+		this.cardName = cardName;
+		this.clientID = clientID;
+		this.gameID = gameID;
+	}
 
 	/**
 	 * constructs a request

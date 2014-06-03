@@ -431,11 +431,11 @@ public class Controller {
 	}
 
 	public void giveCard (String cardName, int clientID, int gameID) {
-		ArrayList<Card> list = getPlayerByClientID(clientID, gameID).getPlayerCards();
-		for (Card card : list) {
+		
+		for (Card card : game.get(gameID).get(clientID).getPlayerCards()) {
 			if (card.toString().equals(cardName)) {
 				passCardList.get(gameID).add(card);
-				getPlayerByClientID(clientID, gameID).getPlayerCards().remove(card);
+				game.get(gameID).get(clientID).getPlayerCards().remove(card);
 				break;
 			}
 		}
@@ -444,10 +444,12 @@ public class Controller {
 	public ArrayList<Card> addRecievedCardsToPassedPlayer(int clientID, int gameID) {
 		ArrayList<Card> list = passCardList.get(gameID);
 		for (int i = list.size()-1; i >= 0 ; i--) {
-			getPlayerByClientID(clientID, gameID).getPlayerCards().add(list.remove(i));
+			game.get(gameID).get(clientID).getPlayerCards().add(list.remove(i));
+//			getPlayerByClientID(clientID, gameID).getPlayerCards().add(list.remove(i));
 		}
 		passCardList.get(gameID).clear();
-		return getPlayerByClientID(clientID, gameID).getPlayerCards();
+		return game.get(gameID).get(clientID).getPlayerCards();
+
 	}
 
 	public void setPlayerCards (int gameID, int clientID, ArrayList<Card> cards) {

@@ -66,13 +66,22 @@ public class Response implements Serializable {
 		this.gameID = gameID;
 	}
 
-	public Response(String request, int clientID, int gameID, int count) {
+	public Response(String request, int clientID, int gameID, int count, Player player) {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
 		this.passCounter = count;
+		this.cards = player.getPlayerCards();
 	}
 
+	public Response(String request, int clientID, int gameID, 
+			ArrayList <Card> gameBoardCards, Player player) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+		this.gameBoardCards = gameBoardCards;
+		this.cards = player.getPlayerCards();
+	}
 	/**
 	 * constructs a response containing a request, cardName, list of a players cards
 	 * and a list of game board cards 
