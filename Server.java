@@ -169,12 +169,12 @@ public class Server {
 
 		}
 		else if (request.getRequest().equals("giveACardToAPlayer")) {
-			controllerList.get(request.getGameID()).giveCard(request.getCardName(), 
-					request.getClientID(), request.getGameID());
-			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
-					request.getGameID())).newResponse(new Response("giveACard",request.getClientID(), 
-							request.getGameID(), request.getPassCounter()+1, null));	
 			System.out.println(request.getClientID() + " ger ett kort");
+			Controller controller = controllerList.get(request.getGameID());
+			controller.giveCard(request.getCardName(), request.getClientID(), request.getGameID());
+			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
+					request.getGameID())).newResponse(new Response("wakePlayer",request.getClientID(), 
+							request.getGameID(), request.getPassCounter()+1, controller.getPlayerByClientID(request.getGameID(), controller.setNextPlayersTurn(request.getClientID(), request.getGameID()))));	
 
 		}
 
@@ -189,7 +189,7 @@ public class Server {
 					controller.getGameBoardCards(request.getGameID()), request.getClientID()));
 			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer", 
-							request.getClientID(), request.getGameID()));	
+							request.getClientID(), request.getGameID(), request.getPassCounter(), null));	
 		}
 		//		else if(request.getRequest().equals("database")) {
 		//			connection.newResponse(new Response("database", controller.getDataBas()));
@@ -198,7 +198,7 @@ public class Server {
 			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer",
 							controllerList.get(request.getGameID()).setNextPlayersTurn
-							(request.getClientID(), request.getGameID())));
+							(request.getClientID(), request.getGameID()), request.getPassCounter()));
 			System.out.println(request.getClientID() + ": väcker nästa " );
 
 
