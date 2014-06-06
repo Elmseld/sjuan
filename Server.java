@@ -162,34 +162,56 @@ public class Server {
 			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID());
 			connectionsList.get(clientID).newResponse(new Response("updateAndGiveCard", 
-					controller.setNextPlayersTurn(request.getClientID(), request.getGameID()),
-					request.getGameID(), request.getPassCounter(), controller.getPlayerByClientID(request.getGameID(), clientID)));
-			System.out.println(request.getClientID() + " säger att nästa spelare ska ge ett kort");
+					controller.getPlayerByClientID(request.getGameID(), clientID),
+					controller.getOpponent1HandSize(request.getGameID(), clientID),
+					controller.getOpponent2HandSize(request.getGameID(), clientID), 
+					controller.getOpponent3HandSize(request.getGameID(), clientID), 
+					controller.getGameBoardCards(request.getGameID()), clientID, request.getPassCounter()));
+			System.out.println(clientID + " ska ge ett kort. counter = " + request.getPassCounter());
 
 
 		}
 		else if (request.getRequest().equals("giveACardToAPlayer")) {
-			System.out.println(request.getClientID() + " ger ett kort");
+			System.out.println(request.getClientID() + " ger ett kort. passCount=" + request.getPassCounter());
 			Controller controller = controllerList.get(request.getGameID());
 			controller.giveCard(request.getCardName(), request.getClientID(), request.getGameID());
-			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
-					request.getGameID())).newResponse(new Response("wakePlayer",request.getClientID(), 
-							request.getGameID(), request.getPassCounter()+1, controller.getPlayerByClientID(request.getGameID(), controller.setNextPlayersTurn(request.getClientID(), request.getGameID()))));	
+
+			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
+					request.getGameID());
+			connectionsList.get(clientID).newResponse(new Response("wakePlayer", clientID, 
+					request.getGameID(), request.getPassCounter(), 
+					controller.getPlayerByClientID(request.getGameID(), clientID)));	
 
 		}
 
 		else if (request.getRequest().equals("recieveCards")) {
 			Controller controller = controllerList.get(request.getGameID());
-			System.out.println(request.getClientID() + " tar emot kort");
-			controller.addRecievedCardsToPassedPlayer(request.getClientID(), request.getGameID());
-			connection.newResponse(new Response("updateAll", controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
-					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
-					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
-					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID()), request.getClientID()));
-			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), 
-					request.getGameID())).newResponse(new Response("wakePlayer", 
-							request.getClientID(), request.getGameID(), request.getPassCounter(), null));	
+			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
+					request.getGameID());
+			if (controller.getPlayerByClientID(request.getGameID(), request.getClientID()).isHumanPlayer()==false) {
+				controller.addRecievedCardsToPassedPlayer(request.getClientID(), request.getGameID());
+				System.out.println(request.getClientID() + ": tar emot kort");
+
+			}
+			//			System.out.println(clientID + ": tar emot kort");
+			//			System.out.println(clientID + ": väcker nästa " );
+			else if (controller.getPlayerByClientID(request.getGameID(), request.getClientID()).isHumanPlayer()==true) {
+				controller.addRecievedCardsToPassedPlayer(clientID, request.getGameID());
+				System.out.println(clientID + ": tar emot kort");
+
+			}
+			//			int clientID2 = controller.setNextPlayersTurn(clientID, 
+			//					request.getGameID());
+
+			connectionsList.get(clientID).newResponse(new Response("wakePlayer", 
+					controller.getPlayerByClientID(request.getGameID(), clientID),
+					controller.getOpponent1HandSize(request.getGameID(), clientID),
+					controller.getOpponent2HandSize(request.getGameID(), clientID), 
+					controller.getOpponent3HandSize(request.getGameID(), clientID), 
+					controller.getGameBoardCards(request.getGameID()), clientID, request.getPassCounter()));
+			//			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), request.getGameID())).newResponse(new Response("wakePlayer", 
+			//					request.getClientID(), request.getGameID(), request.getPassCounter()+1, controller.getPlayerByClientID(request.getGameID(), 
+			//							controller.setNextPlayersTurn(request.getClientID(), request.getGameID()))));	
 		}
 		//		else if(request.getRequest().equals("database")) {
 		//			connection.newResponse(new Response("database", controller.getDataBas()));
@@ -227,10 +249,14 @@ public class Server {
 					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID()), request.getClientID()));
+					controller.getGameBoardCards(request.getGameID()), request.getClientID(), request.getPassCounter()));
 			System.out.println(request.getClientID() + ": uppdaterar spelet " );
 
 		}
+		else if (request.getRequest().equals("nextPlayerPass")) {
+
+		}
+
 		else {
 			connection.newResponse(new Response("clientsMissing", request.getClientID()));
 		}

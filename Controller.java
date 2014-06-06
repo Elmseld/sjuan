@@ -445,10 +445,10 @@ public class Controller {
 	public ArrayList<Card> addRecievedCardsToPassedPlayer(int clientID, int gameID) {
 		ArrayList<Card> list = passCardList.get(gameID);
 		for (int i = list.size()-1; i >= 0 ; i--) {
-			getPlayerByClientID(clientID, gameID).getPlayerCards().add(list.remove(i));
+			getPlayerByClientID(gameID, clientID).getPlayerCards().add(list.remove(i));
 		}
 		passCardList.get(gameID).clear();
-		return getPlayerByClientID(clientID, gameID).getPlayerCards();
+		return getPlayerByClientID(gameID, clientID).getPlayerCards();
 
 	}
 

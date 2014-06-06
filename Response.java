@@ -146,7 +146,7 @@ public class Response implements Serializable {
 
 	public Response(String request, Player player,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
-			ArrayList<Card> gameBoardCards, int clientID) {
+			ArrayList<Card> gameBoardCards, int clientID, int counter) {
 		this.request = request;
 		this.cards = player.getPlayerCards();
 		this.opponentCards1 = opponentCards1;
@@ -154,6 +154,7 @@ public class Response implements Serializable {
 		this.opponentCards3 = opponentCards3;
 		this.gameBoardCards = gameBoardCards;
 		this.clientID = clientID;
+		this.passCounter = counter;
 	}
 
 
