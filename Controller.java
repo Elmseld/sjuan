@@ -83,9 +83,6 @@ public class Controller {
 	 * @return gameBoardCards returns an ArrayList of the cards at gameboard
 	 */
 	public ArrayList <Card> getGameBoardCards (int gameID) {
-		//		ArrayList <Card> gameBoardCards = gameBoardList.get(gameID);
-		//		for (Card card : gameBoardCards)
-		//			gameBoardCards.add(card);
 		return gameBoardList.get(gameID);
 	}
 
@@ -111,23 +108,6 @@ public class Controller {
 
 		return false;
 	}
-
-	/**
-	 * this method returns a player by taking in a clientID	
-	 * @param clientID takes in a clientID
-	 * @return player returns a player
-	 */
-	//	public Player getPlayer(int clientID) {
-	//		if (clientID==player1.getClientID())
-	//			return player1;
-	//		else if (clientID==player2.getClientID())
-	//			return player2;
-	//		else if (clientID==player3.getClientID())
-	//			return player3;
-	//		else if (clientID==player4.getClientID())
-	//			return player4;
-	//		return null;
-	//	}
 
 	/**
 	 * this method checks if there are cards are able to play
@@ -169,24 +149,6 @@ public class Controller {
 		System.out.println("controller.checkIfpassIsPossible");
 		return false;
 	}
-
-	/**
-	 * this method returns a String from the database containing its context
-	 * @return str returns a string
-	 */
-	//	public String getDataBas (){
-	//		String str = "";
-	//		try {
-	//			databas.connect();
-	//			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
-	//			str = databas.showResultSet(result);
-	//			
-	//			databas.disconnect();
-	//		} catch (SQLException e) {
-	//			e.printStackTrace();
-	//		}
-	//		return str; 
-	//	}
 
 	/**
 	 * this method finds out the player that have the starting card (h7) 
@@ -430,8 +392,14 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * this method removes a card from a players hand to be put in a 
+	 * list that will be added to a passing player
+	 * @param cardName takes in the name of desired card to give
+	 * @param clientID takes in a Integer of the clients ID
+	 * @param gameID takes in a Integer of a controllers ID of a game
+	 */
 	public void giveCard (String cardName, int clientID, int gameID) {
-
 		for (Card card : getPlayerByClientID(gameID, clientID).getPlayerCards()) {
 			if (card.toString().equals(cardName)) {
 				getPlayerByClientID(gameID, clientID).getPlayerCards().remove(card);
@@ -442,6 +410,13 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Cards given to a player is stored in a ArrayList, 
+	 * this is the method to move the cards in the list to a players hand
+	 * @param clientID takes in a Integer of a clients ID
+	 * @param gameID takes in a Integer of a controllers gameID
+	 * @return
+	 */
 	public ArrayList<Card> addRecievedCardsToPassedPlayer(int clientID, int gameID) {
 		ArrayList<Card> list = passCardList.get(gameID);
 		for (int i = list.size()-1; i >= 0 ; i--) {
@@ -449,10 +424,5 @@ public class Controller {
 		}
 		passCardList.get(gameID).clear();
 		return getPlayerByClientID(gameID, clientID).getPlayerCards();
-
-	}
-
-	public void setPlayerCards (int gameID, int clientID, ArrayList<Card> cards) {
-		game.get(gameID).get(clientID).setPlayerCards(cards);
 	}
 }
