@@ -151,24 +151,6 @@ public class Controller {
 	}
 
 	/**
-	 * this method returns a String from the database containing its context
-	 * @return str returns a string
-	 */
-	//	public String getDataBas (){
-	//		String str = "";
-	//		try {
-	//			databas.connect();
-	//			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
-	//			str = databas.showResultSet(result);
-	//			
-	//			databas.disconnect();
-	//		} catch (SQLException e) {
-	//			e.printStackTrace();
-	//		}
-	//		return str; 
-	//	}
-
-	/**
 	 * this method finds out the player that have the starting card (h7) 
 	 * and sets the client id for the player
 	 */
