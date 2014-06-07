@@ -16,10 +16,7 @@ import java.util.HashMap;
  */
 public class Server {
 	private int clientID;
-	//	private boolean humanClient = false;
-	//	private Controller controller;
 	private Lobby lobby = new Lobby();
-	//	private HashMap <Integer, Boolean> humanList = new HashMap <Integer, Boolean>();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
 	private DataBase databas = new DataBase();
@@ -81,18 +78,6 @@ public class Server {
 
 		}
 		else if (request.getRequest().equals("newGame")) {
-			//			if (readyClientsConnections.size()<4) {
-			//				connection.newResponse(new Response("createAI"));
-			//			}
-			//			else {
-			//			connection.newResponse(new Response("newGame", request.getClientID(), request.isHumanPlayer()));
-			//			System.out.println(request.getClientID() + " är tillagd i redolista");
-			//			if (controller!=null) {
-			//				for (int clientID : readyClientsConnections) {
-			//					lobby.waitingRoom(clientID, this);
-			//				}
-			//			if (controller!=null) {
-			//			else {
 			System.out.println("spelet startas");
 			Controller controller = controllerList.get(request.getGameID());
 			Player player1 = controller.getPlayer1(controller.getGameID());
@@ -124,7 +109,6 @@ public class Server {
 			readyClientsConnections.clear();
 		}
 
-		//		}
 		else if(request.getRequest().equals("pass")) {
 			if (controllerList.get(request.getGameID()).checkIfPassIsPossible(request.getClientID(), request.getGameID())) { 
 				connectionsList.get(request.getClientID()).newResponse(new Response("pass", request.getClientID(), request.getGameID(), 
@@ -152,11 +136,11 @@ public class Server {
 						controllerList.get(request.getGameID()).getPlayerByClientID(request.getGameID(), request.getClientID()), 
 						controllerList.get(request.getGameID()).getGameBoardCards(request.getGameID()), request.getClientID()));
 			}
-			//			}
 			else {
 				connection.newResponse(new Response("dontPlayCard", request.getClientID()));
 			}
 		}
+
 		else if (request.getRequest().equals("giveACard")) {
 			Controller controller = controllerList.get(request.getGameID());
 			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
@@ -168,9 +152,8 @@ public class Server {
 					controller.getOpponent3HandSize(request.getGameID(), clientID), 
 					controller.getGameBoardCards(request.getGameID()), clientID, request.getPassCounter()));
 			System.out.println(clientID + " ska ge ett kort. counter = " + request.getPassCounter());
-
-
 		}
+
 		else if (request.getRequest().equals("giveACardToAPlayer")) {
 			System.out.println(request.getClientID() + " ger ett kort. passCount=" + request.getPassCounter());
 			Controller controller = controllerList.get(request.getGameID());
@@ -193,15 +176,11 @@ public class Server {
 				System.out.println(request.getClientID() + ": tar emot kort");
 
 			}
-			//			System.out.println(clientID + ": tar emot kort");
-			//			System.out.println(clientID + ": väcker nästa " );
 			else if (controller.getPlayerByClientID(request.getGameID(), request.getClientID()).isHumanPlayer()==true) {
 				controller.addRecievedCardsToPassedPlayer(clientID, request.getGameID());
 				System.out.println(clientID + ": tar emot kort");
 
 			}
-			//			int clientID2 = controller.setNextPlayersTurn(clientID, 
-			//					request.getGameID());
 
 			connectionsList.get(clientID).newResponse(new Response("wakePlayer", 
 					controller.getPlayerByClientID(request.getGameID(), clientID),
@@ -209,9 +188,6 @@ public class Server {
 					controller.getOpponent2HandSize(request.getGameID(), clientID), 
 					controller.getOpponent3HandSize(request.getGameID(), clientID), 
 					controller.getGameBoardCards(request.getGameID()), clientID, request.getPassCounter()));
-			//			connectionsList.get(controller.setNextPlayersTurn(request.getClientID(), request.getGameID())).newResponse(new Response("wakePlayer", 
-			//					request.getClientID(), request.getGameID(), request.getPassCounter()+1, controller.getPlayerByClientID(request.getGameID(), 
-			//							controller.setNextPlayersTurn(request.getClientID(), request.getGameID()))));	
 		}
 		//		else if(request.getRequest().equals("database")) {
 		//			connection.newResponse(new Response("database", controller.getDataBas()));
@@ -222,7 +198,6 @@ public class Server {
 							controllerList.get(request.getGameID()).setNextPlayersTurn
 							(request.getClientID(), request.getGameID()), request.getPassCounter()));
 			System.out.println(request.getClientID() + ": väcker nästa " );
-
 
 			try {
 				Thread.sleep(1000);
@@ -237,12 +212,14 @@ public class Server {
 					controller.getGameBoardCards(request.getGameID()), 
 					controller.getPlayerByClientID(request.getGameID(), request.getClientID())));
 		}
+
 		else if (request.getRequest().equals("getHumanGameConditions")) {
 			Controller controller = controllerList.get(request.getGameID());
 			connection.newResponse(new Response("update", request.getClientID(), request.getGameID(), 
 					controller.getGameBoardCards(request.getGameID()), 
 					controller.getPlayerByClientID(request.getGameID(), request.getClientID())));
 		}
+
 		else if (request.getRequest().equals("getAllGameConditions")) {
 			Controller controller = controllerList.get(request.getGameID());
 			connection.newResponse(new Response("updateAll", controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
@@ -251,9 +228,6 @@ public class Server {
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
 					controller.getGameBoardCards(request.getGameID()), request.getClientID(), request.getPassCounter()));
 			System.out.println(request.getClientID() + ": uppdaterar spelet " );
-
-		}
-		else if (request.getRequest().equals("nextPlayerPass")) {
 
 		}
 
