@@ -3,21 +3,33 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+/**
+ * This class handles the communication with the database.
+ * @author Anna
+ *
+ */
 public class DataBase {
 
 	public static Connection connection;
 	public static Statement statement;
-	public static java.sql.PreparedStatement statement1;
+	public static java.sql.PreparedStatement statement1, statement2;
 	private static String sql = "";
+	private static int colCount;
 
-	public static String showResultSet(ResultSet resultSet) throws SQLException {	//Interface mot datamängden som utgör resultatet av en SQL-sats.
 
+	/**
+	 * Metoden returnerar alla kolumner och rader som finns databasen.
+	 * @param resultSet
+	 * @return
+	 * @throws SQLException
+	 */
+	public static String showResultSet(ResultSet resultSet) throws SQLException {	
 		ResultSetMetaData meta = resultSet.getMetaData();
 		sql = "";
+		colCount = meta.getColumnCount();	
 
-		int colCount = meta.getColumnCount();	// returnerar antalet kolumner i resultatmängden
 		for(int i=1; i<=colCount; i++)
-			sql += meta.getColumnLabel(i) + ", ";	//returnerar namnet på kolumnen med angivet index
+			sql += meta.getColumnLabel(i) + ", ";	
 
 		sql += "\n";
 
@@ -31,21 +43,18 @@ public class DataBase {
 		return sql;
 	}
 
+
+
 	/**
-	 * H�r �r anslutningen skapad och du kan jobba mot databasen.  
-	 * Referensvaraibeln statement anv�nds n�r du anv�nder databasen. 
-	 * G�r dock endast jobba mot ett ResultSet (en fr�ga) i taget. 
+	 * Metoden upprättar anslutning till databasen.
 	 * @throws SQLException
 	 */
 	public static void connect() throws SQLException {
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver"); // H�mta database-driver, kastar ClassNotFoundException
-			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan"); // Koppla upp mot database-servern, kastar SQLException 
-			statement = connection.createStatement(); // Erh�lla en Statement-implementering f�r att exekvera SQL-satser, kastar  // SQLException 
-			// H�r �r anslutningen skapad och du kan jobba mot databasen.  
-			// Du anv�nder referensvaraibeln statement n�r du anv�nder databasen. Du kan  
-			// dock endast jobba mot ett ResultSet (en fr�ga) i taget.
+			Class.forName("com.mysql.jdbc.Driver"); 
+			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan"); 
+			statement = connection.createStatement(); 
 
 		} catch(ClassNotFoundException e1) {
 			System.out.println("Databas-driver hittades ej: "+e1);
@@ -53,10 +62,9 @@ public class DataBase {
 	}
 
 	/**
-	 * Avsluta databas-kopplingen, b�da anropen kastar SQLException
+	 * Metoden avslutar databasuppkopplingen
 	 * @throws SQLException
 	 */
-
 	public static void disconnect() throws SQLException {
 		statement.close();
 		connection.close();
@@ -72,51 +80,55 @@ public class DataBase {
 		}
 	}
 
+	/**
+	 * Metoden kontrollerar så att användaren är registrerad genom att kontrollera att användarnamnet och 
+	 * lösenordet som matats in stämmer överens med det användarnamn och lösenord som finns lagrat i DB.
+	 * @param userName
+	 * @param passWord
+	 * @return
+	 */
 	public static boolean logInDb(String userName, String passWord){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");	//Hämtar database-drivern
-			connection = DriverManager.getConnection ("jdbc:mysql://195.178.232.7:4040/ab4607", "ab4607", "prinsessan");	// Koppla upp mot database-servern
-			statement = connection.createStatement();	// Erhåller en Statement-implementering för att exekvera SQL-satser
-
-
-			// H�r �r anslutningen skapad och du kan jobba mot databasen.  
-			// Du anv�nder referensvaraibeln statement n�r du anv�nder databasen. Du kan  
-			// dock endast jobba mot ett ResultSet (en fr�ga) i taget.
+			connection = DriverManager.getConnection ("jdbc:mysql://195.178.232.7:4040/ab4607", "ab4607", "prinsessan");
+			statement = connection.createStatement();	
 
 			ResultSet res = statement.executeQuery("SELECT AnvändarNamn FROM statistics where AnvändarNamn='" 
-					+ userName + "' and Lösenord='" + passWord + "'");
+					+ userName + "'and Lösenord='" + passWord + "'");
 			return res.next();
 
-		}
-		catch ( ClassNotFoundException e ) {
+		}catch ( ClassNotFoundException e ) {
 			JOptionPane.showMessageDialog(null,e.getMessage());
 		}
 
-		//
 		catch(SQLException e) {
 			JOptionPane.showMessageDialog(null,"Sql Error");
 		}
 		return false;
-
 	}
-	
+
+
+	/**
+	 * Metoden lägger till ny användare genom att ta det inmatade användarnamnet och lösenordet och lägga till i DB.
+	 * @param AnvändarNamn
+	 * @param LösenOrd
+	 * @return
+	 * @throws SQLException
+	 */
 	public static String connect(String AnvändarNamn, String LösenOrd) throws SQLException {
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver"); // H�mta database-driver, kastar ClassNotFoundException
-			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan"); // Koppla upp mot database-servern, kastar SQLException 
-			statement1 = connection.prepareStatement("INSERT INTO statistics(AnvändarNamn, LösenOrd) VALUES(?,?)"); // Erh�lla en Statement-implementering f�r att exekvera SQL-satser, kastar  // SQLException 
-			// H�r �r anslutningen skapad och du kan jobba mot databasen.  
-			// Du anv�nder referensvaraibeln statement n�r du anv�nder databasen. Du kan  
-			// dock endast jobba mot ett ResultSet (en fr�ga) i taget.
-			//statement1.setString(1, id);
+			Class.forName("com.mysql.jdbc.Driver"); 
+			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan");  
+			statement1 = connection.prepareStatement("INSERT INTO statistics(AnvändarNamn, LösenOrd) VALUES(?,?)"); 
+
 			statement1.setString(1, AnvändarNamn);
 			statement1.setString(2, LösenOrd);
-			statement1.executeUpdate(); //Efter anropet innehåller statement värdet på antalet berörda rader i databasen.
+			statement1.executeUpdate(); 
 		} catch(ClassNotFoundException e1) {
 			System.out.println("Databas-driver hittades ej: "+e1);
 		}
 		return AnvändarNamn;
 	}
-
 }
+
