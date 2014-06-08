@@ -142,13 +142,50 @@ public class Server {
 
 		//kontrollerar och spelar ut ett kort om det går
 		else if (request.getRequest().equals("playCard")) {
-			if (controllerList.get(request.getGameID()).checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
+			Controller controller = controllerList.get(request.getGameID());
+			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
 					request.getGameID())) { 
 				System.out.println(request.getClientID() + ": har spelat: " + request.getCardName());
 
 				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI", request.getCardName(),
-						controllerList.get(request.getGameID()).getPlayerByClientID(request.getGameID(), request.getClientID()), 
-						controllerList.get(request.getGameID()).getGameBoardCards(request.getGameID()), request.getClientID()));
+						controller.getPlayerByClientID(request.getGameID(), request.getClientID()), 
+						controller.getGameBoardCards(request.getGameID()), request.getClientID()));
+
+				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
+				if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
+					connectionsList.get(clientID1).newResponse(new Response("update", 
+							controller.getPlayerByClientID(request.getGameID(), clientID1),
+							controller.getOpponent1HandSize(request.getGameID(), clientID1),
+							controller.getOpponent2HandSize(request.getGameID(), clientID1), 
+							controller.getOpponent3HandSize(request.getGameID(), clientID1), 
+							controller.getGameBoardCards(request.getGameID()), clientID1, request.getPassCounter()));
+
+				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
+				if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
+					connectionsList.get(clientID2).newResponse(new Response("update", 
+							controller.getPlayerByClientID(request.getGameID(), clientID2),
+							controller.getOpponent1HandSize(request.getGameID(), clientID2),
+							controller.getOpponent2HandSize(request.getGameID(), clientID2), 
+							controller.getOpponent3HandSize(request.getGameID(), clientID2), 
+							controller.getGameBoardCards(request.getGameID()), clientID2, request.getPassCounter()));
+
+				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
+				if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
+					connectionsList.get(clientID1).newResponse(new Response("update", 
+							controller.getPlayerByClientID(request.getGameID(), clientID3),
+							controller.getOpponent1HandSize(request.getGameID(), clientID3),
+							controller.getOpponent2HandSize(request.getGameID(), clientID3), 
+							controller.getOpponent3HandSize(request.getGameID(), clientID3), 
+							controller.getGameBoardCards(request.getGameID()), clientID3, request.getPassCounter()));
+
+				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
+				if (controller.getPlayerByClientID(request.getGameID(), clientID4).isHumanPlayer())
+					connectionsList.get(clientID1).newResponse(new Response("update", 
+							controller.getPlayerByClientID(request.getGameID(), clientID4),
+							controller.getOpponent1HandSize(request.getGameID(), clientID4),
+							controller.getOpponent2HandSize(request.getGameID(), clientID4), 
+							controller.getOpponent3HandSize(request.getGameID(), clientID4), 
+							controller.getGameBoardCards(request.getGameID()), clientID4, request.getPassCounter()));
 			}
 			else {
 				connection.newResponse(new Response("dontPlayCard", request.getClientID()));
@@ -214,12 +251,6 @@ public class Server {
 							(request.getClientID(), request.getGameID()), request.getPassCounter()));
 			System.out.println(request.getClientID() + ": väcker nästa " );
 
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		else if (request.getRequest().equals("getGameConditions")) {
 			Controller controller = controllerList.get(request.getGameID());

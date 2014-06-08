@@ -22,9 +22,6 @@ public class Request implements Serializable {
 	 * constructs a request
 	 * @param request takes in a request
 	 */
-	public Request(String request) {
-		this.request = request;
-	}
 
 	public Request(String request, int clientID, int gameID, boolean humanPlayer) {
 		this.request = request;
@@ -38,11 +35,6 @@ public class Request implements Serializable {
 	 * @param request takes in a request
 	 * @param cardName takes in a name of a card
 	 */
-	public Request(String request, String cardName, int gameID) {
-		this.request = request;
-		this.cardName = cardName;
-		this.gameID = gameID;
-	}
 
 	public Request(String request, String cardName, int clientID, int gameID) {
 		this.request = request;

@@ -12,7 +12,7 @@ public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String request, sql, cardName;
-	private ArrayList <Card> cards, gameBoardCards, giveAwayCardList;
+	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter;
 	private Card card;
 	private boolean hasHeart7, humanPlayer, logOk;
@@ -36,17 +36,6 @@ public class Response implements Serializable {
 	public Response(String request, boolean logOk){
 		this.request = request;
 		this.logOk = logOk;
-	}
-
-	/**
-	 * constructs a response containing a string and a card-Object
-	 * @param request takes in a string-Object
-	 * @param card takes in a card-Object
-	 */
-	public Response (String request, Card card, int clientID) {
-		this.request = request;
-		this.card = card;
-		this.clientID = clientID;
 	}
 
 	public Response (String request, String sql) {
@@ -117,30 +106,6 @@ public class Response implements Serializable {
 		this.opponentCards2 = opponentCards2;
 		this.opponentCards3 = opponentCards3;
 		this.hasHeart7 = hasHeart7;
-		//		this.humanPlayer = humanPlayer;
-
-	}
-
-	//	public Response(String request, Player player,
-	//			int opponentCards1, int opponentCards2, int opponentCards3, int clientID) {
-	//		this.request = request;
-	//		this.cards = player.getPlayerCards();
-	//		this.opponentCards1 = opponentCards1;
-	//		this.opponentCards2 = opponentCards2;
-	//		this.opponentCards3 = opponentCards3;
-	//
-	//	}
-
-	public Response(String request,
-			int opponentCards1, int opponentCards2, int opponentCards3, 
-			ArrayList<Card> gameBoardCards, ArrayList<Card> giveAwayCardList, int clientID) {
-		this.request = request;
-		this.opponentCards1 = opponentCards1;
-		this.opponentCards2 = opponentCards2;
-		this.opponentCards3 = opponentCards3;
-		this.gameBoardCards = gameBoardCards;
-		this.giveAwayCardList = giveAwayCardList;
-		this.clientID = clientID;
 
 	}
 
@@ -260,10 +225,6 @@ public class Response implements Serializable {
 
 	public int getPassCounter() {
 		return passCounter;
-	}
-
-	public ArrayList <Card> getGiveAwayCardList() {
-		return giveAwayCardList;
 	}
 
 	public boolean isHumanPlayer() {
