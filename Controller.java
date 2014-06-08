@@ -248,7 +248,6 @@ public class Controller {
 	 */
 	public Player getPlayer4(int gameID) {
 		player4 = game.get(gameID).get(3);
-
 		return player4;
 	}
 
@@ -426,24 +425,20 @@ public class Controller {
 		return getPlayerByClientID(gameID, clientID).getPlayerCards();
 	}
 
-	public String playerWin(int gameID, int clientID) {
-		if (game.get(gameID).get(0).getPlayerCardSize()==0){
-			getPlayerByClientID(gameID, clientID);
-			return clientID + " win";
+	public String playerWin(int gameID) {
+		if (getPlayer1(gameID).getPlayerCardSize()==0){
+			return getPlayer1(gameID).getClientID() + " win";
 		}
-		else if (game.get(gameID).get(1).getPlayerCardSize()==0) {
-			getPlayerByClientID(gameID, clientID);
-			return clientID + " win";
+		else if (getPlayer2(gameID).getPlayerCardSize()==0) {
+			return getPlayer2(gameID).getClientID() + " win";
 
 		}
-		else if (game.get(gameID).get(2).getPlayerCardSize()==0) {
-			getPlayerByClientID(gameID, clientID);
-			return clientID + " win";
+		else if (getPlayer3(gameID).getPlayerCardSize()==0) {
+			return getPlayer3(gameID).getClientID() + " win";
 
 		}
-		else if (game.get(gameID).get(3).getPlayerCardSize()==0) {
-			getPlayerByClientID(gameID, clientID);
-			return clientID + " win";
+		else if (getPlayer4(gameID).getPlayerCardSize()==0) {
+			return getPlayer4(gameID).getClientID() + " win";
 		}
 		return null;
 	}

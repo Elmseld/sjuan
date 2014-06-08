@@ -147,7 +147,8 @@ public class Server {
 			if (controller.checkIfCardIsPlayable(request.getCardName(), request.getClientID(),
 					request.getGameID())) { 
 				System.out.println(request.getClientID() + ": har spelat: " + request.getCardName());
-				String ifPlayerWin = controller.playerWin(request.getGameID(), request.getClientID());
+				String ifPlayerWin = controller.playerWin(request.getGameID());
+				System.out.println(ifPlayerWin);
 
 				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI", request.getCardName(),
 						controller.getPlayerByClientID(request.getGameID(), request.getClientID()), 
@@ -160,7 +161,8 @@ public class Server {
 							controller.getOpponent1HandSize(request.getGameID(), clientID1),
 							controller.getOpponent2HandSize(request.getGameID(), clientID1), 
 							controller.getOpponent3HandSize(request.getGameID(), clientID1), 
-							controller.getGameBoardCards(request.getGameID()), clientID1, request.getPassCounter(), ifPlayerWin));
+							controller.getGameBoardCards(request.getGameID()), clientID1, 
+							request.getPassCounter(), ifPlayerWin));
 
 				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
@@ -169,7 +171,8 @@ public class Server {
 							controller.getOpponent1HandSize(request.getGameID(), clientID2),
 							controller.getOpponent2HandSize(request.getGameID(), clientID2), 
 							controller.getOpponent3HandSize(request.getGameID(), clientID2), 
-							controller.getGameBoardCards(request.getGameID()), clientID2, request.getPassCounter(), ifPlayerWin));
+							controller.getGameBoardCards(request.getGameID()), clientID2, 
+							request.getPassCounter(), ifPlayerWin));
 
 				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
@@ -178,7 +181,8 @@ public class Server {
 							controller.getOpponent1HandSize(request.getGameID(), clientID3),
 							controller.getOpponent2HandSize(request.getGameID(), clientID3), 
 							controller.getOpponent3HandSize(request.getGameID(), clientID3), 
-							controller.getGameBoardCards(request.getGameID()), clientID3, request.getPassCounter(), ifPlayerWin));
+							controller.getGameBoardCards(request.getGameID()), clientID3, 
+							request.getPassCounter(), ifPlayerWin));
 
 				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID4).isHumanPlayer())
@@ -187,7 +191,8 @@ public class Server {
 							controller.getOpponent1HandSize(request.getGameID(), clientID4),
 							controller.getOpponent2HandSize(request.getGameID(), clientID4), 
 							controller.getOpponent3HandSize(request.getGameID(), clientID4), 
-							controller.getGameBoardCards(request.getGameID()), clientID4, request.getPassCounter(), ifPlayerWin));
+							controller.getGameBoardCards(request.getGameID()), clientID4, 
+							request.getPassCounter(), ifPlayerWin));
 
 			}
 			else {
@@ -200,8 +205,9 @@ public class Server {
 			Controller controller = controllerList.get(request.getGameID());
 			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID());
-			String ifPlayerWin = controller.playerWin(request.getGameID(), request.getClientID());
-
+			String ifPlayerWin = controller.playerWin(request.getGameID());
+			System.out.println(ifPlayerWin);
+			
 			connectionsList.get(clientID).newResponse(new Response("updateAndGiveCard", 
 					controller.getPlayerByClientID(request.getGameID(), clientID),
 					controller.getOpponent1HandSize(request.getGameID(), clientID),
@@ -216,6 +222,9 @@ public class Server {
 			Controller controller = controllerList.get(request.getGameID());
 			controller.giveCard(request.getCardName(), request.getClientID(), request.getGameID());
 
+			String ifPlayerWin = controller.playerWin(request.getGameID());
+			System.out.println(ifPlayerWin);
+			
 			int clientID = controller.setNextPlayersTurn(request.getClientID(), 
 					request.getGameID());
 			connectionsList.get(clientID).newResponse(new Response("wakePlayer", clientID, 
@@ -273,11 +282,13 @@ public class Server {
 
 		else if (request.getRequest().equals("getAllGameConditions")) {
 			Controller controller = controllerList.get(request.getGameID());
+			String ifPlayerWin = controller.playerWin(request.getGameID());
+			System.out.println(ifPlayerWin);
 			connection.newResponse(new Response("updateAll", controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
 					controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
 					controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
 					controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
-					controller.getGameBoardCards(request.getGameID()), request.getClientID(), request.getPassCounter(), null));
+					controller.getGameBoardCards(request.getGameID()), request.getClientID(), request.getPassCounter(), ifPlayerWin));
 			System.out.println(request.getClientID() + ": uppdaterar spelet " );
 
 		}
