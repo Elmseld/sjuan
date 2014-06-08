@@ -81,6 +81,7 @@ public class Server {
 			}
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
 		}
+
 		//loggar in en användare i databasen
 		else if(request.getRequest().equals("Login")){
 			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
