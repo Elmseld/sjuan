@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql, cardName;
+	private String request, sql, cardName, ifPlayerWin;
 	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter;
 	private Card card;
@@ -111,7 +111,7 @@ public class Response implements Serializable {
 
 	public Response(String request, Player player,
 			int opponentCards1, int opponentCards2, int opponentCards3, 
-			ArrayList<Card> gameBoardCards, int clientID, int counter) {
+			ArrayList<Card> gameBoardCards, int clientID, int counter, String ifPlayerWin) {
 		this.request = request;
 		this.cards = player.getPlayerCards();
 		this.opponentCards1 = opponentCards1;
@@ -120,6 +120,7 @@ public class Response implements Serializable {
 		this.gameBoardCards = gameBoardCards;
 		this.clientID = clientID;
 		this.passCounter = counter;
+		this.ifPlayerWin = ifPlayerWin;
 	}
 
 
@@ -229,5 +230,9 @@ public class Response implements Serializable {
 
 	public boolean isHumanPlayer() {
 		return humanPlayer;
+	}
+
+	public String getIfPlayerWin() {
+		return ifPlayerWin;
 	}
 }

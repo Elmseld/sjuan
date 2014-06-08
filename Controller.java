@@ -425,4 +425,26 @@ public class Controller {
 		passCardList.get(gameID).clear();
 		return getPlayerByClientID(gameID, clientID).getPlayerCards();
 	}
+
+	public String playerWin(int gameID, int clientID) {
+		if (game.get(gameID).get(0).getPlayerCardSize()==0){
+			getPlayerByClientID(gameID, clientID);
+			return clientID + " win";
+		}
+		else if (game.get(gameID).get(1).getPlayerCardSize()==0) {
+			getPlayerByClientID(gameID, clientID);
+			return clientID + " win";
+
+		}
+		else if (game.get(gameID).get(2).getPlayerCardSize()==0) {
+			getPlayerByClientID(gameID, clientID);
+			return clientID + " win";
+
+		}
+		else if (game.get(gameID).get(3).getPlayerCardSize()==0) {
+			getPlayerByClientID(gameID, clientID);
+			return clientID + " win";
+		}
+		return null;
+	}
 }
