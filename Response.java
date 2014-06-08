@@ -13,7 +13,7 @@ public class Response implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String request, sql, cardName, ifPlayerWin;
 	private ArrayList <Card> cards, gameBoardCards;
-	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter;
+	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter, nbrOfAI;
 	private Card card;
 	private boolean hasHeart7, humanPlayer, logOk;
 
@@ -43,10 +43,11 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
-	public Response(String request, int clientID, boolean humanPlayer) {
+	public Response(String request, int clientID, boolean humanPlayer, int nbrOfAI) {
 		this.request = request;
 		this.clientID = clientID;
 		this.humanPlayer = humanPlayer;
+		this.nbrOfAI = nbrOfAI;
 	}
 
 	public Response(String request, int clientID, int gameID) {
@@ -86,6 +87,7 @@ public class Response implements Serializable {
 		this.cards = player.getPlayerCards();
 		this.gameBoardCards = gameBoardCards;
 		this.clientID = clientID;
+
 	}
 
 	/**
@@ -235,4 +237,9 @@ public class Response implements Serializable {
 	public String getIfPlayerWin() {
 		return ifPlayerWin;
 	}
+
+	public int getNbrOfAI() {
+		return nbrOfAI;
+	}
 }
+// silverfisk kent202
