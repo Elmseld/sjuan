@@ -144,5 +144,8 @@ public class Player implements Serializable{
 	public boolean isHumanPlayer() {
 		return humanPlayer;
 	}
+	public void setHumanPlayer(boolean humanPlayer) {
+		this.humanPlayer = humanPlayer;
+	}
 }
 

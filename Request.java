@@ -22,9 +22,6 @@ public class Request implements Serializable {
 	 * constructs a request
 	 * @param request takes in a request
 	 */
-	public Request(String request) {
-		this.request = request;
-	}
 
 	public Request(String request, int clientID, int gameID, boolean humanPlayer) {
 		this.request = request;
@@ -38,17 +35,12 @@ public class Request implements Serializable {
 	 * @param request takes in a request
 	 * @param cardName takes in a name of a card
 	 */
-	public Request(String request, String cardName, int gameID) {
+
+	public Request(String request, String cardName, int clientID, int gameID) {
 		this.request = request;
 		this.cardName = cardName;
-		this.gameID = gameID;
-	}
-
-	public Request(String request,int clientID, int gameID, int counter) {
-		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
-		this.passCounter = counter;
 	}
 
 	/**
@@ -131,9 +123,14 @@ public class Request implements Serializable {
 		return gameID;
 	}
 
+	/**
+	 * this method returns a passCounter
+	 * @return passCounter controlled how many that have give a card 
+	 */
 	public int getPassCounter() {
 		return passCounter;
 	}
+	
 	public boolean isHumanPlayer() {
 		return humanPlayer;
 	}
