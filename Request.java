@@ -14,7 +14,7 @@ public class Request implements Serializable {
 	private String request, cardName;
 	private String sql, userName, passWord;
 	private String newId;
-	private int clientID, gameID, passCounter;
+	private int clientID, gameID, passCounter, nbrOfAI;
 	private boolean humanPlayer;
 
 
@@ -23,11 +23,12 @@ public class Request implements Serializable {
 	 * @param request takes in a request
 	 */
 
-	public Request(String request, int clientID, int gameID, boolean humanPlayer) {
+	public Request(String request, int clientID, int gameID, boolean humanPlayer, int nbrOfAI) {
 		this.request = request;
 		this.clientID = clientID;
 		this.gameID = gameID;
 		this.humanPlayer = humanPlayer;
+		this.nbrOfAI = nbrOfAI;
 	}
 
 	/**
@@ -133,6 +134,10 @@ public class Request implements Serializable {
 	
 	public boolean isHumanPlayer() {
 		return humanPlayer;
+	}
+
+	public int getNbrOfAI() {
+		return nbrOfAI;
 	}
 }
 
