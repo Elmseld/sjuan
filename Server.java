@@ -294,6 +294,11 @@ public class Server {
 				String ifPlayerWin = controller.playerWin(request.getGameID());
 				System.out.println(ifPlayerWin);
 
+				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
+				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
+				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
+				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
+
 				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI",
 						controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
 						controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
@@ -302,7 +307,6 @@ public class Server {
 						controller.getGameBoardCards(request.getGameID()), request.getClientID(), 
 						request.getPassCounter(), ifPlayerWin));
 
-				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
 					connectionsList.get(clientID1).newResponse(new Response("update", 
 							controller.getPlayerByClientID(request.getGameID(), clientID1),
@@ -312,7 +316,6 @@ public class Server {
 							controller.getGameBoardCards(request.getGameID()), clientID1, 
 							request.getPassCounter(), ifPlayerWin));
 
-				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
 					connectionsList.get(clientID2).newResponse(new Response("update", 
 							controller.getPlayerByClientID(request.getGameID(), clientID2),
@@ -322,7 +325,6 @@ public class Server {
 							controller.getGameBoardCards(request.getGameID()), clientID2, 
 							request.getPassCounter(), ifPlayerWin));
 
-				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
 					connectionsList.get(clientID1).newResponse(new Response("update", 
 							controller.getPlayerByClientID(request.getGameID(), clientID3),
@@ -332,7 +334,6 @@ public class Server {
 							controller.getGameBoardCards(request.getGameID()), clientID3, 
 							request.getPassCounter(), ifPlayerWin));
 
-				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID4).isHumanPlayer())
 					connectionsList.get(clientID1).newResponse(new Response("update", 
 							controller.getPlayerByClientID(request.getGameID(), clientID4),
