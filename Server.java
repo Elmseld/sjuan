@@ -294,9 +294,13 @@ public class Server {
 				String ifPlayerWin = controller.playerWin(request.getGameID());
 				System.out.println(ifPlayerWin);
 
-				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI", request.getCardName(),
-						controller.getPlayerByClientID(request.getGameID(), request.getClientID()), 
-						controller.getGameBoardCards(request.getGameID()), request.getClientID()));
+				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI",
+						controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
+						controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
+						controller.getOpponent2HandSize(request.getGameID(), request.getClientID()), 
+						controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
+						controller.getGameBoardCards(request.getGameID()), request.getClientID(), 
+						request.getPassCounter(), ifPlayerWin));
 
 				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
 				if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
