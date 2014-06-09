@@ -19,7 +19,7 @@ public class Server {
 	private Lobby lobby = new Lobby();
 	private HashMap <Integer, ServerConnection> connectionsList = new HashMap <Integer, ServerConnection>() ;
 	private ArrayList <Integer> readyClientsConnections = new ArrayList<Integer>();
-	private DataBase databas = new DataBase();
+	private DataBase database = new DataBase();
 	private HashMap <Integer, Controller> controllerList = new HashMap <Integer, Controller>();
 
 	/**
@@ -301,7 +301,7 @@ public class Server {
 	 */
 
 	public boolean logInDb(String userName, String passWord){
-		return databas.logInDb(userName, passWord);
+		return database.logInDb(userName, passWord);
 	}
 	/**
 	 * this method returns a String from the database containing its context
@@ -310,11 +310,11 @@ public class Server {
 	public String getDataBas (){
 		String str = "";
 		try {
-			databas.connect();
-			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
-			str = databas.showResultSet(result);
+			database.connect();
+			ResultSet result = database.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
+			str = database.showResultSet(result);
 
-			databas.disconnect();
+			database.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
