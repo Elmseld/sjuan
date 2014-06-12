@@ -307,7 +307,6 @@ public class Server {
 				for (int i = 4;i>0;i--) {
 
 					if (i==4) {
-						//						if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
 						connectionsList.get(clientID1).newResponse(new Response("update", 
 								controller.getPlayerByClientID(request.getGameID(), clientID1),
 								controller.getOpponent1HandSize(request.getGameID(), clientID1),
@@ -323,7 +322,6 @@ public class Server {
 						}
 					}
 					else if (i==3) {
-						//						if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
 						connectionsList.get(clientID2).newResponse(new Response("update", 
 								controller.getPlayerByClientID(request.getGameID(), clientID2),
 								controller.getOpponent1HandSize(request.getGameID(), clientID2),
@@ -339,7 +337,6 @@ public class Server {
 						}
 					}
 					else if (i==2){
-						//						if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
 						connectionsList.get(clientID3).newResponse(new Response("update", 
 								controller.getPlayerByClientID(request.getGameID(), clientID3),
 								controller.getOpponent1HandSize(request.getGameID(), clientID3),
