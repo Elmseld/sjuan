@@ -20,6 +20,7 @@ public class Controller {
 	private HashMap<Integer, ArrayList <Card>> gameBoardList = new HashMap<Integer, ArrayList<Card>>();
 	private HashMap<Integer, ArrayList <Player>> game = new HashMap<Integer, ArrayList<Player>>();
 	private HashMap<Integer, ArrayList <Card>> passCardList = new HashMap<Integer, ArrayList<Card>>();
+
 	/**
 	 * Constructs a controller 
 	 */
@@ -41,7 +42,6 @@ public class Controller {
 		game.put(gameID, playerList);
 		gameBoardList.put(gameID, gameBoardCards);
 		passCardList.put(gameID, tempList);
-		server.addControllerToList(this);
 
 	}
 
@@ -83,10 +83,7 @@ public class Controller {
 	 * @return gameBoardCards returns an ArrayList of the cards at gameboard
 	 */
 	public ArrayList <Card> getGameBoardCards (int gameID) {
-		ArrayList <Card> gameBoardCards = new ArrayList<Card>();
-		for (Card card : gameBoardList.get(gameID))
-			gameBoardCards.add(card);
-		return gameBoardCards;
+		return gameBoardList.get(gameID);
 	}
 
 	/**
@@ -95,36 +92,21 @@ public class Controller {
 	 * @return boolean returns a boolean if the card is playable or not
 	 */
 	public boolean checkIfCardIsPlayable(String cardName, int clientID, int gameID){
-		if (clientID==player1.getClientID()) {
-			return rules.correct(player1.getCardByName(cardName), player1, gameID);
+		if (clientID==game.get(gameID).get(0).getClientID()) {
+			return rules.correct(player1.getCardByName(cardName), player1, gameID, clientID);
 		}
-		else if (clientID==player2.getClientID()) {
-			return rules.correct(player2.getCardByName(cardName), player2, gameID);
+		else if (clientID==game.get(gameID).get(1).getClientID()) {
+			return rules.correct(player2.getCardByName(cardName), player2, gameID, clientID);
 		}
-		else if (clientID==player3.getClientID()) {
-			return rules.correct(player3.getCardByName(cardName), player3, gameID);
+		else if (clientID==game.get(gameID).get(2).getClientID()) {
+			return rules.correct(player3.getCardByName(cardName), player3, gameID, clientID);
 		}
-		else if (clientID==player4.getClientID()) {
-			return rules.correct(player4.getCardByName(cardName), player4, gameID);
+		else if (clientID==game.get(gameID).get(3).getClientID()) {
+			return rules.correct(player4.getCardByName(cardName), player4, gameID, clientID);
 		}
-		return false;
-	}
+		System.out.println("controller.checkIfCardISPlayable");
 
-	/**
-	 * this method returns a player by taking in a clientID	
-	 * @param clientID takes in a clientID
-	 * @return player returns a player
-	 */
-	public Player getPlayer(int clientID) {
-		if (clientID==player1.getClientID())
-			return player1;
-		else if (clientID==player2.getClientID())
-			return player2;
-		else if (clientID==player3.getClientID())
-			return player3;
-		else if (clientID==player4.getClientID())
-			return player4;
-		return null;
+		return false;
 	}
 
 	/**
@@ -134,7 +116,7 @@ public class Controller {
 	public boolean checkIfPassIsPossible(int clientID, int gameID) {
 		if (clientID==player1.getClientID()) {
 			for (Card card : player1.getPlayerCards()) {
-				if (rules.checkPass(card, player1, gameID)) {
+				if (rules.checkPass(card, gameID)) {
 					return false;
 				}
 			}
@@ -142,7 +124,7 @@ public class Controller {
 		}
 		else if (clientID==player2.getClientID()) {
 			for (Card card : player2.getPlayerCards()) {
-				if (rules.checkPass(card, player2, gameID)) {
+				if (rules.checkPass(card, gameID)) {
 					return false;
 				}
 			}
@@ -150,7 +132,7 @@ public class Controller {
 		}
 		else if (clientID==player3.getClientID()) {
 			for (Card card : player3.getPlayerCards()) {
-				if (rules.checkPass(card, player3, gameID)) {
+				if (rules.checkPass(card, gameID)) {
 					return false;
 				}
 			}
@@ -158,12 +140,13 @@ public class Controller {
 		}
 		else if (clientID==player4.getClientID()) {
 			for (Card card : player4.getPlayerCards()) {
-				if (rules.checkPass(card, player4, gameID)) {
+				if (rules.checkPass(card, gameID)) {
 					return false;
 				}
 			}
 			return true; 
 		}
+		System.out.println("controller.checkIfpassIsPossible");
 		return false;
 	}
 
@@ -265,7 +248,6 @@ public class Controller {
 	 */
 	public Player getPlayer4(int gameID) {
 		player4 = game.get(gameID).get(3);
-
 		return player4;
 	}
 
@@ -285,7 +267,6 @@ public class Controller {
 	 * @return gameID returns a Integer of a gameID
 	 */
 	public int getGameID() {
-
 		return gameID;
 	}
 
@@ -325,6 +306,7 @@ public class Controller {
 				return game.get(gameID).get(i).getClientID();
 			}
 		}
+		System.out.println("controller.setNextPlayersTurn");
 		return -1;
 	}
 
@@ -334,13 +316,13 @@ public class Controller {
 	 * @param gameID takes in a Integer of a gameID
 	 * @return player returns a player
 	 */
-	public Player getPlayerByClientID(int clientID, int gameID) {
-		ArrayList <Player> List = game.get(gameID);
-		for (Player player : List) {
+	public Player getPlayerByClientID(int gameID, int clientID) {
+		for (Player player : game.get(gameID)) {
 			if (player.getClientID()==clientID) {
 				return player;
 			}
 		}
+		System.out.println(clientID + "controller.getPlayerByClientID");
 		return null;
 	}
 
@@ -362,7 +344,6 @@ public class Controller {
 		}
 		else {
 			return getPlayer1(gameID).getPlayerCardSize();
-
 		}
 	}
 
@@ -410,24 +391,53 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * this method removes a card from a players hand to be put in a 
+	 * list that will be added to a passing player
+	 * @param cardName takes in the name of desired card to give
+	 * @param clientID takes in a Integer of the clients ID
+	 * @param gameID takes in a Integer of a controllers ID of a game
+	 */
 	public void giveCard (String cardName, int clientID, int gameID) {
-		ArrayList<Card> list = getPlayerByClientID(clientID, gameID).getPlayerCards();
-		for (Card card : list) {
+		for (Card card : getPlayerByClientID(gameID, clientID).getPlayerCards()) {
 			if (card.toString().equals(cardName)) {
+				getPlayerByClientID(gameID, clientID).getPlayerCards().remove(card);
 				passCardList.get(gameID).add(card);
-				getPlayerByClientID(clientID, gameID).getPlayerCards().remove(card);
+				System.out.println(card.toString() + " är tilllagd i gebort listan");
 				break;
 			}
 		}
 	}
 
+	/**
+	 * Cards given to a player is stored in a ArrayList, 
+	 * this is the method to move the cards in the list to a players hand
+	 * @param clientID takes in a Integer of a clients ID
+	 * @param gameID takes in a Integer of a controllers gameID
+	 * @return
+	 */
 	public ArrayList<Card> addRecievedCardsToPassedPlayer(int clientID, int gameID) {
 		ArrayList<Card> list = passCardList.get(gameID);
 		for (int i = list.size()-1; i >= 0 ; i--) {
-			getPlayerByClientID(clientID, gameID).getPlayerCards().add(list.remove(i));
+			getPlayerByClientID(gameID, clientID).getPlayerCards().add(list.remove(i));
 		}
 		passCardList.get(gameID).clear();
-		return getPlayerByClientID(clientID, gameID).getPlayerCards();
+		return getPlayerByClientID(gameID, clientID).getPlayerCards();
 	}
 
+	public String playerWin(int gameID) {
+		if (getPlayer1(gameID).getPlayerCardSize()==0){
+			return "Klient: " + getPlayer1(gameID).getClientID() + ", har vunnit denna spelomgång!";
+		}
+		else if (getPlayer2(gameID).getPlayerCardSize()==0) {
+			return "Klient: " + getPlayer2(gameID).getClientID() + ", har vunnit denna spelomgång!";
+		}
+		else if (getPlayer3(gameID).getPlayerCardSize()==0) {
+			return "Klient: " + getPlayer3(gameID).getClientID() + ", har vunnit denna spelomgång!";
+		}
+		else if (getPlayer4(gameID).getPlayerCardSize()==0) {
+			return "Klient: " + getPlayer4(gameID).getClientID() + ", har vunnit denna spelomgång!";
+		}
+		return null;
+	}
 }
