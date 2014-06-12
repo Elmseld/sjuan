@@ -1,12 +1,11 @@
 package sjuan;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * This class control the logic of the game "Sjuan"
- * @author Tobbe
+ * @author Sjuan
  *
  */
 public class Controller {
@@ -271,26 +270,6 @@ public class Controller {
 	}
 
 	/**
-	 * this method sets a player to a client
-	 * @param clientID takes in a Integer of a clientID
-	 */
-	//vet inte ifall vi använder denna längre, kolla upp det när tid finnes
-	public void giveClientOnePlayer(int clientID) {
-		if (player1.getClientID()==0) {
-			player1.setClientID(clientID);
-		}
-		else if (player2.getClientID()==0) {
-			player2.setClientID(clientID);
-		}
-		else if (player3.getClientID()==0) {
-			player3.setClientID(clientID);
-		}
-		else if (player4.getClientID()==0) {
-			player4.setClientID(clientID);
-		}
-	}
-
-	/**
 	 * this method returns the next player turn in a game as a clientID
 	 * @param clientID takes in current players clientID
 	 * @param gameID takes in a Integer of the gameID
@@ -403,7 +382,7 @@ public class Controller {
 			if (card.toString().equals(cardName)) {
 				getPlayerByClientID(gameID, clientID).getPlayerCards().remove(card);
 				passCardList.get(gameID).add(card);
-				System.out.println(card.toString() + " är tilllagd i gebort listan");
+//				System.out.println(card.toString() + " är tilllagd i gebort listan");
 				break;
 			}
 		}

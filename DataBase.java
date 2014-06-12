@@ -196,8 +196,6 @@ public class DataBase {
 
 	}
 
-
-
 	public static String playedGames(String userName){/*
 	 * Metoden gör så att det vinster + förluster läggs till i speladespel kolumnen där användarNamnet är knut (AnvändarNamnet ska bytas ut mot de inloggade
 	 * namnet. Dvs samma instansvariabel userName som i databasklassen.

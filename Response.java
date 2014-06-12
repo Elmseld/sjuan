@@ -14,9 +14,7 @@ public class Response implements Serializable {
 	private String request, sql, cardName, ifPlayerWin, userName;
 	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter, nbrOfAI;
-	private Card card;
 	private boolean hasHeart7, humanPlayer, logOk;
-
 
 	/**
 	 * constructs a response containing a string
@@ -181,14 +179,6 @@ public class Response implements Serializable {
 	 */
 	public int getClientID() {
 		return clientID;
-	}
-
-	/**
-	 * this method returns a Card-Object
-	 * @return card returns a Card-Object
-	 */
-	public Card getCard(){
-		return card;
 	}
 
 	/**
