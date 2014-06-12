@@ -16,7 +16,6 @@ public class Response implements Serializable {
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter, nbrOfAI;
 	private boolean hasHeart7, humanPlayer, logOk;
 
-
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
@@ -181,14 +180,6 @@ public class Response implements Serializable {
 	public int getClientID() {
 		return clientID;
 	}
-
-//	/**
-//	 * this method returns a Card-Object
-//	 * @return card returns a Card-Object
-//	 */
-//	public Card getCard(){
-//		return card;
-//	}
 
 	/**
 	 * this method returns a String of a card name

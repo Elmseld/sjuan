@@ -14,19 +14,15 @@ public class Lobby {
 	public void waitingRoom(int clientID, Server server) {
 		if (client1 == 0 || client1 == clientID) {
 			client1 = clientID;
-			System.out.println("client1 är redo");
 		}
 		else if (client2 == 0 || client2 == clientID) {
 			client2 = clientID;
-			System.out.println("client2 är redo");
 		}
 		else if (client3 == 0 || client3 == clientID) {
 			client3 = clientID;
-			System.out.println("client3 är redo");
 		}
 		else if (client4 == 0 || client4 == clientID) {
 			client4 = clientID;
-			System.out.println("client4 är redo");
 			gameID++;
 			gameList.put(client1, gameID);
 			gameList.put(client2, gameID);
@@ -36,23 +32,19 @@ public class Lobby {
 			resetClients();
 		}
 	}
-	
+
 	public void waitingRoom2(int clientID, Server server) {
 		if (client1 == 0 || client1 == clientID) {
 			client1 = clientID;
-			System.out.println("client1 är redo");
 		}
 		else if (client2 == 0 || client2 == clientID) {
 			client2 = clientID;
-			System.out.println("client2 är redo");
 		}
 		else if (client3 == 0 || client3 == clientID) {
 			client3 = clientID;
-			System.out.println("client3 är redo");
 		}
 		else if (client4 == 0 || client4 == clientID) {
 			client4 = clientID;
-			System.out.println("client4 är redo");
 			gameID++;
 			gameList.put(client1, gameID);
 			gameList.put(client2, gameID);
@@ -65,19 +57,15 @@ public class Lobby {
 	public void waitingRoom3(int clientID, Server server) {
 		if (client1 == 0 || client1 == clientID) {
 			client1 = clientID;
-			System.out.println("client1 är redo");
 		}
 		else if (client2 == 0 || client2 == clientID) {
 			client2 = clientID;
-			System.out.println("client2 är redo");
 		}
 		else if (client3 == 0 || client3 == clientID) {
 			client3 = clientID;
-			System.out.println("client3 är redo");
 		}
 		else if (client4 == 0 || client4 == clientID) {
 			client4 = clientID;
-			System.out.println("client4 är redo");
 			gameID++;
 			gameList.put(client1, gameID);
 			gameList.put(client2, gameID);
@@ -90,19 +78,15 @@ public class Lobby {
 	public void waitingRoom4(int clientID, Server server) {
 		if (client1 == 0 || client1 == clientID) {
 			client1 = clientID;
-			System.out.println("client1 är redo");
 		}
 		else if (client2 == 0 || client2 == clientID) {
 			client2 = clientID;
-			System.out.println("client2 är redo");
 		}
 		else if (client3 == 0 || client3 == clientID) {
 			client3 = clientID;
-			System.out.println("client3 är redo");
 		}
 		else if (client4 == 0 || client4 == clientID) {
 			client4 = clientID;
-			System.out.println("client4 är redo");
 			gameID++;
 			gameList.put(client1, gameID);
 			gameList.put(client2, gameID);
@@ -112,7 +96,7 @@ public class Lobby {
 			resetClients();
 		}
 	}
-	
+
 	private void resetClients() {
 		client1=0;
 		client2=0;
