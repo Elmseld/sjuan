@@ -4,34 +4,37 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * this class handle response
+ * this class handle responses
  * @author Sjuan
  *
  */
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql, cardName;
+	private String request, sql, cardName, ifPlayerWin, userName;
 	private ArrayList <Card> cards, gameBoardCards;
-	private int opponentCards1, opponentCards2, opponentCards3, clientID;
-	private Card card;
+	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter, nbrOfAI;
+	private boolean hasHeart7, humanPlayer, logOk;
 
 	/**
 	 * constructs a response containing a string
 	 * @param str takes in a string-Object
+	 * 
 	 */
-	public Response(String request) {
+	public Response(String request, int clientID) {
 		this.request = request;
+		this.clientID = clientID;
 	}
 
 	/**
-	 * constructs a response containing a string and a card-Object
+	 * constructs a response containing a string and a boolean
 	 * @param request takes in a string-Object
-	 * @param card takes in a card-Object
+	 * @param logOk takes in a boolean
 	 */
-	public Response (String request, Card card) {
+	public Response(String request, boolean logOk, String userName){
 		this.request = request;
-		this.card = card;
+		this.logOk = logOk;
+		this.userName = userName;
 	}
 
 	public Response (String request, String sql) {
@@ -39,6 +42,35 @@ public class Response implements Serializable {
 		this.sql = sql;
 	}
 
+	public Response(String request, int clientID, boolean humanPlayer, int nbrOfAI) {
+		this.request = request;
+		this.clientID = clientID;
+		this.humanPlayer = humanPlayer;
+		this.nbrOfAI = nbrOfAI;
+	}
+
+	public Response(String request, int clientID, int gameID) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+	}
+
+	public Response(String request, int clientID, int gameID, int count, Player player) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+		this.passCounter = count;
+		this.cards = player.getPlayerCards();
+	}
+
+	public Response(String request, int clientID, int gameID, 
+			ArrayList <Card> gameBoardCards, Player player) {
+		this.request = request;
+		this.clientID = clientID;
+		this.gameID = gameID;
+		this.gameBoardCards = gameBoardCards;
+		this.cards = player.getPlayerCards();
+	}
 	/**
 	 * constructs a response containing a request, cardName, list of a players cards
 	 * and a list of game board cards 
@@ -47,14 +79,14 @@ public class Response implements Serializable {
 	 * @param cards
 	 * @param gameBoardCards
 	 */
-	public Response (String request, String cardName, ArrayList<Card> cards,
-			ArrayList<Card> gameBoardCards) {
+	public Response (String request, String cardName, Player player,
+			ArrayList<Card> gameBoardCards, int clientID) {
 		this.request = request;
 		this.cardName = cardName;
-		this.cards = cards;
+		this.cards = player.getPlayerCards();
 		this.gameBoardCards = gameBoardCards;
-		cards.trimToSize();
-		gameBoardCards.trimToSize();
+		this.clientID = clientID;
+
 	}
 
 	/**
@@ -64,16 +96,34 @@ public class Response implements Serializable {
 	 * @param playerCardSize2 takes in a player cards size
 	 * @param playerCardSize3 takes in a player cards size
 	 */
-	public Response(String request, int clientID, Player player1,
-			Player player2, Player player3, Player player4 ) {
+	public Response(String request, Player player,
+			int opponentCards1, int opponentCards2, int opponentCards3, 
+			int clientID, int gameID, boolean hasHeart7) {
 		this.request = request;
 		this.clientID = clientID;
-		this.cards = player1.getPlayerCards();
-		this.opponentCards1 = player2.getPlayerCardSize();
-		this.opponentCards2 = player3.getPlayerCardSize();
-		this.opponentCards3 = player4.getPlayerCardSize();
+		this.gameID = gameID;
+		this.cards = player.getPlayerCards();
+		this.opponentCards1 = opponentCards1;
+		this.opponentCards2 = opponentCards2;
+		this.opponentCards3 = opponentCards3;
+		this.hasHeart7 = hasHeart7;
 
 	}
+
+	public Response(String request, Player player,
+			int opponentCards1, int opponentCards2, int opponentCards3, 
+			ArrayList<Card> gameBoardCards, int clientID, int counter, String ifPlayerWin) {
+		this.request = request;
+		this.cards = player.getPlayerCards();
+		this.opponentCards1 = opponentCards1;
+		this.opponentCards2 = opponentCards2;
+		this.opponentCards3 = opponentCards3;
+		this.gameBoardCards = gameBoardCards;
+		this.clientID = clientID;
+		this.passCounter = counter;
+		this.ifPlayerWin = ifPlayerWin;
+	}
+
 
 	/**
 	 * this method returns a request
@@ -91,6 +141,10 @@ public class Response implements Serializable {
 		return cards;
 	}
 
+	/**
+	 * this method returns sql String
+	 * @return sql returns a string of sql
+	 */
 	public String getSql(){
 		return sql;
 	}
@@ -128,14 +182,6 @@ public class Response implements Serializable {
 	}
 
 	/**
-	 * this method returns a Card-Object
-	 * @return card returns a Card-Object
-	 */
-	public Card getCard(){
-		return card;
-	}
-
-	/**
 	 * this method returns a String of a card name
 	 * @return cardName returns a name of a card
 	 */
@@ -149,5 +195,45 @@ public class Response implements Serializable {
 	 */
 	public ArrayList<Card> getGameBoardCards () {
 		return gameBoardCards;
+	}
+
+	public boolean getLogOk(){
+		return logOk;
+	}
+
+	/**
+	 * this method returns a gameID of the game
+	 * @return gameID returns a Integer of a gameID
+	 */
+	public int getGameID() {
+		return gameID;
+	}
+
+	/**
+	 * this method returns a boolean if a player have hearts of seven card
+	 * @return hasheart7 returns a boolean if a player have card "h7"
+	 */
+	public boolean isHasHeart7() {
+		return hasHeart7;
+	}
+
+	public int getPassCounter() {
+		return passCounter;
+	}
+
+	public boolean isHumanPlayer() {
+		return humanPlayer;
+	}
+
+	public String getIfPlayerWin() {
+		return ifPlayerWin;
+	}
+
+	public int getNbrOfAI() {
+		return nbrOfAI;
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 }

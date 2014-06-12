@@ -6,7 +6,7 @@ import java.net.Socket;
 
 /**
  * this class handle clients connectiong to the server
- * @author Tobbe
+ * @author Sjuan
  *
  */
 public class ConnectToServer {
@@ -33,7 +33,7 @@ public class ConnectToServer {
 
 	public void setCounter(int counter) {
 		this.counter = counter;
-		System.out.println(counter);
+//		System.out.println(counter);
 	}
 
 	private class Connect implements Runnable {
@@ -45,8 +45,8 @@ public class ConnectToServer {
 				while (true) {
 					socket = serverSocket.accept();
 					setCounter(getCounter() + 1);
-					System.out.println("New client" + getCounter());
-					server.newClient(new ServerConnection(server,socket), getCounter());
+//					System.out.println("New client" + getCounter());
+					server.newClient(new ServerConnection(server,socket), counter);
 				}
 			} catch (IOException e1) {
 				e1.getStackTrace();
@@ -55,7 +55,7 @@ public class ConnectToServer {
 			try {
 				serverSocket.close();
 			} catch (Exception e) {
-				e.getStackTrace();
+ 				e.getStackTrace();
 			}
 		}
 	}
