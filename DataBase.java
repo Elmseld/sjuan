@@ -6,15 +6,16 @@ import javax.swing.JOptionPane;
 /**
  * This class handles the communication with the database.
  * @author Anna
- *
  */
 public class DataBase {
 
 	public static Connection connection;
 	public static Statement statement;
 	public static java.sql.PreparedStatement statement1, statement2;
-	private static String sql = "";
+	public static String sql = "";
 	private static int colCount;
+	private static String statistic;
+
 
 
 	/**
@@ -42,7 +43,6 @@ public class DataBase {
 		System.out.println(sql);
 		return sql;
 	}
-
 
 
 	/**
@@ -131,4 +131,6 @@ public class DataBase {
 		return AnvändarNamn;
 	}
 }
+
+
 
