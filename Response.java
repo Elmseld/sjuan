@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String request, sql, cardName, ifPlayerWin;
+	private String request, sql, cardName, ifPlayerWin, userName;
 	private ArrayList <Card> cards, gameBoardCards;
 	private int opponentCards1, opponentCards2, opponentCards3, clientID, gameID, passCounter, nbrOfAI;
 	private Card card;
@@ -33,9 +33,10 @@ public class Response implements Serializable {
 	 * @param request takes in a string-Object
 	 * @param logOk takes in a boolean
 	 */
-	public Response(String request, boolean logOk){
+	public Response(String request, boolean logOk, String userName){
 		this.request = request;
 		this.logOk = logOk;
+		this.userName = userName;
 	}
 
 	public Response (String request, String sql) {
@@ -241,5 +242,8 @@ public class Response implements Serializable {
 	public int getNbrOfAI() {
 		return nbrOfAI;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
 }
-// silverfisk kent202

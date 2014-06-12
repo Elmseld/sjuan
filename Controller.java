@@ -427,18 +427,16 @@ public class Controller {
 
 	public String playerWin(int gameID) {
 		if (getPlayer1(gameID).getPlayerCardSize()==0){
-			return getPlayer1(gameID).getClientID() + " win";
+			return "Klient: " + getPlayer1(gameID).getClientID() + ", har vunnit denna spelomgång!";
 		}
 		else if (getPlayer2(gameID).getPlayerCardSize()==0) {
-			return getPlayer2(gameID).getClientID() + " win";
-
+			return "Klient: " + getPlayer2(gameID).getClientID() + ", har vunnit denna spelomgång!";
 		}
 		else if (getPlayer3(gameID).getPlayerCardSize()==0) {
-			return getPlayer3(gameID).getClientID() + " win";
-
+			return "Klient: " + getPlayer3(gameID).getClientID() + ", har vunnit denna spelomgång!";
 		}
 		else if (getPlayer4(gameID).getPlayerCardSize()==0) {
-			return getPlayer4(gameID).getClientID() + " win";
+			return "Klient: " + getPlayer4(gameID).getClientID() + ", har vunnit denna spelomgång!";
 		}
 		return null;
 	}

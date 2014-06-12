@@ -54,7 +54,7 @@ public class Server {
 	 * @param connection takes in connection from a client
 	 * @param request takes in a request to decide what to do
 	 */
-	public synchronized void newRequest(ServerConnection connection, Request request) {
+	public synchronized void newRequest(ServerConnection connection, Request request) throws SQLException {
 		//skickar vidare ett klientID till klienten
 		if (request.getRequest().equals("clientID")) {
 			connection.newResponse(new Response("clientID" , clientID, request.isHumanPlayer(), request.getNbrOfAI()));
@@ -128,14 +128,13 @@ public class Server {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
+			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord()), request.getUserName()));
 		}
 
 		//loggar in en användare i databasen
 		else if(request.getRequest().equals("Login")){
-			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord())));
+			connection.newResponse(new Response("Login", logInDb(request.getUserName(), request.getPassWord()), request.getUserName()));
 		}
-
 		else if (request.getRequest().equals("setPlayerHumanOrAI")) {
 			System.out.println(request.getClientID() + " "+ request.isHumanPlayer());
 
@@ -281,9 +280,9 @@ public class Server {
 			}
 		}
 
-		//		else if(request.getRequest().equals("database")){
-		//			connection.newResponse(new Response("database", controller.getDataBas()));
-		//		}
+		else if(request.getRequest().equals("database")){
+			connection.newResponse(new Response("database", databas.playedGames(request.getUserName())));
+		}
 
 		//kontrollerar och spelar ut ett kort om det går
 		else if (request.getRequest().equals("playCard")) {
@@ -294,6 +293,10 @@ public class Server {
 				String ifPlayerWin = controller.playerWin(request.getGameID());
 				System.out.println(ifPlayerWin);
 
+				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
+				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
+				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
+				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
 				connectionsList.get(request.getClientID()).newResponse(new Response("updatePlayerWithAI",
 						controller.getPlayerByClientID(request.getGameID(), request.getClientID()),
 						controller.getOpponent1HandSize(request.getGameID(), request.getClientID()),
@@ -301,47 +304,72 @@ public class Server {
 						controller.getOpponent3HandSize(request.getGameID(), request.getClientID()), 
 						controller.getGameBoardCards(request.getGameID()), request.getClientID(), 
 						request.getPassCounter(), ifPlayerWin));
+				for (int i = 4;i>0;i--) {
 
-				int clientID1 = controller.getPlayer1(request.getGameID()).getClientID();
-				if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
-					connectionsList.get(clientID1).newResponse(new Response("update", 
-							controller.getPlayerByClientID(request.getGameID(), clientID1),
-							controller.getOpponent1HandSize(request.getGameID(), clientID1),
-							controller.getOpponent2HandSize(request.getGameID(), clientID1), 
-							controller.getOpponent3HandSize(request.getGameID(), clientID1), 
-							controller.getGameBoardCards(request.getGameID()), clientID1, 
-							request.getPassCounter(), ifPlayerWin));
-
-				int clientID2 = controller.getPlayer2(request.getGameID()).getClientID();
-				if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
-					connectionsList.get(clientID2).newResponse(new Response("update", 
-							controller.getPlayerByClientID(request.getGameID(), clientID2),
-							controller.getOpponent1HandSize(request.getGameID(), clientID2),
-							controller.getOpponent2HandSize(request.getGameID(), clientID2), 
-							controller.getOpponent3HandSize(request.getGameID(), clientID2), 
-							controller.getGameBoardCards(request.getGameID()), clientID2, 
-							request.getPassCounter(), ifPlayerWin));
-
-				int clientID3 = controller.getPlayer3(request.getGameID()).getClientID();
-				if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
-					connectionsList.get(clientID1).newResponse(new Response("update", 
-							controller.getPlayerByClientID(request.getGameID(), clientID3),
-							controller.getOpponent1HandSize(request.getGameID(), clientID3),
-							controller.getOpponent2HandSize(request.getGameID(), clientID3), 
-							controller.getOpponent3HandSize(request.getGameID(), clientID3), 
-							controller.getGameBoardCards(request.getGameID()), clientID3, 
-							request.getPassCounter(), ifPlayerWin));
-
-				int clientID4 = controller.getPlayer4(request.getGameID()).getClientID();
-				if (controller.getPlayerByClientID(request.getGameID(), clientID4).isHumanPlayer())
-					connectionsList.get(clientID1).newResponse(new Response("update", 
-							controller.getPlayerByClientID(request.getGameID(), clientID4),
-							controller.getOpponent1HandSize(request.getGameID(), clientID4),
-							controller.getOpponent2HandSize(request.getGameID(), clientID4), 
-							controller.getOpponent3HandSize(request.getGameID(), clientID4), 
-							controller.getGameBoardCards(request.getGameID()), clientID4, 
-							request.getPassCounter(), ifPlayerWin));
-
+					if (i==4) {
+						//						if (controller.getPlayerByClientID(request.getGameID(), clientID1).isHumanPlayer())
+						connectionsList.get(clientID1).newResponse(new Response("update", 
+								controller.getPlayerByClientID(request.getGameID(), clientID1),
+								controller.getOpponent1HandSize(request.getGameID(), clientID1),
+								controller.getOpponent2HandSize(request.getGameID(), clientID1), 
+								controller.getOpponent3HandSize(request.getGameID(), clientID1), 
+								controller.getGameBoardCards(request.getGameID()), clientID1, 
+								request.getPassCounter(), ifPlayerWin));
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else if (i==3) {
+						//						if (controller.getPlayerByClientID(request.getGameID(), clientID2).isHumanPlayer())
+						connectionsList.get(clientID2).newResponse(new Response("update", 
+								controller.getPlayerByClientID(request.getGameID(), clientID2),
+								controller.getOpponent1HandSize(request.getGameID(), clientID2),
+								controller.getOpponent2HandSize(request.getGameID(), clientID2), 
+								controller.getOpponent3HandSize(request.getGameID(), clientID2), 
+								controller.getGameBoardCards(request.getGameID()), clientID2, 
+								request.getPassCounter(), ifPlayerWin));
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else if (i==2){
+						//						if (controller.getPlayerByClientID(request.getGameID(), clientID3).isHumanPlayer())
+						connectionsList.get(clientID3).newResponse(new Response("update", 
+								controller.getPlayerByClientID(request.getGameID(), clientID3),
+								controller.getOpponent1HandSize(request.getGameID(), clientID3),
+								controller.getOpponent2HandSize(request.getGameID(), clientID3), 
+								controller.getOpponent3HandSize(request.getGameID(), clientID3), 
+								controller.getGameBoardCards(request.getGameID()), clientID3, 
+								request.getPassCounter(), ifPlayerWin));
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else if (i==1) {
+						connectionsList.get(clientID4).newResponse(new Response("update", 
+								controller.getPlayerByClientID(request.getGameID(), clientID4),
+								controller.getOpponent1HandSize(request.getGameID(), clientID4),
+								controller.getOpponent2HandSize(request.getGameID(), clientID4), 
+								controller.getOpponent3HandSize(request.getGameID(), clientID4), 
+								controller.getGameBoardCards(request.getGameID()), clientID4, 
+								request.getPassCounter(), ifPlayerWin));
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
 			}
 			else {
 				connection.newResponse(new Response("dontPlayCard", request.getClientID()));
@@ -392,7 +420,6 @@ public class Server {
 			else if (controller.getPlayerByClientID(request.getGameID(), request.getClientID()).isHumanPlayer()==true) {
 				controller.addRecievedCardsToPassedPlayer(clientID, request.getGameID());
 				System.out.println(clientID + ": tar emot kort");
-
 			}
 
 			connectionsList.get(clientID).newResponse(new Response("wakePlayer", 
@@ -402,9 +429,7 @@ public class Server {
 					controller.getOpponent3HandSize(request.getGameID(), clientID), 
 					controller.getGameBoardCards(request.getGameID()), clientID, request.getPassCounter(), null));
 		}
-		else if(request.getRequest().equals("database")) {
-			connection.newResponse(new Response("database", getDataBas()));
-		}
+
 		else if (request.getRequest().equals("nextPlayer")) {
 			connectionsList.get(controllerList.get(request.getGameID()).setNextPlayersTurn(request.getClientID(), 
 					request.getGameID())).newResponse(new Response("wakePlayer",
@@ -439,7 +464,6 @@ public class Server {
 			System.out.println(request.getClientID() + ": uppdaterar spelet " );
 
 		}
-
 		else {
 			connection.newResponse(new Response("clientsMissing", request.getClientID()));
 		}
@@ -464,22 +488,5 @@ public class Server {
 
 	public boolean logInDb(String userName, String passWord){
 		return databas.logInDb(userName, passWord);
-	}
-	/**
-	 * this method returns a String from the database containing its context
-	 * @return str returns a string
-	 */
-	public String getDataBas (){
-		String str = "";
-		try {
-			databas.connect();
-			ResultSet result = databas.statement.executeQuery("SELECT AnvändarNamn FROM ab4607.statistics");
-			str = databas.showResultSet(result);
-
-			databas.disconnect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return str; 
 	}
 }

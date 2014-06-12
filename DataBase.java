@@ -15,6 +15,7 @@ public class DataBase {
 	public static java.sql.PreparedStatement statement1, statement2;
 	private static String sql = "";
 	private static int colCount;
+	private static String antalVinster, antalFörluster, antalSpeladeSpel;
 
 
 	/**
@@ -130,5 +131,100 @@ public class DataBase {
 		}
 		return AnvändarNamn;
 	}
+
+
+	/*
+	 * Metoden gör så att det adderas 1 till vinster kolumnen där användarNamnet är knut (AnvändarNamnet ska bytas ut mot de inloggade
+	 * namnet. Dvs samma instansvariabel userName som i databasklassen.
+	 */
+	public static String vunnaSpel(String userName){
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan");
+			statement = connection.createStatement();
+
+
+			String vinst = "UPDATE statistics " + "SET Vinster = Vinster+1 WHERE AnvändarNamn " + "'" + userName + "'";
+			statement.executeUpdate(vinst);
+			String selectQuery = "SELECT Vinster FROM statistics WHERE AnvändarNamn = " + "'" + userName + "'";	
+			ResultSet resultSet = statement.executeQuery(selectQuery);	
+
+			while (resultSet.next()){
+				String statistic = resultSet.getString("Vinster");
+				JOptionPane.showMessageDialog( null, "Vinster: " + statistic);
+			}	
+
+
+		}
+		catch (SQLException e)
+		{
+			System.out.println("Connection String is not correct:Unable to connect to the given database");
+		}
+		return antalVinster;
+
+	}
+
+
+	/*
+	 * Metoden gör så att det adderas 1 till förluster kolumnen där användarNamnet är knut (AnvändarNamnet ska bytas ut mot de inloggade
+	 * namnet. Dvs samma instansvariabel userName som i databasklassen.
+	 */
+	public static String lostGames(String userName) throws SQLException{
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan");
+			statement = connection.createStatement();
+
+
+			String Förluster = "UPDATE statistics " + "SET Förluster = Förluster + 1 WHERE AnvändarNamn = " + "'" + userName + "'";
+			statement.executeUpdate(Förluster);
+			String selectQuery = "SELECT Förluster FROM statistics WHERE AnvändarNamn = " + "'" + userName + "'";	
+			ResultSet resultSet = statement.executeQuery(selectQuery);	
+
+			while (resultSet.next()){
+				String hej = resultSet.getString("Förluster");
+				//				JOptionPane.showMessageDialog( null, "Förluster: " + hej);
+			}	
+
+		}
+		catch (SQLException e)
+		{
+			System.out.println("Connection String is not correct:Unable to connect to the given database");
+		}
+
+		return antalFörluster;
+
+	}
+
+
+
+	public static String playedGames(String userName){/*
+	 * Metoden gör så att det vinster + förluster läggs till i speladespel kolumnen där användarNamnet är knut (AnvändarNamnet ska bytas ut mot de inloggade
+	 * namnet. Dvs samma instansvariabel userName som i databasklassen.
+	 */
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ab4607","ab4607","prinsessan");
+			statement = connection.createStatement();
+
+
+			String SpeladeSpel = "UPDATE statistics " + "SET SpeladeSpel = SpeladeSpel + 1 WHERE AnvändarNamn = " + "'" + userName + "'";
+			statement.executeUpdate(SpeladeSpel);
+			String selectQuery = "SELECT SpeladeSpel FROM statistics WHERE AnvändarNamn = " + "'" + userName + "'";	
+			ResultSet resultSet = statement.executeQuery(selectQuery);	
+
+			while (resultSet.next()){
+				JOptionPane.showMessageDialog( null, "SpeladeSpel: " + resultSet.getString("SpeladeSpel"));
+			}	
+
+		}
+		catch (SQLException e)
+		{
+			System.out.println("Connection String is not correct:Unable to connect to the given database");
+		}
+		return antalSpeladeSpel;
+
+	}
+
 }
 
